@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  /** project colors */
+  --color-primary: #634c9f;
+  --color-dark: #030712;
+  --color-dark-2: #111827;
+  --color-dark-gray: #6b7280;
+  --color-light-gray: #9ca3af;
+  --color-section-bg: #f3f4f6;
+  --color-orange: #ea580c;
+  --color-red: #dc2626;
+  --color-green: #16a34a;
+}
