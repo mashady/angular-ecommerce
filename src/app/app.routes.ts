@@ -17,6 +17,7 @@ export const routes: Routes = [
     component: ProductListComponent,
     title: 'Poroducts List Page',
   },
+  
   {
     path: 'product-details/:id',
     component: ProductDetailsComponent,

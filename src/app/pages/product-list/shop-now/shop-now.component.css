@@ -1,0 +1,18 @@
+.week{
+    display: inline-block;
+    background-color: #fed7aa;
+    border-radius: 20px;
+}
+
+#product_back {
+    width: 100%;
+    height: 300px;
+    background: url('../../../../assets/images/productback.jpg') !important;
+    background-size: cover;
+    background-position: center;
+    font-size: bold;
+}
+
+#shop{
+    border-radius: 20px;
+}
