@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../../../../interfaces/product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-section-1',
@@ -10,5 +11,15 @@ import { Product } from '../../../../interfaces/product';
 export class MainSection1Component {
   @Input() product: any;
 
+  constructor( private router: Router) {
+  }
+
+  goToHome(): void{
+    this.router.navigate(['/'])
+  }
+
+  goToCategory(): void{
+    this.router.navigate(['/category'])
+  }
 }
   

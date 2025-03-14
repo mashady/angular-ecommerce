@@ -1,6 +1,19 @@
 <div class="container my-3">
-  <div class="card mb-3">
-    <div class="row g-0">
+
+  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a class="text-decoration-none text-secondary" href="" (click)="goToHome()">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a class="text-decoration-none text-secondary" href="" (click)="goToCategory()"> {{ product.category }} </a>
+      </li>
+      <li class="breadcrumb-item active fw-bold text-dark" aria-current="page"> {{ product.name }} </li>
+    </ol>
+  </nav>
+
+  <div class="card mb-3 border-0">
+    <div class="row g-0 ">
       <div class="col-md-6">
         <div id="main-img-section">
           <button
@@ -21,7 +34,7 @@
                 class="img-fluid rounded-start"
                 [alt]="product.name"
                 style="height: 100px;"
-              />
+                />
             }
            
         </div>

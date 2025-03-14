@@ -1,0 +1,33 @@
+<div class="container my-3">
+  <ul class="nav nav-underline" style="border-bottom: 1px solid var(--color-light-gray-border-2);">
+    <li class="nav-item">
+      @if(isDescriptionClicked){
+        <a class="nav-link active" aria-current="page" (click)="viewDescription()" style="cursor: pointer;">
+            Description
+        </a>
+      } @else {
+      <a class="nav-link unClicked" aria-current="" (click)="viewDescription()" style="cursor: pointer;">
+            Description
+      </a>
+      }
+    </li>
+    <li class="nav-item">
+      @if(isReviewClicked){
+        <a class="nav-link active" aria-current="page" (click)="viewReview()" style="cursor: pointer;">
+            Reviews ({{ product.reviews.length }})
+        </a>
+      } @else {
+        <a class="nav-link unClicked" aria-current="" (click)="viewReview()" style="cursor: pointer;">
+            Reviews ({{ product.reviews.length }})
+        </a>
+      }
+    </li>
+  </ul>
+  @if(isDescriptionClicked){
+    <p class="pt-4"> {{ product.description }} </p>
+  } @else if (isReviewClicked) {
+    @for (review of product.reviews; track $index) {
+        <p class="pt-4"> {{ review }} </p>
+    }
+  }
+</div>
