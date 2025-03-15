@@ -1,0 +1,66 @@
+<div class="container my-3">
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-6">
+        <div id="main-img-section">
+          <button
+            class="badge bg-danger rounded rounded-pill border-0 mt-3 ms-3"
+          >
+            {{ product.discount }}%
+          </button>
+          <img
+            [src]="product.images[0]"
+            class="img-fluid rounded-start"
+            [alt]="product.name"
+          />
+        </div>
+        <div id="all-img-section" style="width: 50%;margin: 0 auto;">
+            @for( img of product.images; track $index){
+                <img
+                [src]="img"
+                class="img-fluid rounded-start"
+                [alt]="product.name"
+                style="height: 100px;"
+              />
+            }
+           
+        </div>
+      </div>
+      <div class="col-md-6">
+            <div class="card-body">
+                <h1 class="card-title fw-bold border-bottom pb-3" style="border-bottom-color: var(--color-light-gray-border-2);">
+                    {{ product.name }}
+                </h1>
+                <p class="card-text" style="color: var(--color-light-gray-font);">
+                    {{ product.description }}
+                </p>
+                <p class="card-text">
+                    <span id="priceAfterDiscount"> ${{ product.price *  (product.discount/100) }} </span>
+                    <span id="priceBeforeDiscount"> ${{ product.price }} </span>
+                </p>
+                <div id="cart-section" class="d-flex">
+                    <div id="quantityAdjustment" class="input-group mb-3 rounded-2 me-2">
+                        <button class="btn" type="button"><i class="fa-solid fa-minus"></i></button>
+                        <input type="number" class="form-control border-0" placeholder="">
+                        <button class="btn" type="button"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <button id="addBtn" class="btn me-2 border-0">
+                         <i class="fa-solid fa-cart-shopping"></i>
+                          Add to cart
+                    </button>
+                    <button id="buyBtn" class="btn me-2 border-0">
+                        <i class="fa-solid fa-credit-card"></i>
+                         Buy Now
+                    </button>
+                </div>
+                <div id="wishlist-section">
+                    <button id="wishBtn" class="btn me-2 border-0 rounded-2">
+                        <i id="wishIcon" class="fa-regular fa-heart"></i>
+                         Add to wishlist
+                    </button>
+                </div>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
