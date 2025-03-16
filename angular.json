@@ -29,7 +29,8 @@
               "node_modules/nouislider/dist/nouislider.min.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "src/styles.css"
+              "src/styles.css",
+          "node_modules/bootstrap-icons/font/bootstrap-icons.css"
             ],
             "scripts": [
               "node_modules/nouislider/dist/nouislider.min.js",
@@ -95,6 +96,6 @@
     }
   },
   "cli": {
-    "analytics": "24650300-e72a-4d17-9821-73b92e407f48"
+    "analytics": "3676598d-e140-4a3e-befb-222c3f242e50"
   }
 }

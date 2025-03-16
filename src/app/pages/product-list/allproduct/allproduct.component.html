@@ -1,0 +1,46 @@
+<div class="container mt-4">
+    <div class="row">
+      <div *ngFor="let product of products" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+        <div class="card product-card">
+          
+          <!-- Top Row: Discount Badge & Wishlist Icon -->
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span *ngIf="product.discount" class="discount-badge">{{ product.discount }}%</span>
+            <i class="fa fa-heart wishlist-icon"></i>
+          </div>
+  
+          <!-- Product Image -->
+          <img [src]="product.images[0]" class="card-img-top product-image" alt="{{ product.name }}" />
+  
+          <div class="card-body text-center">
+            <!-- Product Name -->
+            <h6 class="product-name">{{ product.name }}</h6>
+  
+            <!-- Star Rating -->
+            <div class="rating">
+              <i class="fa fa-star checked"></i>
+              <i class="fa fa-star checked"></i>
+              <i class="fa fa-star checked"></i>
+            </div>
+  
+            <!-- Price Section -->
+            <p class="price">
+              <span class="new-price">${{ (product.price - (product.price * (product.discount || 0) / 100)).toFixed(2) }}</span>
+              <span *ngIf="product.discount" class="old-price">${{ product.price.toFixed(2) }}</span>
+            </p>
+          </div>
+  
+          <!-- Bottom Row: Stock Status & Cart Button -->
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            <span class="stock-status" [ngClass]="{'in-stock': product.stock > 0, 'out-stock': product.stock === 0}">
+              {{ product.stock > 0 ? 'IN STOCK' : 'OUT OF STOCK' }}
+            </span>
+            <button class="btn btn-success btn-sm cart-button" [disabled]="product.stock === 0">
+              <i class="fa fa-shopping-cart"></i>
+            </button>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>

@@ -5,6 +5,7 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,11 @@ export const routes: Routes = [
     path: 'product-details/:id',
     component: ProductDetailsComponent,
     title: 'Product Details Page',
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
+    title: 'Cart',
   },
   {
     path: 'login',

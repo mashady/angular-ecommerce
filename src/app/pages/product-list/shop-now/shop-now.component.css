@@ -12,9 +12,12 @@
     background-position: center;
     font-size: bold;
     padding: 0;
+    padding: 20px;
+    border-radius: 10px;
 
 }
 
 #shop{
     border-radius: 20px;
+    margin-top: 20px;
 }

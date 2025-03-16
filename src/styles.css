@@ -1,14 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-
+body {
+  font-family: "Inter", sans-serif;
+}
 :root {
   /** project colors */
   --color-primary: #634c9f;
   --color-dark: #030712;
   --color-dark-2: #111827;
+  --color-dark-3: #212529;
   --color-dark-gray: #6b7280;
   --color-light-gray: #9ca3af;
+  --color-some-of-gray: #e5e7eb;
+  --color-light-gray-font: #4b5563;
+  --color-light-gray-border: #d1d5db;
+  --color-light-gray-border-2: #e5e7eb;
   --color-section-bg: #f3f4f6;
   --color-orange: #ea580c;
   --color-red: #dc2626;
   --color-green: #16a34a;
+  --color-another-gray: #4b5563;
 }

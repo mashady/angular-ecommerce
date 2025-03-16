@@ -19,3 +19,8 @@
     background-color: black;
     color: white;
   }
+
+  .offer{
+    display: flex;
+    justify-content: space-between;
+  }

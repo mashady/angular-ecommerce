@@ -4,7 +4,7 @@ import { FormsModule, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-list-product',
-  imports: [NgFor,NgIf,FormsModule],
+  imports: [NgFor,FormsModule],
   templateUrl: './list-product.component.html',
   styleUrl: './list-product.component.css'
 })
@@ -39,4 +39,6 @@ export class ListProductComponent {
     this.viewMode = view;
     console.log('View mode changed:', this.viewMode);
   }
+
+
 }
