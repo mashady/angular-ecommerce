@@ -6,6 +6,7 @@
     border-radius: 10px;
     overflow: hidden;
     transition: 0.3s;
+    height: 450px;
   }
   
   .product-card:hover {
@@ -117,3 +118,5 @@
   .cart-button i {
     color: white;
   }
+
+  
