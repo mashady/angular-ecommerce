@@ -1,5 +1,5 @@
 .cart-wrapper {
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     min-height: 100vh;
     padding: 40px 0;
 }
@@ -7,7 +7,7 @@
 .quantity-input {
     width: 60px;
     text-align: center;
-    border: 1px solid #dee2e6;
+    border: 1px solid #ffffff;
     border-radius: 6px;
 }
 
