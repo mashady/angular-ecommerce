@@ -1,0 +1,70 @@
+.place-icon {
+  font-size: 1.4rem;
+  color: var(--color-primary);
+}
+#searchInput {
+  height: 46px;
+  /*color: var(--color-dark-gray);*/
+  color: BLACK;
+  background-color: var(--color-section-bg);
+  border: none;
+  padding-left: 1.125rem;
+  padding-right: 3.875rem;
+}
+.navbar {
+  border-top: 1px solid var(--color-some-of-gray);
+  border-bottom: 1px solid var(--color-some-of-gray);
+}
+.nav-sign {
+  color: var(--color-dark);
+  opacity: 70%;
+  font-size: 11px;
+  line-height: 13.2px;
+  font-weight: 500;
+}
+
+.nav-account {
+  color: var(--color-dark);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15.6px;
+}
+.navbar .counter {
+  background-color: var(--color-red);
+  color: #fff !important;
+}
+.top-nav a {
+  color: var(--color-dark-gray);
+  font-weight: 500;
+  font-size: 12px;
+}
+.top-nav span {
+  color: var(--color-dark-gray);
+  font-size: 12px;
+  font-weight: 500;
+}
+.top-nav .left-side-list li {
+  color: var(--color-dark-gray);
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+}
+.promotion {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+.promotion .container {
+  height: 41px;
+}
+.promotion .left-side {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.promotion .right-side {
+  font-size: 11px;
+  font-weight: 600;
+}
+.promotion .right-side span {
+  opacity: 0.7;
+}

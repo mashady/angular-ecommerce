@@ -1,0 +1,26 @@
+footer {
+  background-color: var(--color-section-bg);
+  /*min-height: 600px;*/
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+footer .top-footer {
+  padding-bottom: 50px;
+  border-bottom: 1px solid var(--color-some-of-gray);
+}
+footer a {
+  color: var(--color-another-gray);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 16.8px;
+}
+footer li {
+  margin-bottom: 0.3rem;
+}
+footer .social-list li {
+  margin-right: 4px;
+}
+footer .bottom-footer {
+  margin-top: 50px;
+}
