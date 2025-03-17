@@ -181,8 +181,10 @@
           >
             <img src="assets/images/account.png" alt="account" />
             <div class="">
-              <div class="nav-sign">Sign in</div>
-              <div class="nav-account">Account</div>
+              <div class="nav-sign">{{ username ? "welcome" : "Sign in" }}</div>
+              <div class="nav-account">
+                {{ username ? username : "Account" }}
+              </div>
             </div>
           </a>
         </li>
