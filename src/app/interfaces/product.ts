@@ -10,6 +10,6 @@ export interface Product {
   images: string[];
   stock: number;
   reviews?: string[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
