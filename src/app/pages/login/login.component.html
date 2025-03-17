@@ -1,1 +1,91 @@
-<p>login works!</p>
+<section
+  class="login d-flex justify-content-center align-items-center"
+  style="min-height: 70vh"
+>
+  <div class="card p-4" style="max-width: 480px; width: 100%; border: none">
+    <h1 class="text-center">Login</h1>
+    <p class="text-center">
+      If you have an account, sign in with your phone or email address.
+    </p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="username" class="form-label"
+          >Phone number or email address *</label
+        >
+        <input
+          id="emailOrPhone"
+          type="text"
+          class="form-control"
+          formControlName="emailOrPhone"
+          style="height: 48px"
+        />
+        <div
+          *ngIf="f['emailOrPhone'].touched && f['emailOrPhone'].invalid"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          <div *ngIf="f['emailOrPhone'].hasError('required')">
+            phone number or email is required.
+          </div>
+          <div *ngIf="f['emailOrPhone'].hasError('invalidEmailOrPhone')">
+            Please enter a valid email address or phone number.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password *</label>
+        <input
+          id="password"
+          type="password"
+          class="form-control"
+          formControlName="password"
+          style="height: 48px"
+        />
+        <div
+          *ngIf="f['password'].touched && f['password'].invalid"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          <div *ngIf="f['password'].hasError('required')">
+            Password is required.
+          </div>
+          <div *ngIf="f['password'].hasError('minlength')">
+            Password must be at least 6 characters long.
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom: 1rem; text-align: right; cursor: pointer">
+        <span>
+          <a
+            routerLink="/register"
+            style="color: var(--color--nice-blue); font-size: 13px"
+            >Create a new account.</a
+          >
+        </span>
+      </div>
+      <div *ngIf="apiError?.length !== 0">
+        <div
+          *ngFor="let error of apiError.split(', ')"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          {{ error }}
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary w-100"
+        [disabled]="loginForm.invalid"
+        style="
+          height: 48px;
+          background-color: var(--color-primary);
+          border: none;
+        "
+      >
+        Log in
+      </button>
+    </form>
+  </div>
+</section>
