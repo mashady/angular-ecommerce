@@ -1,46 +1,60 @@
-<div class="container mt-4">
-    <div class="row">
-      <div *ngFor="let product of products" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-        <div class="card product-card">
+<div class="container mt-4 " >
+
+  
+  <div class="pagination-bar d-flex justify-content-between align-items-center p-2" id="sort">
+    <span>Showing 1-20 of {{ totalProducts }} results</span>
+
+    <div class="d-flex align-items-center">
+      <span class="me-2">Sort:</span>
+      <select [(ngModel)]="selectedSort" (change)="onSortChange()" class="form-select me-3">
+        <option *ngFor="let option of sortOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+      <button  class="btn" >
+        <i class="fa-solid fa-border-all"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div *ngFor="let product of products" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+      <div class="card product-card">
+        
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span *ngIf="product.discount" class="discount-badge">{{ product.discount }}%</span>
+          <i class="fa fa-heart wishlist-icon"></i>
+        </div>
+
+        
+        <img [src]="product.images[0]" class="card-img-top product-image" alt="{{ product.name }}" />
+
+        <div class="card-body text-center">
           
-          <!-- Top Row: Discount Badge & Wishlist Icon -->
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <span *ngIf="product.discount" class="discount-badge">{{ product.discount }}%</span>
-            <i class="fa fa-heart wishlist-icon"></i>
+          <h6 class="product-name">{{ product.name }}</h6>
+
+          
+          <div class="rating">
+            <i class="fa fa-star checked"></i>
+            <i class="fa fa-star checked"></i>
+            <i class="fa fa-star checked"></i>
           </div>
-  
-          <!-- Product Image -->
-          <img [src]="product.images[0]" class="card-img-top product-image" alt="{{ product.name }}" />
-  
-          <div class="card-body text-center">
-            <!-- Product Name -->
-            <h6 class="product-name">{{ product.name }}</h6>
-  
-            <!-- Star Rating -->
-            <div class="rating">
-              <i class="fa fa-star checked"></i>
-              <i class="fa fa-star checked"></i>
-              <i class="fa fa-star checked"></i>
-            </div>
-  
-            <!-- Price Section -->
-            <p class="price">
-              <span class="new-price">${{ (product.price - (product.price * (product.discount || 0) / 100)).toFixed(2) }}</span>
-              <span *ngIf="product.discount" class="old-price">${{ product.price.toFixed(2) }}</span>
-            </p>
-          </div>
-  
-          <!-- Bottom Row: Stock Status & Cart Button -->
-          <div class="card-footer d-flex justify-content-between align-items-center">
-            <span class="stock-status" [ngClass]="{'in-stock': product.stock > 0, 'out-stock': product.stock === 0}">
-              {{ product.stock > 0 ? 'IN STOCK' : 'OUT OF STOCK' }}
-            </span>
-            <button class="btn btn-success btn-sm cart-button" [disabled]="product.stock === 0">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-          </div>
-  
+
+          
+          <p class="price">
+            <span class="new-price">${{ getDiscountedPrice(product) }}</span>
+            <span *ngIf="product.discount" class="old-price">${{ product.price.toFixed(2) }}</span>
+          </p>
+        </div>
+
+        
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <span class="stock-status" [ngClass]="{'in-stock': product.stock > 0, 'out-stock': product.stock === 0}">
+            {{ product.stock > 0 ? 'IN STOCK' : 'OUT OF STOCK' }}
+          </span>
+          <button class="btn btn-success btn-sm cart-button" [disabled]="product.stock === 0">
+            <i class="fa fa-shopping-cart"></i>
+          </button>
         </div>
       </div>
     </div>
   </div>
+</div>

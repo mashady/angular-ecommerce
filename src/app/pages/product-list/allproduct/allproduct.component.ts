@@ -1,67 +1,70 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../../interfaces/product';
+import { ProductRequestService } from '../../../services/product-request.service';
 
 @Component({
   selector: 'app-allproduct',
-  imports: [NgFor,NgIf,NgClass,FormsModule],
+  standalone: true,
+  imports: [NgFor, NgIf, NgClass, FormsModule],
   templateUrl: './allproduct.component.html',
   styleUrl: './allproduct.component.css'
 })
+export class AllproductComponent implements OnInit {
+  products: Product[] = [];
+  loading: boolean = false;
+  error: string | null = null;
+  totalProducts: number = 0;
 
-
-
-export class AllproductComponent{
-  products: Product[] = [
-    {
-      _id: '1',
-      name: 'Yellow Potatoes Whole Fresh, 5lb Bag',
-      description: 'Fresh yellow potatoes in a 5lb bag.',
-      price: 0.50,
-      discount: 75,
-      category: 'Vegetables',
-      addedBy: 'admin',
-      images: ['./assets/images/825.png'],
-      stock: 10,
-      reviews: ['Great quality!', 'Affordable price'],
-      createdAt: '2025-03-01T12:00:00Z',
-      updatedAt: '2025-03-05T14:00:00Z'
-    },
-    {
-      _id: '2',
-      name: 'Large Bagged Oranges',
-      description: 'Sweet and juicy oranges.',
-      price: 0.89,
-      discount: 50,
-      category: 'Fruits',
-      addedBy: 'admin',
-      images: ['./assets/images/821.png'],
-      stock: 15,
-      reviews: ['Very fresh!', 'Good value for money'],
-      createdAt: '2025-02-28T10:30:00Z',
-      updatedAt: '2025-03-05T11:45:00Z'
-    },
-    {
-      _id: '3',
-      name: 'Strawberries - 1lb',
-      description: 'Fresh strawberries in a 1lb pack.',
-      price: 1.50,
-      discount: 30,
-      category: 'Fruits',
-      addedBy: 'seller123',
-      images: ['./assets/images/833.png'],
-      stock: 0,
-      reviews: ['Very sweet!', 'Will buy again'],
-      createdAt: '2025-03-02T09:15:00Z',
-      updatedAt: '2025-03-06T13:20:00Z'
-    }
+  // Sorting options
+  sortOptions = [
+    { label: 'Sort by price: low to high', value: 'price_asc' },
+    { label: 'Sort by price: high to low', value: 'price_desc' }
   ];
-  getDiscountedPrice(product: any): string {
-    return (product.price - (product.price * (product.discount || 0) / 100)).toFixed(2);
-}
+  selectedSort: string = 'price_asc'; // Default sort option
 
-getStars(rating: number): number[] {
+  constructor(private productService: ProductRequestService) {}
+
+  ngOnInit(): void {
+    this.fetchProducts();
+  }
+
+  fetchProducts(): void {
+    this.loading = true;
+    this.error = null;
+
+    this.productService.getProductsList().subscribe({
+      next: (response) => {
+        this.products = response.data; // Extract products from "data"
+        this.totalProducts = response.totalProducts; // Store total product count
+        this.sortProducts(); // Sort products after fetching
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = err.message;
+        this.loading = false;
+      }
+    });
+  }
+
+  sortProducts(): void {
+    if (this.selectedSort === 'price_asc') {
+      this.products.sort((a, b) => a.price - b.price);
+    } else if (this.selectedSort === 'price_desc') {
+      this.products.sort((a, b) => b.price - a.price);
+    }
+  }
+
+  onSortChange(): void {
+    this.sortProducts();
+  }
+
+  getDiscountedPrice(product: Product): string {
+    return (product.price - (product.price * (product.discount || 0) / 100)).toFixed(2);
+  }
+
+  getStars(rating: number): number[] {
     return Array(rating).fill(0);
-}
+  }
 }

@@ -119,4 +119,9 @@
     color: white;
   }
 
-  
+  #sort{
+    background-color: #e5e7eb;
+    border-radius: 4px;
+    margin: 10px;
+
+  }
