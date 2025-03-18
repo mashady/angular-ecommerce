@@ -24,7 +24,7 @@ export class ProductDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Extract ID from route parameters
+
     const id = this.route.snapshot.paramMap.get('id');
     
     if (!id) {
@@ -33,16 +33,13 @@ export class ProductDetailsComponent implements OnInit {
       return;
     }
     
-    // Fetch product data
     this.productService.getSingleProduct(id)
       .subscribe({
         next: (data) => {
-          console.log('Product data in component:', data);
           this.currProduct = data;
           this.loading = false;
         },
         error: (err) => {
-          console.error('Error loading product:', err);
           this.error = 'Failed to load product data';
           this.loading = false;
         }
