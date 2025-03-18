@@ -1,0 +1,21 @@
+<div class="account-container">
+  <nav>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <a routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
+      <li class="list-group-item">
+        <a routerLink="orders" routerLinkActive="active">Orders</a>
+      </li>
+      <li class="list-group-item">
+        <a routerLink="addresses" routerLinkActive="active">Addresses</a>
+      </li>
+      <li class="list-group-item">
+        <a routerLink="details" routerLinkActive="active">Account Details</a>
+      </li>
+    </ul>
+  </nav>
+  <div style="width: 100%">
+    <router-outlet></router-outlet>
+  </div>
+</div>

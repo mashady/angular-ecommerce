@@ -183,7 +183,8 @@
             <div class="">
               <div class="nav-sign">{{ username ? "welcome" : "Sign in" }}</div>
               <div class="nav-account">
-                {{ username ? username : "Account" }}
+                <a *ngIf="username" routerLink="/account">{{ username }}</a>
+                <span *ngIf="!username">Account</span>
               </div>
             </div>
           </a>
