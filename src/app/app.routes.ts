@@ -12,6 +12,9 @@ import { DashboardComponent } from './pages/account/dashboard/dashboard.componen
 import { OrdersComponent } from './pages/account/orders/orders.component';
 import { AddressesComponent } from './pages/account/addresses/addresses.component';
 import { AccountDetailsComponent } from './pages/account/account-details/account-details.component';
+import { AdminLayoutComponent } from './pages/admin/admin-layout/admin-layout.component';
+import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
+import { AdminProductsComponent } from './pages/admin/admin-products/admin-products.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +31,16 @@ export const routes: Routes = [
       { path: 'addresses', component: AddressesComponent },
       { path: 'details', component: AccountDetailsComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    ],
+  },
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'products', component: AdminProductsComponent },
+      //{ path: 'orders', component: OrdersComponent },
     ],
   },
   {
