@@ -1,0 +1,22 @@
+.active {
+  color: var(--color-primary);
+}
+.account-container {
+  display: flex;
+  gap: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+a {
+  display: flex;
+  width: 300px;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: currentColor;
+  text-decoration: none;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}

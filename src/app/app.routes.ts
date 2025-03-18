@@ -7,12 +7,28 @@ import { RegisterComponent } from './pages/register/register.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { authGuard } from './guards/auth.guard';
+import { AccountComponent } from './pages/account/account.component';
+import { DashboardComponent } from './pages/account/dashboard/dashboard.component';
+import { OrdersComponent } from './pages/account/orders/orders.component';
+import { AddressesComponent } from './pages/account/addresses/addresses.component';
+import { AccountDetailsComponent } from './pages/account/account-details/account-details.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     title: 'Home Page',
+  },
+  {
+    path: 'account',
+    component: AccountComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'orders', component: OrdersComponent },
+      { path: 'addresses', component: AddressesComponent },
+      { path: 'details', component: AccountDetailsComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    ],
   },
   {
     path: 'products-list',
