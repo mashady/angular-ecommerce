@@ -1,14 +1,16 @@
 <br>
 <!-- bread crumb -->
 <div class="container ">
-    <div class="row">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Shop</li>
-            </ol>
-        </nav>
-
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a class="text-decoration-none text-secondary" href="#" (click)="goToHome($event)">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a class="text-decoration-none text-secondary text-dark" href="#">Shop</a>
+          </li>
+         </ol>
+      </nav>
 
 
         <div class="container mt-4">

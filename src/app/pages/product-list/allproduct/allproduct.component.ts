@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../../interfaces/product';
 import { ProductRequestService } from '../../../services/product-request.service';
-
+import { Router } from '@angular/router';
+import { inject } from '@angular/core';
 @Component({
   selector: 'app-allproduct',
   standalone: true,
@@ -20,6 +21,8 @@ export class AllproductComponent implements OnInit {
   loading: boolean = false;
   error: string | null = null;
   totalProducts: number = 0;
+
+  private router = inject(Router);
 
   // Sorting options
   sortOptions = [
@@ -101,5 +104,13 @@ export class AllproductComponent implements OnInit {
    this.currentPage=page
 
    this.updateProducts()
+  }
+
+  redirectToDetails(product: any): void {
+    if (product?._id) {
+      this.router.navigate(['/product-details', product._id]);
+    } else {
+      console.error('Product ID is missing:', product);
+    }
   }
 }

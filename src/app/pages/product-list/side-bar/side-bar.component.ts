@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import * as noUiSlider from 'nouislider';
 import { FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common'; 
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-side-bar',
   standalone: true,
@@ -13,7 +13,12 @@ import { CommonModule } from '@angular/common';
 export class SideBarComponent {
   minValue: number = 30;
   maxValue: number = 30;
-
+  private router=inject(Router)
+  
+  goToHome(event: Event): void {
+    event.preventDefault();
+    this.router.navigate(['/']);
+  }
   ngAfterViewInit(): void {
     const slider = document.getElementById('slider') as noUiSlider.target;
 
