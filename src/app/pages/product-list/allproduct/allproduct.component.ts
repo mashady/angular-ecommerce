@@ -12,6 +12,10 @@ import { ProductRequestService } from '../../../services/product-request.service
   styleUrl: './allproduct.component.css'
 })
 export class AllproductComponent implements OnInit {
+  currentPage = 1;  
+  pageSize = 5;
+  displayedProducts: Product[] = [];
+  totalPages = 1;
   products: Product[] = [];
   loading: boolean = false;
   error: string | null = null;
@@ -38,7 +42,10 @@ export class AllproductComponent implements OnInit {
       next: (response) => {
         this.products = response.data; // Extract products from "data"
         this.totalProducts = response.totalProducts; // Store total product count
-        this.sortProducts(); // Sort products after fetching
+        this.totalPages = Math.ceil(this.products.length / this.pageSize);
+        
+        this.sortProducts(); // Sort first
+        this.updateProducts(); // Then paginate
         this.loading = false;
       },
       error: (err) => {
@@ -47,13 +54,20 @@ export class AllproductComponent implements OnInit {
       }
     });
   }
+ 
+  updateProducts(): void {
+    let start = (this.currentPage - 1) * this.pageSize;
+    let end = start + this.pageSize;
+    this.displayedProducts = this.products.slice(start, end);
+  }
+
+
 
   sortProducts(): void {
-    if (this.selectedSort === 'price_asc') {
-      this.products.sort((a, b) => a.price - b.price);
-    } else if (this.selectedSort === 'price_desc') {
-      this.products.sort((a, b) => b.price - a.price);
-    }
+    this.products.sort((a, b) => {
+      return this.selectedSort === 'price_asc' ? a.price - b.price : b.price - a.price;
+    });
+    this.updateProducts(); // Ensure displayed products are sorted
   }
 
   onSortChange(): void {
@@ -66,5 +80,26 @@ export class AllproductComponent implements OnInit {
 
   getStars(rating: number): number[] {
     return Array(rating).fill(0);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateProducts();
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateProducts();
+    }
+  }
+
+  pagenumber(page:any):void
+  {
+   this.currentPage=page
+
+   this.updateProducts()
   }
 }
