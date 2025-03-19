@@ -1,1 +1,48 @@
-<p>admin-add-product works!</p>
+<div class="m-5">
+    <form class="row g-3 my-5">
+
+        <div class="col-md-6">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" name="name" id="name" placeholder="Type product name here">
+        </div>
+
+        <div class="col-md-6">
+            <label for="inputAddress" class="form-label">Discount</label>
+            <input type="number" class="form-control" id="inputAddress" placeholder="Put discount(Optional)">
+        </div>
+
+        <div class="col-12">
+            <label for="description">Description</label>
+            <textarea class="form-control" placeholder="Write full description for your product here" name="description" id="description"></textarea>
+        </div>
+
+        <div class="col-md-6">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" placeholder="Specify product's price">
+        </div>
+
+        <div class="col-md-6">
+            <label for="stock" class="form-label">Stock</label>
+            <input type="number" class="form-control" id="stock" name="stock" placeholder="Specify product's stock">
+        </div>
+        
+        <div class="col-md-6">
+            <label for="images" class="form-label">Images</label>
+            <input class="form-control" type="file" id="images" name="images" multiple>
+        </div>
+
+        <div class="col-md-6">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="category">
+                <option selected>Open category menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+
+        <div class="col-12">
+        <button type="submit" class="btn btn-primary rounded-5 w-100">Add Product</button>
+        </div>
+    </form>
+</div>
