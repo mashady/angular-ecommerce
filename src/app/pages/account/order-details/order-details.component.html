@@ -1,0 +1,62 @@
+<section class="accountOrderDetails">
+  <p>
+    Order #<mark>{{ order._id | slice : 0 : 5 }}...</mark> was placed on
+    <mark>{{ order.createdAt | date : "MMM d, y, h:mm a" }}</mark> and is
+    currently <mark>{{ order.status }}</mark
+    >.
+  </p>
+  <h3>Order Deatils</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Product</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          <p>
+            <a routerLink="54564654"
+              >Lay's Classic Potato Snack Chips, Party Size, 13 oz Bag</a
+            >
+            × 2 Vendor:
+          </p>
+        </th>
+        <td>20$</td>
+      </tr>
+      <tr>
+        <th>
+          <p>
+            <a routerLink="54564654"
+              >Lay's Classic Potato Snack Chips, Party Size, 13 oz Bag</a
+            >
+            × 2 Vendor:
+          </p>
+        </th>
+        <td>30$</td>
+      </tr>
+      <tr>
+        <th>Payment method:</th>
+        <td>Cash on delivery</td>
+      </tr>
+      <tr>
+        <th>Total:</th>
+        <td>$18.99</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="shippingAddress">
+    <h3>Shipping address</h3>
+    <ul class="list-unstyled">
+      <li>muhammed ahmed</li>
+      <li>m</li>
+      <li>oboor</li>
+      <li>egypt minia maghagha</li>
+      <li>Maghagha</li>
+      <li>Asyut</li>
+      <li>61511</li>
+      <li>Egypt</li>
+    </ul>
+  </div>
+</section>

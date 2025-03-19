@@ -1,14 +1,14 @@
-.editAccount h3 {
+.editAddresses h3 {
   font-size: 18px;
 }
-.editAccount .form-group {
+.editAddresses .form-group {
   margin-bottom: 0.6rem;
 }
-.editAccount .form-group label {
+.editAddresses .form-group label {
   font-size: 14px;
   margin-bottom: 0.3rem;
 }
-.editAccount button {
+.editAddresses button {
   font-size: 14px;
   background-color: var(--color-section-bg);
   font-weight: bold;

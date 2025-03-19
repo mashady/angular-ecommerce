@@ -3,13 +3,18 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   userData = new BehaviorSubject<any>(null);
-  constructor(public httpClient: HttpClient, private router: Router) {
+  constructor(
+    public httpClient: HttpClient,
+    private router: Router,
+    private accountService: AccountService
+  ) {
     if (localStorage.getItem('userToken')) {
       this.decode();
     }
@@ -56,6 +61,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('userToken');
     this.userData.next(null);
-    this.router.navigate(['/']);
+    this.accountService.accountData.next(null);
+    //this.router.navigate(['/']);
   }
 }
