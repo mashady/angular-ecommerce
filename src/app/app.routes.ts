@@ -15,7 +15,8 @@ import { AccountDetailsComponent } from './pages/account/account-details/account
 import { AdminLayoutComponent } from './pages/admin/admin-layout/admin-layout.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminProductsComponent } from './pages/admin/admin-products/admin-products.component';
-
+import { AdminAddProductComponent } from './pages/admin/admin-add-product/admin-add-product.component';
+import { AdminUpdateProductComponent } from './pages/admin/admin-update-product/admin-update-product.component';
 export const routes: Routes = [
   {
     path: '',
@@ -39,7 +40,9 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: AdminDashboardComponent },
-      { path: 'products', component: AdminProductsComponent },
+      { path: 'products', component: AdminProductsComponent }, 
+      { path: 'products/add', component: AdminAddProductComponent }, 
+      { path: 'products/update', component: AdminUpdateProductComponent }, 
       //{ path: 'orders', component: OrdersComponent },
     ],
   },
