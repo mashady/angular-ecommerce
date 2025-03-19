@@ -1,1 +1,238 @@
-<p>register works!</p>
+<section
+  class="register d-flex justify-content-center align-items-center"
+  style="min-height: 70vh"
+>
+  <div class="card p-4" style="max-width: 480px; width: 100%; border: none">
+    <h1 class="text-center">Register</h1>
+    <p class="text-center">
+      If you have an account, sign in with your phone or email address.
+    </p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="firstName" class="form-label">First Name *</label>
+        <input
+          id="firstName"
+          type="text"
+          class="form-control"
+          formControlName="firstName"
+          style="height: 48px"
+        />
+        <div
+          *ngIf="f['firstName'].touched && f['firstName'].invalid"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          <div *ngIf="f['firstName'].hasError('required')">
+            First name is required.
+          </div>
+          <div *ngIf="f['firstName'].hasError('minlength')">
+            First name must be at least 3 characters long.
+          </div>
+          <div *ngIf="f['firstName'].hasError('maxlength')">
+            First name must be no more than 30 characters.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name *</label>
+        <input
+          id="lastName"
+          type="text"
+          class="form-control"
+          formControlName="lastName"
+          style="height: 48px"
+        />
+        <div
+          *ngIf="f['lastName'].touched && f['lastName'].invalid"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          <div *ngIf="f['lastName'].hasError('required')">
+            Last name is required.
+          </div>
+          <div *ngIf="f['lastName'].hasError('minlength')">
+            Last name must be at least 3 characters long.
+          </div>
+          <div *ngIf="f['lastName'].hasError('maxlength')">
+            Last name must be no more than 30 characters.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address *</label>
+        <input
+          id="email"
+          type="email"
+          class="form-control"
+          formControlName="email"
+          style="height: 48px"
+        />
+        <div
+          *ngIf="f['email'].touched && f['email'].invalid"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          <div *ngIf="f['email'].hasError('required')">
+            Email address is required.
+          </div>
+          <div *ngIf="f['email'].hasError('email')">
+            Please enter a valid email address.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="phoneNumber" class="form-label">Phone Number *</label>
+        <input
+          id="phoneNumber"
+          type="text"
+          class="form-control"
+          formControlName="phoneNumber"
+          style="height: 48px"
+        />
+        <div
+          *ngIf="f['phoneNumber'].touched && f['phoneNumber'].invalid"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          <div *ngIf="f['phoneNumber'].hasError('required')">
+            phoneNumber number is required.
+          </div>
+          <div *ngIf="f['phoneNumber'].hasError('pattern')">
+            Please enter a valid phone number.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password *</label>
+        <input
+          id="password"
+          type="password"
+          class="form-control"
+          formControlName="password"
+          style="height: 48px"
+        />
+        <div
+          *ngIf="f['password'].touched && f['password'].invalid"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          <div *ngIf="f['password'].hasError('required')">
+            Password is required.
+          </div>
+          <div *ngIf="f['password'].hasError('minlength')">
+            Password must be at least 6 characters long.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="rePassword" class="form-label">Re-enter Password *</label>
+        <input
+          id="rePassword"
+          type="password"
+          class="form-control"
+          formControlName="rePassword"
+          style="height: 48px"
+        />
+        <div
+          *ngIf="f['rePassword'].touched && f['rePassword'].invalid"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          <div *ngIf="f['rePassword'].hasError('required')">
+            Re-enter password is required.
+          </div>
+          <div *ngIf="f['rePassword'].hasError('rePasswordMatch')">
+            Passwords do not match.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="address" class="form-label">Address *</label>
+        <input
+          id="address"
+          type="text"
+          class="form-control"
+          formControlName="address"
+          style="height: 48px"
+        />
+        <div
+          *ngIf="f['address'].touched && f['address'].invalid"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          <div *ngIf="f['address'].hasError('required')">
+            Address is required.
+          </div>
+          <div *ngIf="f['address'].hasError('maxlength')">
+            Address must be no longer than 255 characters.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="role" class="form-label"
+          >Are you a Seller or Customer? *</label
+        >
+        <div>
+          <label class="d-block">
+            <input type="radio" formControlName="role" value="seller" />
+            Seller
+          </label>
+          <label>
+            <input type="radio" formControlName="role" value="user" />
+            Customer
+          </label>
+        </div>
+        <div
+          *ngIf="f['role'].touched && f['role'].invalid"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          <div *ngIf="f['role'].hasError('required')">
+            Please select an option.
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 1rem; text-align: right; cursor: pointer">
+        <span>
+          <a
+            routerLink="/login"
+            style="color: var(--color--nice-blue); font-size: 13px"
+            >Already have an account?</a
+          >
+        </span>
+      </div>
+
+      <div *ngIf="apiError?.length !== 0">
+        <div
+          *ngFor="let error of apiError.split(', ')"
+          class="alert alert-danger mt-2"
+          role="alert"
+        >
+          {{ error }}
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary w-100"
+        style="
+          height: 48px;
+          background-color: var(--color-primary);
+          border: none;
+        "
+        [disabled]="registerForm.invalid"
+      >
+        Register
+      </button>
+    </form>
+  </div>
+</section>
