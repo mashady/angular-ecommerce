@@ -9,25 +9,28 @@ interface ProductResponse {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductRequestService {
   private apiUrl = 'http://localhost:8088';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getProductsList(pageNumber: number = 1, productsCount: number = 10): Observable<any> {
+  getProductsList(
+    pageNumber: number = 1,
+    productsCount: number = 10
+  ): Observable<any> {
     return this.http.get(`${this.apiUrl}/products`, {
       params: {
         page: pageNumber.toString(),
-        limit: productsCount.toString()
-      }
+        limit: productsCount.toString(),
+      },
     });
   }
 
   getSingleProduct(id: string): Observable<Product> {
     return this.http.get<ProductResponse>(`${this.apiUrl}/products/${id}`).pipe(
-      map(response => {
+      map((response) => {
         if (response && response.existingProduct) {
           return response.existingProduct;
         }
@@ -36,16 +39,15 @@ export class ProductRequestService {
     );
   }
 
-  addProduct(data: Product) : Observable<Product> {
+  addProduct(data: Product): Observable<Product> {
     return this.http.post<Product>(`${this.apiUrl}/addProduct`, data);
   }
 
-  deleteProduct(id :string) : Observable<Product> {
+  deleteProduct(id: string): Observable<Product> {
     return this.http.delete<Product>(`${this.apiUrl}/deleteProduct/${id}`);
   }
 
-  updateProduct(id :string, data: Product) : Observable<Product> {
+  updateProduct(id: string, data: Product): Observable<Product> {
     return this.http.put<Product>(`${this.apiUrl}/updateProduct/${id}`, data);
   }
-
 }

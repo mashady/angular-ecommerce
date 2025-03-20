@@ -1,4 +1,40 @@
-<div class="cart-wrapper">
+
+
+<!-- if cart is empty show empty-cart componnent-->
+
+<div class="cart-wrapper" *ngIf="myCart.products.length=== 0">
+    <div class="container">
+        <div class="row">
+
+
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" style="color: #9CA3AF; size: 12px;">Home</li>
+                  <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                </ol>   
+              </nav>
+         
+              <div class="container">
+                <div class="empty-cart-container">
+                    <i class="fa-solid fa-box-open  empty-cart-icon mb-4"></i>
+                    <div class="alert alert-white alert-dismissible fade show d-flex justify-content-center align-items-center border cart-alert" role="alert">
+                        <strong class="empty-cart-text mt-3">YOUR CART IS CURRENTLY EMPTY.</strong> 
+                    </div>
+                    <a href="shop.html" class="btn btn-dark shop-btn mt-3">Return to Shop</a>
+                </div>
+            </div>
+                 
+
+                   
+                    
+                </div>
+            </div>
+        </div>
+   
+
+<!-- if cart is not empty show cart componnent-->
+
+<div class="cart-wrapper" *ngIf="myCart.products.length>0">
     <div class="container">
         <div class="row">
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -7,6 +43,7 @@
                   <li class="breadcrumb-item active" aria-current="page">Cart</li>
                 </ol>
               </nav>
+  
               <div class="container mt-3">
                 <div class="alert alert-white alert-dismissible fade show d-flex align-items-center border" role="alert">
                     <strong>Cart updated.</strong> 
@@ -26,6 +63,7 @@
                         <div class="progress-bar" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
+
                 <div class="table-responsive">
                     <table class="table align-middle">
                     <thead>
@@ -36,124 +74,71 @@
                             <th class="table-header">Subtotal</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        <tr>
+                        <tr *ngFor="let item of myCart?.products; let i = index">
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-sm btn-outline-white me-2 border">x</button>
-                                    <img src="https://klbtheme.com/grogin/wp-content/uploads/2023/11/1-87-500x500.jpg" alt="Product Image" class="product-image">
-                                    <span>Great Value Rising Crust Frozen Pizza, Supreme</span>
-                                </div>
-                            </td>
-                            <td>$8.99</td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-sm btn-outline-secondary ">−</button>
-                                    <span class="mx-2">1</span>
-                                    <button class="btn btn-sm btn-outline-secondary">+</button>
-                                </div>
-                            </td>
-                            <td>$8.99</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-sm btn-outline-white me-2 border">x</button>
-                                    <img src="https://klbtheme.com/grogin/wp-content/uploads/2023/11/1-87-500x500.jpg" alt="Product Image" class="product-image">
-                                    <span>Great Value Rising Crust Frozen Pizza, Supreme</span>
-                                </div>
-                            </td>
-                            <td>$8.99</td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-sm btn-outline-secondary">−</button>
-                                    <span class="mx-2">1</span>
-                                    <button class="btn btn-sm btn-outline-secondary">+</button>
-                                </div>
-                            </td>
-                            <td>$8.99</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-sm btn-outline-white me-2 border" >x</button>
-                                    <img src="https://klbtheme.com/grogin/wp-content/uploads/2023/11/1-87-500x500.jpg" alt="Product Image" class="product-image">
-                                    <span>Great Value Rising Crust Frozen Pizza, Supreme</span>
-                                </div>
-                            </td>
-                            <td>$8.99</td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-sm btn-outline-secondary">−</button>
-                                    <span class="mx-2">1</span>
-                                    <button class="btn btn-sm btn-outline-secondary">+</button>
-                                </div>
-                            </td>
-                            <td>$8.99</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center ">
-                                    <button class="btn btn-sm btn-outline-white me-2 border">x</button>
-                                    <img src="https://klbtheme.com/grogin/wp-content/uploads/2023/11/1-87-500x500.jpg" alt="Product Image" class="product-image">
-                                    <span>Great Value Rising Crust Frozen Pizza, Supreme</span>
-                                </div>
-                            </td>
-                            <td>$8.99</td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-sm btn-outline-secondary">−</button>
-                                    <span class="mx-2">1</span>
-                                    <button class="btn btn-sm btn-outline-secondary">+</button>
-                                </div>
-                            </td>
-                            <td>$8.99</td>
+                            <div class="d-flex align-items-center">
+                              <button class="btn btn-sm btn-outline-white me-2 border" (click)="deleteFromCart(item.productId)">x</button>
+                              <img [src]="item.image" alt="Product Image" class="product-image">
+                              <span>{{ item.name }}</span>
+                            </div>
+                          </td>
+                          <td>${{ item.price.toFixed(2) }}</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <button class="btn btn-sm btn-outline-secondary" (click)="reduceProductQuantity(item.productId, 1)">−</button>
+                              <span class="mx-2">{{ item.quantity }}</span>
+                              <button class="btn btn-sm btn-outline-secondary" (click)="addProductToCart(item.productId, 1)">+</button>
+                            </div>
+                          </td>
+                          <td>${{ (item.totalprice).toFixed(2) }}</td>
                         </tr>
                         <tr>
                             <td colspan="4">
                                 <form class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                                     <div class="d-flex flex-column flex-md-row align-items-center flex-grow-1 w-100">
                                         <label for="coupon" class="me-md-2 mb-2 mb-md-0">Coupon:</label>
-                                        <input type="text" class="form-control form-control-xl me-md-2 mb-2 mb-md-0 w-10 w-md-auto" id="coupon" placeholder="Coupon Code">
-                                        <button type="submit" class="btn btn-dark btn-xl w-40 w-md-auto">Apply Coupon</button>
-                                    </div>
-                        
-                                    <button type="button" class="btn btn-md btn-clear w-md-auto mt-2 mt-md-0 " style="background-color: #e7e9ec; ">ClearAll</button>
+                                        <input type="text" [(ngModel)]="promoCode" [ngModelOptions]="{standalone: true}"class="form-control form-control-xl me-md-2 mb-2 mb-md-0 w-10 w-md-auto" id="coupon" placeholder="Coupon Code">
+                                        <button type="submit" class="btn btn-dark btn-xl w-40 w-md-auto" (click)="addPromoCode(promoCode)">Apply Coupon</button>
+                                        <div *ngIf="successMessage" class="text-success mt-2 ms-3">
+                                            {{ successMessage }}
+                                          </div>
+                                          <div *ngIf="errorMessage" class="text-danger mt-2 ms-3">
+                                            {{ errorMessage }}
+                                          </div>
+                                        </div>
+                                    
+                                    <button type="button" class="btn btn-md btn-clear w-md-auto mt-2 mt-md-0 " style="background-color: #e7e9ec; " (click)="deleteCart()">ClearAll</button>
                                 </form>
                             </td>
                         </tr>
 
-                        
-                        
-                    </tbody>
+                      </tbody>
+
+                      
                 </table>
                   
                 </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-4" >
                 <div class="summary-card p-4 shadow-sm">
                     <h5 class="mb-4">Cart totals</h5>
                     
                     <div class="d-flex justify-content-between mb-3">
                         <span class="text-muted">Subtotal</span>
-                        <span>$479.97</span>
+                        <span>${{myCart.subtotalBeforeDiscount.toFixed(2)}}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-3">
                         <span class="text-muted">Discount</span>
-                        <span class="text-success">-$26.00</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-3">
-                        <span class="text-muted">Shipping</span>
-                        <span>$5.00</span>
+                        <span class="text-success">%{{myCart.discountPercentage}}</span>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between mb-4">
                         <span class="fw-bold">Total</span>
-                        <span class="fw-bold">$458.97</span>
+                        <span class="fw-bold">${{myCart.subtotal.toFixed(2)}}</span>
                     </div>
-
-                 
 
                     <button class="btn btn-dark checkout-btn w-100 mb-3">
                         Proceed to Checkout
