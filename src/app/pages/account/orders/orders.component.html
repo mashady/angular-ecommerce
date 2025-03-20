@@ -1,0 +1,35 @@
+<table class="table table-bordered" *ngIf="account$ | async as account">
+  <thead>
+    <tr>
+      <th scope="col">Order</th>
+      <th scope="col">Date</th>
+      <th scope="col">Status</th>
+      <th scope="col">Totla</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="account.user.orders && account.user.orders.length > 0">
+    <tr *ngFor="let order of account.user.orders">
+      <th scope="row">
+        <span class="orderNumber">#{{ order._id | slice : 0 : 5 }}...</span>
+      </th>
+      <td>
+        <span> {{ order.createdAt | date : "MMM d, y, h:mm a" }} </span>
+      </td>
+      <td>
+        <span>{{ order.status }}</span>
+      </td>
+      <td>
+        <span>{{ order.totalOrderPrice }}</span>
+      </td>
+      <td>
+        <button type="button" class="btn" [routerLink]="order._id">View</button>
+      </td>
+    </tr>
+  </tbody>
+  <!--new-->
+</table>
+<!--
+  MOD
+
+-->

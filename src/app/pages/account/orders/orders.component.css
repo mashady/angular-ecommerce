@@ -1,0 +1,19 @@
+.table .btn {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+.table th,
+td {
+  font-size: 14px;
+}
+.table td span {
+  margin-top: 0.5rem;
+  margin-left: 0.2rem;
+  display: flex;
+}
+.orderNumber {
+  color: var(--color-primary);
+  margin-top: 0.5rem;
+  margin-left: 0.2rem;
+  display: flex;
+}
