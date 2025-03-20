@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, RouterLink } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
-import { DatePipe, SlicePipe } from '@angular/common';
+import {
+  CurrencyPipe,
+  DatePipe,
+  NgFor,
+  NgIf,
+  SlicePipe,
+} from '@angular/common';
 
 @Component({
   selector: 'app-order-details',
-  imports: [RouterLink, SlicePipe, DatePipe],
+  imports: [RouterLink, SlicePipe, DatePipe, CurrencyPipe, NgFor, NgIf],
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.css',
 })

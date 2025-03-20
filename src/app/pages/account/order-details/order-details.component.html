@@ -14,49 +14,64 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr *ngFor="let product of order?.products">
         <th>
           <p>
-            <a routerLink="54564654"
-              >Lay's Classic Potato Snack Chips, Party Size, 13 oz Bag</a
-            >
-            × 2 Vendor:
+            <a [routerLink]="'/product/' + product.productId">
+              {{ product.name }}
+            </a>
+            × {{ product.quantity }} Vendor:
+          </p>
+          <p *ngIf="product.discount">
+            <span class="text-danger fw-bold">Discount Applied!</span>
           </p>
         </th>
-        <td>20$</td>
-      </tr>
-      <tr>
-        <th>
-          <p>
-            <a routerLink="54564654"
-              >Lay's Classic Potato Snack Chips, Party Size, 13 oz Bag</a
-            >
-            × 2 Vendor:
+        <td>
+          <p *ngIf="product.discount">
+            <del class="text-muted">{{
+              product.price * product.quantity | currency
+            }}</del>
+            ➝
+            <span class="text-success fw-bold">
+              {{
+                product.price * (1 - product.discount / 100) * product.quantity
+                  | currency
+              }}
+            </span>
           </p>
-        </th>
-        <td>30$</td>
+          <p *ngIf="!product.discount">
+            {{ product.price * product.quantity | currency }}
+          </p>
+        </td>
       </tr>
       <tr>
         <th>Payment method:</th>
-        <td>Cash on delivery</td>
+        <td>{{ order?.paymentMethod }}</td>
       </tr>
       <tr>
         <th>Total:</th>
-        <td>$18.99</td>
+        <td>
+          <del *ngIf="order?.discount" class="text-muted">
+            {{ order?.totalBeforeDiscount | currency }}
+          </del>
+          <span class="text-success fw-bold">
+            {{ order?.totalOrderPrice | currency }}
+          </span>
+        </td>
       </tr>
     </tbody>
   </table>
   <div class="shippingAddress">
     <h3>Shipping address</h3>
-    <ul class="list-unstyled">
-      <li>muhammed ahmed</li>
-      <li>m</li>
-      <li>oboor</li>
-      <li>egypt minia maghagha</li>
-      <li>Maghagha</li>
-      <li>Asyut</li>
-      <li>61511</li>
-      <li>Egypt</li>
+    <ul class="list-unstyled" *ngIf="order?.shippingAddress">
+      <li>{{ order.shippingAddress.fullName }}</li>
+      <li>{{ order.shippingAddress.address }}</li>
+      <li>{{ order.shippingAddress.city }}</li>
+      <li>{{ order.shippingAddress.postalCode }}</li>
+      <li>{{ order.shippingAddress.country }}</li>
     </ul>
+    <p *ngIf="!order?.shippingAddress" class="text-danger">
+      No shipping address found.
+    </p>
   </div>
 </section>
