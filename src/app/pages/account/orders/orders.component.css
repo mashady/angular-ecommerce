@@ -17,3 +17,8 @@ td {
   margin-left: 0.2rem;
   display: flex;
 }
+button a {
+  background-color: transparent;
+  color: #fff;
+  text-decoration: none;
+}

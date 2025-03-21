@@ -76,16 +76,59 @@ export class EditAddressesComponent implements OnInit {
   onSubmit(): void {
     if (this.addressForm.valid) {
       const updatedAddress = { ...this.addressForm.value };
+      console.log('Updated address before removing _id:', updatedAddress);
+
+      const addressId = updatedAddress._id;
       console.log(updatedAddress);
-      this.accountService
-        .updateAccount({ address: [updatedAddress] })
-        .subscribe({
+      delete updatedAddress._id;
+
+      if (this.addressId) {
+        console.log('Updating an existing address with _id:', this.addressId);
+
+        const isAddressChanged =
+          this.address.address !== updatedAddress.address ||
+          this.address.city !== updatedAddress.city ||
+          this.address.country !== updatedAddress.country ||
+          this.address.zip !== updatedAddress.zip;
+
+        if (!isAddressChanged) {
+          this.apiError =
+            'No changes detected. The address is already the same.';
+          this.successMessage = '';
+          return;
+        }
+
+        this.accountService
+          .updateAddress(updatedAddress, this.addressId)
+          .subscribe({
+            next: () => {
+              this.successMessage =
+                'Your address has been successfully updated!';
+              this.apiError = '';
+              setTimeout(() => {
+                this.successMessage = '';
+                this.router.navigate(['/account/addresses']);
+              }, 2000);
+            },
+            error: (err) => {
+              if (err.error && err.error.errors) {
+                this.apiError = err.error.errors.join(', ');
+              } else {
+                this.apiError = err.message;
+              }
+            },
+          });
+      } /*else {
+        console.log('Adding a new address');
+        this.accountService.addAddress(updatedAddress).subscribe({
           next: () => {
-            this.successMessage = 'Your address has been successfully updated!';
+            this.successMessage = 'Your address has been successfully added!';
+            this.apiError = '';
+
             setTimeout(() => {
               this.successMessage = '';
-              this.router.navigate(['/account']);
-            }, 3000);
+              this.router.navigate(['/account/addresses']);
+            }, 2000);
           },
           error: (err) => {
             if (err.error && err.error.errors) {
@@ -95,6 +138,7 @@ export class EditAddressesComponent implements OnInit {
             }
           },
         });
+      }*/
     } else {
       console.log('Form is invalid!');
     }

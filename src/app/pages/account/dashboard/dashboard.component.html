@@ -10,7 +10,9 @@
     <a routerLink="/account/addresses">shipping and billing addresses</a>, and
     <a routerLink="/account/details">edit your password and account details</a>.
   </p>
-  <button class="btn">Go To Vendor Dashboard</button>
+  <button class="btn">
+    {{ account.user.seller ? "Go To Vendor Dashboard" : "Became a Seller" }}
+  </button>
 </section>
 <!--
   todo

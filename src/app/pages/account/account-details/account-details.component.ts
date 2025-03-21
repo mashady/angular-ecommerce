@@ -112,6 +112,7 @@ export class AccountDetailsComponent implements OnInit {
       if (!formData.currentPassword) delete formData.currentPassword;
       if (!formData.newPassword) delete formData.newPassword;
       delete formData.confirmPassword;
+
       this.accountService.updateAccount(formData).subscribe({
         next: () => {
           console.log('Account updated successfully');

@@ -1,6 +1,10 @@
 <section class="addresses">
-  <p>The following addresses will be used on the checkout page by default.</p>
-  <a class="newAddress" routerLink="new">add new address</a>
+  <div class="d-flex justify-content-between">
+    <p>The following addresses will be used on the checkout page by default.</p>
+    <button class="btn">
+      <a class="newAddress" routerLink="new">New address</a>
+    </button>
+  </div>
 
   <div *ngFor="let address of addresses" class="shippingAddress">
     <h3>Shipping address</h3>

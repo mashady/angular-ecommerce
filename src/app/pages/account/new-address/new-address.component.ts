@@ -8,7 +8,7 @@ import {
 import { AccountService } from '../../../services/account.service';
 import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
-import { take } from 'rxjs'; // Import `take` from rxjs
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-new-address',
@@ -76,20 +76,16 @@ export class NewAddressComponent {
 
             updatedAddresses.push(cleanedAddress);
 
-            const updatedAccountData = {
-              address: updatedAddresses,
-            };
-
-            console.log(updatedAccountData);
-
-            this.accountService.updateAccount(updatedAccountData).subscribe({
+            this.accountService.addAddress(cleanedAddress).subscribe({
               next: () => {
                 this.successMessage =
                   'Your address has been successfully added!';
+                this.apiError = '';
+
                 setTimeout(() => {
                   this.successMessage = '';
-                  this.router.navigate(['/account']);
-                }, 3000);
+                  this.router.navigate(['/account/addresses']);
+                }, 2000);
               },
               error: (err) => {
                 if (err.error && err.error.errors) {

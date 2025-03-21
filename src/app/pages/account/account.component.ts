@@ -21,7 +21,7 @@ export class AccountComponent {
   ngOnInit() {
     this.account$ = this.accountService.account$;
     this.accountService.getAccount().subscribe();
-    console.log(this.account$);
+    //console.log(this.account$);
   }
   handleLogout() {
     console.log('logut out');

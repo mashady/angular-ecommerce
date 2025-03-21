@@ -11,8 +11,15 @@ a {
   font-size: 18px;
 }
 .newAddress {
-  color: var(--color-primary);
+  color: #fff;
   cursor: pointer;
   font-size: 14px;
   margin-left: 0.5rem;
+}
+button {
+  background-color: var(--color-primary);
+}
+button:hover {
+  background-color: var(--color-primary);
+  opacity: 0.9;
 }
