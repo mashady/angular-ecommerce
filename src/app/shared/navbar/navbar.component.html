@@ -188,7 +188,7 @@
               </div>
               <div class="nav-account">
                 <a *ngIf="AuthService.userData | async as user">{{
-                  user.firstName
+                  username
                 }}</a>
                 <span *ngIf="!(AuthService.userData | async)">Account</span>
               </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
 import { Observable } from 'rxjs';
@@ -20,7 +20,9 @@ import {
 export class OrdersComponent {
   account$!: Observable<any>;
 
-  constructor(private router: Router, private accountService: AccountService) {
+  constructor(private router: Router, private accountService: AccountService) {}
+  ngOnInit() {
     this.account$ = this.accountService.account$;
+    console.log(this.account$);
   }
 }

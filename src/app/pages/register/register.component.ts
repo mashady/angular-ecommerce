@@ -1,8 +1,8 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
@@ -55,7 +55,7 @@ export class RegisterComponent {
           '',
           [Validators.required, Validators.pattern('^[0-9]{10,15}$')],
         ],
-        address: ['', [Validators.required, Validators.maxLength(255)]],
+        address: this.createAddress(),
         role: [
           '',
           [Validators.required, Validators.pattern('^(user|seller)$')],
@@ -63,6 +63,14 @@ export class RegisterComponent {
       },
       { validators: this.checkRePasswordMatch }
     );
+  }
+  createAddress(): FormGroup {
+    return this.formbuilder.group({
+      address: ['', [Validators.required, Validators.maxLength(255)]],
+      city: ['', [Validators.required, Validators.maxLength(100)]],
+      country: ['', [Validators.required, Validators.maxLength(100)]],
+      zip: ['', [Validators.required, Validators.pattern('^[0-9]{5,10}$')]],
+    });
   }
   onSubmit() {
     console.log(this.registerForm.value);

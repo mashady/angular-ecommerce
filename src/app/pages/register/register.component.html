@@ -11,13 +11,15 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label for="firstName" class="form-label">First Name *</label>
-        <input
-          id="firstName"
-          type="text"
-          class="form-control"
-          formControlName="firstName"
-          style="height: 48px"
-        />
+        <div class="input-group">
+          <input
+            id="firstName"
+            type="text"
+            class="form-control"
+            formControlName="firstName"
+            style="height: 48px"
+          />
+        </div>
         <div
           *ngIf="f['firstName'].touched && f['firstName'].invalid"
           class="alert alert-danger mt-2"
@@ -37,13 +39,15 @@
 
       <div class="mb-3">
         <label for="lastName" class="form-label">Last Name *</label>
-        <input
-          id="lastName"
-          type="text"
-          class="form-control"
-          formControlName="lastName"
-          style="height: 48px"
-        />
+        <div class="input-group">
+          <input
+            id="lastName"
+            type="text"
+            class="form-control"
+            formControlName="lastName"
+            style="height: 48px"
+          />
+        </div>
         <div
           *ngIf="f['lastName'].touched && f['lastName'].invalid"
           class="alert alert-danger mt-2"
@@ -63,13 +67,15 @@
 
       <div class="mb-3">
         <label for="email" class="form-label">Email Address *</label>
-        <input
-          id="email"
-          type="email"
-          class="form-control"
-          formControlName="email"
-          style="height: 48px"
-        />
+        <div class="input-group">
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            formControlName="email"
+            style="height: 48px"
+          />
+        </div>
         <div
           *ngIf="f['email'].touched && f['email'].invalid"
           class="alert alert-danger mt-2"
@@ -86,20 +92,22 @@
 
       <div class="mb-3">
         <label for="phoneNumber" class="form-label">Phone Number *</label>
-        <input
-          id="phoneNumber"
-          type="text"
-          class="form-control"
-          formControlName="phoneNumber"
-          style="height: 48px"
-        />
+        <div class="input-group">
+          <input
+            id="phoneNumber"
+            type="text"
+            class="form-control"
+            formControlName="phoneNumber"
+            style="height: 48px"
+          />
+        </div>
         <div
           *ngIf="f['phoneNumber'].touched && f['phoneNumber'].invalid"
           class="alert alert-danger mt-2"
           role="alert"
         >
           <div *ngIf="f['phoneNumber'].hasError('required')">
-            phoneNumber number is required.
+            Phone number is required.
           </div>
           <div *ngIf="f['phoneNumber'].hasError('pattern')">
             Please enter a valid phone number.
@@ -109,13 +117,15 @@
 
       <div class="mb-3">
         <label for="password" class="form-label">Password *</label>
-        <input
-          id="password"
-          type="password"
-          class="form-control"
-          formControlName="password"
-          style="height: 48px"
-        />
+        <div class="input-group">
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            formControlName="password"
+            style="height: 48px"
+          />
+        </div>
         <div
           *ngIf="f['password'].touched && f['password'].invalid"
           class="alert alert-danger mt-2"
@@ -132,13 +142,15 @@
 
       <div class="mb-3">
         <label for="rePassword" class="form-label">Re-enter Password *</label>
-        <input
-          id="rePassword"
-          type="password"
-          class="form-control"
-          formControlName="rePassword"
-          style="height: 48px"
-        />
+        <div class="input-group">
+          <input
+            id="rePassword"
+            type="password"
+            class="form-control"
+            formControlName="rePassword"
+            style="height: 48px"
+          />
+        </div>
         <div
           *ngIf="f['rePassword'].touched && f['rePassword'].invalid"
           class="alert alert-danger mt-2"
@@ -153,25 +165,92 @@
         </div>
       </div>
 
-      <div class="mb-3">
-        <label for="address" class="form-label">Address *</label>
-        <input
-          id="address"
-          type="text"
-          class="form-control"
-          formControlName="address"
-          style="height: 48px"
-        />
-        <div
-          *ngIf="f['address'].touched && f['address'].invalid"
-          class="alert alert-danger mt-2"
-          role="alert"
-        >
-          <div *ngIf="f['address'].hasError('required')">
-            Address is required.
+      <div formGroupName="address">
+        <div class="mb-3">
+          <label for="address">Address</label>
+          <div class="input-group">
+            <input
+              id="address"
+              formControlName="address"
+              class="form-control"
+              style="height: 48px"
+            />
           </div>
-          <div *ngIf="f['address'].hasError('maxlength')">
-            Address must be no longer than 255 characters.
+          <div
+            *ngIf="
+              registerForm.get('address')?.get('address')?.invalid &&
+              registerForm.get('address')?.get('address')?.touched
+            "
+            class="alert alert-danger mt-2"
+            role="alert"
+          >
+            Address is required and cannot exceed 255 characters.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="city">City</label>
+          <div class="input-group">
+            <input
+              id="city"
+              formControlName="city"
+              class="form-control"
+              style="height: 48px"
+            />
+          </div>
+          <div
+            *ngIf="
+              registerForm.get('address')?.get('city')?.invalid &&
+              registerForm.get('address')?.get('city')?.touched
+            "
+            class="alert alert-danger mt-2"
+            role="alert"
+          >
+            City is required and cannot exceed 100 characters.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="country">Country</label>
+          <div class="input-group">
+            <input
+              id="country"
+              formControlName="country"
+              class="form-control"
+              style="height: 48px"
+            />
+          </div>
+          <div
+            *ngIf="
+              registerForm.get('address')?.get('country')?.invalid &&
+              registerForm.get('address')?.get('country')?.touched
+            "
+            class="alert alert-danger mt-2"
+            role="alert"
+          >
+            Country is required and cannot exceed 100 characters.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="zip">Zip</label>
+          <div class="input-group">
+            <input
+              id="zip"
+              formControlName="zip"
+              class="form-control"
+              style="height: 48px"
+            />
+          </div>
+          <div
+            *ngIf="
+              registerForm.get('address')?.get('zip')?.invalid &&
+              registerForm.get('address')?.get('zip')?.touched
+            "
+            class="alert alert-danger mt-2"
+            role="alert"
+          >
+            Zip code should be 5-10 digits.
           </div>
         </div>
       </div>
