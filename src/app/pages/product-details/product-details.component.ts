@@ -29,10 +29,7 @@ export class ProductDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-<<<<<<< HEAD
-    // Extract ID from route parameters
-=======
->>>>>>> 7429655983a4739fb22724a82327fc6b660f6471
+
     const id = this.route.snapshot.paramMap.get('id');
     
     if (!id) {

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { Observable, catchError, map, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 interface ProductResponse {
   message: string;
