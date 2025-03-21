@@ -42,7 +42,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'products', component: AdminProductsComponent }, 
       { path: 'products/add', component: AdminAddProductComponent }, 
-      { path: 'products/update', component: AdminUpdateProductComponent }, 
+      { path: 'products/update/:id', component: AdminUpdateProductComponent }, 
       //{ path: 'orders', component: OrdersComponent },
     ],
   },

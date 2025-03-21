@@ -36,7 +36,7 @@ export class ProductRequestService {
     );
   }
 
-  addProduct(data: Product) : Observable<Product> {
+  addProduct(data: FormData) : Observable<Product> {
     return this.http.post<Product>(`${this.apiUrl}/addProduct`, data);
   }
 
@@ -44,7 +44,7 @@ export class ProductRequestService {
     return this.http.delete<Product>(`${this.apiUrl}/deleteProduct/${id}`);
   }
 
-  updateProduct(id :string, data: Product) : Observable<Product> {
+  updateProduct(id :string, data: FormData) : Observable<Product> {
     return this.http.put<Product>(`${this.apiUrl}/updateProduct/${id}`, data);
   }
 
