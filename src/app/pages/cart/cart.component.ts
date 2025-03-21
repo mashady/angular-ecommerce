@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; 
 import {CounterServiceService} from "../../services/counter.service";
+import { AccountService } from '../../services/account.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,19 +16,26 @@ import {CounterServiceService} from "../../services/counter.service";
   styleUrl: './cart.component.css'
 })
 export class CartComponent  implements OnInit {
+  address:string='';
   promoCode: string = '';
   successMessage:string='';
   errorMessage:string='';
   myCart: any = { products: [] };
   cartService=inject(CartService);
   counterService=inject(CounterServiceService);
-  
+  accountService=inject(AccountService);
+  private subscriptions: Subscription = new Subscription();
 
-
-  
 ngOnInit() {
   
 this.loadCart();
+this.subscriptions.add(
+  this.accountService.account$.subscribe((account) => {
+    this.address = account?.address || '';
+    console.log('User Address:', this.address);
+  })
+);
+
 }
 
 loadCart() {
@@ -124,4 +133,5 @@ deleteFromCart(productId: string) {
       console.error('Error delete  product  from cart:', err);
       },
 });
-}}
+}
+}
