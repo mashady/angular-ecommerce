@@ -7,6 +7,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { authGuard } from './guards/auth.guard';
+import { WishListComponent } from './pages/wish-list/wish-list/wish-list.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,11 @@ export const routes: Routes = [
     component: RegisterComponent,
     title: 'Register Page',
     canActivate: [authGuard],
+  },
+  {
+    path:'wishlist',
+    component: WishListComponent,
+    title:'wish-list'
   },
   {
     path: '**',
