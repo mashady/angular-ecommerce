@@ -1,0 +1,12 @@
+.accountOrderDetails p {
+  font-size: 14px;
+}
+.accountOrderDetails h3 {
+  font-size: 18px;
+}
+.accountOrderDetails table {
+  font-size: 14px;
+}
+.accountOrderDetails table a {
+  color: var(--color-primary);
+}

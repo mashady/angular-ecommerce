@@ -1,0 +1,11 @@
+.addresses p {
+  font-size: 14px;
+}
+a {
+  color: var(--color-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+.addresses h3 {
+  font-size: 18px;
+}

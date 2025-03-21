@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmptyCartComponent } from './empty-cart.component';
+import { EditAddressesComponent } from './edit-addresses.component';
 
-describe('EmptyCartComponent', () => {
-  let component: EmptyCartComponent;
-  let fixture: ComponentFixture<EmptyCartComponent>;
+describe('EditAddressesComponent', () => {
+  let component: EditAddressesComponent;
+  let fixture: ComponentFixture<EditAddressesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EmptyCartComponent]
+      imports: [EditAddressesComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EmptyCartComponent);
+    fixture = TestBed.createComponent(EditAddressesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

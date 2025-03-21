@@ -1,21 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { CounterServiceService } from '../../services/counter.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, NgIf],
+  imports: [RouterLink, NgIf, AsyncPipe],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   username: string = '';
-  constructor(private AuthService: AuthService) {}
-  ngOnInit(): void {
+  counter: number = 0;
+  constructor(
+    public AuthService: AuthService,
+    public counterServiceService: CounterServiceService
+  ) {
     this.AuthService.userData.subscribe((user) => {
-      this.username = user.email.split('@')[0];
+      this.username = user.firstName;
       console.log(user);
+    });
+    this.counterServiceService.getCounter().subscribe((response) => {
+      this.counter = response;
     });
   }
 }

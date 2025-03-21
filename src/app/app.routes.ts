@@ -15,6 +15,8 @@ import { AccountDetailsComponent } from './pages/account/account-details/account
 import { AdminLayoutComponent } from './pages/admin/admin-layout/admin-layout.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminProductsComponent } from './pages/admin/admin-products/admin-products.component';
+import { OrderDetailsComponent } from './pages/account/order-details/order-details.component';
+import { EditAddressesComponent } from './pages/account/edit-addresses/edit-addresses.component';
 import { AdminAddProductComponent } from './pages/admin/admin-add-product/admin-add-product.component';
 import { AdminUpdateProductComponent } from './pages/admin/admin-update-product/admin-update-product.component';
 export const routes: Routes = [
@@ -29,7 +31,9 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'orders', component: OrdersComponent },
+      { path: 'orders/:id', component: OrderDetailsComponent },
       { path: 'addresses', component: AddressesComponent },
+      { path: 'addresses/edit', component: EditAddressesComponent },
       { path: 'details', component: AccountDetailsComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
