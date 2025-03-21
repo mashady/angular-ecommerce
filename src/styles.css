@@ -5,6 +5,7 @@ body {
 :root {
   /** project colors */
   --color-primary: #634c9f;
+  --color-primary-light: #F5F4FE;
   --color-dark: #030712;
   --color-dark-2: #111827;
   --color-dark-3: #212529;
