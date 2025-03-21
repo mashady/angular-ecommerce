@@ -14,9 +14,6 @@ export class AccountService {
   constructor(private httpClient: HttpClient) {}
 
   getAccount(): Observable<any> {
-    /*if (this.accountData.value) {
-      return this.account$;
-    }*/
     return this.httpClient.get<any>('http://localhost:8088/user/profile').pipe(
       tap((account) => this.accountData.next(account)),
       catchError((error) => {
@@ -26,7 +23,7 @@ export class AccountService {
     );
   }
 
-  updateAccount(data: Account): Observable<any> {
+  updateAccount(data: any): Observable<any> {
     return this.httpClient
       .put<any>('http://localhost:8088/user/profile', data)
       .pipe(

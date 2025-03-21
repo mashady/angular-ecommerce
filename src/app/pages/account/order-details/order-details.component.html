@@ -17,7 +17,7 @@
       <tr *ngFor="let product of order?.products">
         <th>
           <p>
-            <a [routerLink]="'/product/' + product.productId">
+            <a [routerLink]="'/product-details/' + product.productId">
               {{ product.name }}
             </a>
             × {{ product.quantity }} Vendor:

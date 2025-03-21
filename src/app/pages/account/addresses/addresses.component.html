@@ -1,17 +1,17 @@
 <section class="addresses">
   <p>The following addresses will be used on the checkout page by default.</p>
-  <div class="shippingAddress">
+  <a class="newAddress" routerLink="new">add new address</a>
+
+  <div *ngFor="let address of addresses" class="shippingAddress">
     <h3>Shipping address</h3>
-    <a routerLink="edit">Edit Shipping address</a>
+    <a [routerLink]="'edit/' + address._id">Edit Shipping address</a>
     <ul class="list-unstyled">
-      <li>muhammed ahmed</li>
-      <li>m</li>
-      <li>oboor</li>
-      <li>egypt minia maghagha</li>
-      <li>Maghagha</li>
-      <li>Asyut</li>
-      <li>61511</li>
-      <li>Egypt</li>
+      <li>{{ address.country }}</li>
+      <li>{{ address.city }}</li>
+      <li>{{ address.state }}</li>
+      <li>{{ address.address }}</li>
+
+      <li>{{ address.zip }}</li>
     </ul>
   </div>
 </section>

@@ -78,6 +78,9 @@ export class AccountDetailsComponent implements OnInit {
         if (!account) {
           console.log('Account data is not available yet.');
         } else {
+          this.account = account.user;
+          console.log('user:', this.account.address);
+
           console.log('Account received:', account);
           this.editAccountForm.patchValue({
             firstName: account.user.firstName,

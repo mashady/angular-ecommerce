@@ -17,6 +17,7 @@ import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-das
 import { AdminProductsComponent } from './pages/admin/admin-products/admin-products.component';
 import { OrderDetailsComponent } from './pages/account/order-details/order-details.component';
 import { EditAddressesComponent } from './pages/account/edit-addresses/edit-addresses.component';
+import { NewAddressComponent } from './pages/account/new-address/new-address.component';
 
 export const routes: Routes = [
   {
@@ -32,7 +33,8 @@ export const routes: Routes = [
       { path: 'orders', component: OrdersComponent },
       { path: 'orders/:id', component: OrderDetailsComponent },
       { path: 'addresses', component: AddressesComponent },
-      { path: 'addresses/edit', component: EditAddressesComponent },
+      { path: 'addresses/edit/:id', component: EditAddressesComponent },
+      { path: 'addresses/new', component: NewAddressComponent },
       { path: 'details', component: AccountDetailsComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
