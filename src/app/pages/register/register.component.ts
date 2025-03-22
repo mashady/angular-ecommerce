@@ -16,6 +16,7 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 export class RegisterComponent {
   registerForm: FormGroup;
   apiError: string = '';
+  successMsg: string = '';
 
   constructor(
     private formbuilder: FormBuilder,
@@ -81,10 +82,13 @@ export class RegisterComponent {
       this.AuthService.register(this.registerForm.value).subscribe({
         next: (res: any) => {
           console.log(res);
+          this.successMsg =
+            'Account created successfully, go ahead and verify your account.';
+          //this.router.navigate(['/login']);
+
           if (res.message === 'success') {
             //localStorage.setItem('userToken', res.token);
             //this.AuthService.decode();
-            this.router.navigate(['/home']);
           }
         },
         error: (err) => {
