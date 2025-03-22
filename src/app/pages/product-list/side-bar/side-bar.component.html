@@ -1,228 +1,59 @@
-<br>
-<!-- bread crumb -->
-<div class="container ">
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a class="text-decoration-none text-secondary" href="#" (click)="goToHome($event)">Home</a>
-          </li>
-          <li class="breadcrumb-item">
-            <a class="text-decoration-none text-secondary text-dark" href="#">Shop</a>
-          </li>
-         </ol>
-      </nav>
+<!-- Breadcrumb -->
+<nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a
+        class="text-decoration-none text-secondary"
+        href="#"
+        (click)="goToHome($event)"
+        >Home</a
+      >
+    </li>
+    <li class="breadcrumb-item text-dark">
+      <a class="text-decoration-none text-secondary" href="#">Shop</a>
+    </li>
+  </ol>
+</nav>
 
-
-        <div class="container mt-4">
-            <h5 class="fw-bold">Widget price filter</h5>
-            <div class="d-flex align-items-center">
-                <div class="w-25">
-                    <label for="min-price" class="form-label small">Min price</label>
-                    <input type="number" id="min-price" class="form-control" [(ngModel)]="minValue" (input)="updateSlider()">
-                </div>
-                <span class="mx-2"> - </span>
-                <div class="w-25">
-                    <label for="max-price" class="form-label small">Max price</label>
-                    <input type="number" id="max-price" class="form-control" [(ngModel)]="maxValue" (input)="updateSlider()">
-                </div>
-            </div>
-        
-            <!-- Slider -->
-            <div id="slider" class="my-3"></div>
-        
-            <p class="mt-2">Price: ${{ minValue }}  —  ${{ maxValue }}</p>
-        
-            <button class="btn btn-light border px-4 mb-3">Filter</button>
-        </div>
-<br>
-
-
-
-
-        <!-- <div class="price_filter">
-            <br>
-            <h4 class="h4price">price:$0 - $30</h4>
-            <br>
-            <br>
-            <button type="button" class="btn btn-light">Filter</button>
-
-        </div> -->
-        <hr>
-        <div>
-            <h3>product categories</h3>
-            
-            <!-- <form action="" class="check_product">
-
-                <span><input type="checkbox" id="Fruits_Vegetables">
-                    <label for="Fruits_Vegetables"> Fruits & Vegetables </label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Baby_Pregnancy">
-                    <label for="Baby_Pregnancy "> Baby & Pregnancy </label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Beverages">
-                    <label for="Beverages">Beverages</label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Beverages">
-                    <label for="Beverages">Beverages</label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id=" Meats_Seafood">
-                    <label for=" Meats_Seafood"> Meats & Seafood</label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id=" Biscuits_Snacks">
-                    <label for="Biscuits_Snacks">Biscuits & Snacks </label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Breads_Bakery">
-                    <label for="Breads_Bakery">Breads & Bakery</label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Breaksfast_Dairy">
-                    <label for="Breaksfast_Dairy">Breaksfast & Dairy</label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Frozen_Foods">
-                    <label for="Frozen_Foods">Frozen Foods</label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Grocery_Staples">
-                    <label for="Grocery_Staples"> Grocery & Staples </label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Healthcare">
-                    <label for="Healthcare">Healthcare</label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Household_Needs">
-                    <label for="Household_Needs">Household Needs</label>
-
-                </span>
-            </form> -->
-        </div>
-        <!-- <hr>
-        <div>
-            <h3>Filter by color</h3>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                    style="background-color: black;">
-                <label class="form-check-label" for="flexRadioDefault1">
-                    Black
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input " type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked
-                    style="background-color: blue;">
-                <label class="form-check-label" for="flexRadioDefault2">
-                    Blue
-                </label>
-            </div>
-
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"
-                    style="background-color: brown;">
-                <label class="form-check-label" for="flexRadioDefault3">
-                    Brown
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4"
-                    style="background-color: gray;">
-                <label class="form-check-label" for="flexRadioDefault4">
-                    Gray
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5"
-                    style="background-color: green;">
-                <label class="form-check-label" for="flexRadioDefault5">
-                    Green
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5" checked
-                    style="background-color: red;">
-                <label class="form-check-label" for="flexRadioDefault5">
-                    Red
-                </label>
-            </div>
-
-        </div>
-        <hr>
-        <div>
-            <h3>Filter by Brands </h3>
-            <form action="" class="check_product">
-
-                <span><input type="checkbox" id="Aptamil">
-                    <label for="Aptamil">Aptamil</label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Babyganics">
-                    <label for="Babyganics">Babyganics </label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Dove">
-                    <label for="Dove">Dove</label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="Fresh">
-                    <label for="Fresh">Fresh</label>
-
-                </span>
-            </form>
-
-        </div> -->
-
-        
-        <!-- <div>
-            <h3>Product Status</h3>
-            <form action="" class="check_product">
-
-                <span><input type="checkbox" id="stock">
-                    <label for="stock">in stock</label>
-
-                </span>
-
-                <span>
-                    <input type="checkbox" id="sale">
-                    <label for="sale">on sale </label>
-
-                </span>
-            </form>
-        </div> -->
-
-        
+<!-- Price Filter -->
+<div class="container mt-4">
+  <h5 class="fw-bold">Widget Price Filter</h5>
+  <div class="d-flex align-items-center">
+    <div class="w-25">
+      <label for="min-price" class="form-label small">Min Price</label>
     </div>
+    <span class="mx-2"> - </span>
+    <div class="w-25">
+      <label for="max-price" class="form-label small">Max Price</label>
+    </div>
+  </div>
 
-   
+
+  <p class="mt-2">Price: ${{ minValue }} — ${{ maxValue }}</p>
+  <button class="btn btn-light border px-4 mb-3">Filter</button>
+</div>
+
+<hr />
+
+<!-- Product Categories -->
+<div class="mt-4">
+  <h5 class="fw-bold">Product Categories</h5>
+  <form class="check_product">
+    <div *ngIf="categories.length > 0; else noCategories">
+      <div *ngFor="let category of categories" class="form-check mb-2">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          [id]="category._id"
+          (change)="onCategoryChange(category._id, $any($event.target).checked)"
+        />
+        <label class="form-check-label" [for]="category._id">
+          {{ category.name }}
+        </label>
+      </div>
+    </div>
+    <ng-template #noCategories>
+      <p class="text-muted">No categories available.</p>
+    </ng-template>
+  </form>
+</div>

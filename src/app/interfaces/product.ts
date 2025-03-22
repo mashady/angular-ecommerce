@@ -5,7 +5,7 @@ export interface Product {
   price: number;
   discount?: number;
   category: string;
-  addedBy: string;
+  addedBy?: string;
   updatedBy?: string;
   images: string[];
   stock: number;

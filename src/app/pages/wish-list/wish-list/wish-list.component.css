@@ -1,0 +1,55 @@
+.wishlist-table img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .wishlist-table th, .wishlist-table td {
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+  .wishlist-table .product-info {
+    text-align: left;
+  }
+  
+  .wishlist-table .old-price {
+    text-decoration: line-through;
+    color: gray;
+  }
+  
+  .wishlist-table .add-to-cart-btn {
+    background-color: #6c5ce7;
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+  }
+  
+  .wishlist-table .remove-btn {
+    border: none;
+    background: none;
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .social-icons a {
+    margin-right: 10px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .newsletter {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .newsletter input {
+    width: 300px;
+    padding: 8px;
+    margin-right: 10px;
+  }

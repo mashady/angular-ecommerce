@@ -7,7 +7,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { authGuard } from './guards/auth.guard';
-import { WishListComponent } from './pages/wish-list/wish-list/wish-list.component';
+import { WishlistComponent } from './pages/wish-list/wish-list/wish-list.component';
 
 export const routes: Routes = [
   {
@@ -45,7 +45,7 @@ export const routes: Routes = [
   },
   {
     path:'wishlist',
-    component: WishListComponent,
+    component: WishlistComponent,
     title:'wish-list'
   },
   {
