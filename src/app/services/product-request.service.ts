@@ -10,13 +10,14 @@ interface ProductResponse {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductRequestService {
   private apiUrl = 'http://localhost:8088/products';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+<<<<<<< HEAD
   getProductsList(pageNumber: number = 1, productsCount: number = 10): Observable<{ data: Product[], totalProducts: number }> {
     return this.http.get<{ message: string; totalProducts: number; data: Product[] }>(this.apiUrl, {
       params: {
@@ -33,6 +34,23 @@ export class ProductRequestService {
       map(response => {
         console.log('API response:', response);
         // Extract the product from the nested structure
+=======
+  getProductsList(
+    pageNumber: number = 1,
+    productsCount: number = 10
+  ): Observable<any> {
+    return this.http.get(`${this.apiUrl}/products`, {
+      params: {
+        page: pageNumber.toString(),
+        limit: productsCount.toString(),
+      },
+    });
+  }
+
+  getSingleProduct(id: string): Observable<Product> {
+    return this.http.get<ProductResponse>(`${this.apiUrl}/products/${id}`).pipe(
+      map((response) => {
+>>>>>>> cbf4d539675e0aa57cf095b461ebae243f42fb3f
         if (response && response.existingProduct) {
           return response.existingProduct;
         }
@@ -42,6 +60,7 @@ export class ProductRequestService {
     );
   }
 
+<<<<<<< HEAD
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred';
     if (error.error instanceof ErrorEvent) {
@@ -55,3 +74,17 @@ export class ProductRequestService {
     return throwError(() => new Error(errorMessage));
   }
 }
+=======
+  addProduct(data: FormData): Observable<Product> {
+    return this.http.post<Product>(`${this.apiUrl}/addProduct`, data);
+  }
+
+  deleteProduct(id: string): Observable<Product> {
+    return this.http.delete<Product>(`${this.apiUrl}/deleteProduct/${id}`);
+  }
+
+  updateProduct(id: string, data: FormData): Observable<Product> {
+    return this.http.put<Product>(`${this.apiUrl}/updateProduct/${id}`, data);
+  }
+}
+>>>>>>> cbf4d539675e0aa57cf095b461ebae243f42fb3f

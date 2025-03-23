@@ -1,0 +1,21 @@
+<section class="addresses">
+  <div class="d-flex justify-content-between">
+    <p>The following addresses will be used on the checkout page by default.</p>
+    <button class="btn">
+      <a class="newAddress" routerLink="new">New address</a>
+    </button>
+  </div>
+
+  <div *ngFor="let address of addresses" class="shippingAddress">
+    <h3>Shipping address</h3>
+    <a [routerLink]="'edit/' + address._id">Edit Shipping address</a>
+    <ul class="list-unstyled">
+      <li>{{ address.country }}</li>
+      <li>{{ address.city }}</li>
+      <li>{{ address.state }}</li>
+      <li>{{ address.address }}</li>
+
+      <li>{{ address.zip }}</li>
+    </ul>
+  </div>
+</section>
