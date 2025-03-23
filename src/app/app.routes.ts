@@ -20,7 +20,10 @@ import { EditAddressesComponent } from './pages/account/edit-addresses/edit-addr
 import { AdminAddProductComponent } from './pages/admin/admin-add-product/admin-add-product.component';
 import { AdminUpdateProductComponent } from './pages/admin/admin-update-product/admin-update-product.component';
 import { NewAddressComponent } from './pages/account/new-address/new-address.component';
+<<<<<<< HEAD
 import { WishlistComponent } from './pages/wish-list/wish-list/wish-list.component';
+=======
+>>>>>>> cbf4d539675e0aa57cf095b461ebae243f42fb3f
 
 export const routes: Routes = [
   {

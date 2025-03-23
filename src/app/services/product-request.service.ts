@@ -11,17 +11,26 @@ interface ProductResponse {
 
 @Injectable({
   providedIn: 'root',
+  providedIn: 'root',
 })
 export class ProductRequestService {
   private apiUrl = 'http://localhost:8088/products';
 
   constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
+  getProductsList(
+    pageNumber: number = 1,
+    productsCount: number = 10
+  ): Observable<any> {
+    return this.http.get(`${this.apiUrl}/products`, {
 <<<<<<< HEAD
   getProductsList(pageNumber: number = 1, productsCount: number = 10): Observable<{ data: Product[], totalProducts: number }> {
     return this.http.get<{ message: string; totalProducts: number; data: Product[] }>(this.apiUrl, {
       params: {
         page: pageNumber.toString(),
+        limit: productsCount.toString(),
+      },
         limit: productsCount.toString()
       }
     }).pipe(
@@ -50,6 +59,7 @@ export class ProductRequestService {
   getSingleProduct(id: string): Observable<Product> {
     return this.http.get<ProductResponse>(`${this.apiUrl}/products/${id}`).pipe(
       map((response) => {
+      map((response) => {
 >>>>>>> cbf4d539675e0aa57cf095b461ebae243f42fb3f
         if (response && response.existingProduct) {
           return response.existingProduct;
@@ -60,6 +70,7 @@ export class ProductRequestService {
     );
   }
 
+  addProduct(data: FormData): Observable<Product> {
 <<<<<<< HEAD
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred';
@@ -80,11 +91,14 @@ export class ProductRequestService {
   }
 
   deleteProduct(id: string): Observable<Product> {
+  deleteProduct(id: string): Observable<Product> {
     return this.http.delete<Product>(`${this.apiUrl}/deleteProduct/${id}`);
   }
 
   updateProduct(id: string, data: FormData): Observable<Product> {
+  updateProduct(id: string, data: FormData): Observable<Product> {
     return this.http.put<Product>(`${this.apiUrl}/updateProduct/${id}`, data);
   }
 }
+
 >>>>>>> cbf4d539675e0aa57cf095b461ebae243f42fb3f
