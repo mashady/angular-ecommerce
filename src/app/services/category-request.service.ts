@@ -11,22 +11,16 @@ interface CategoryResponse {
 
 interface CategoriesResponse {
   Message: string,
-  categories: Category[];
+  categories: Category[]; 
 }
 
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CategoryRequestService {
   private apiUrl = 'http://localhost:8088';
 
-<<<<<<< HEAD
-  constructor(private http: HttpClient) {}
-  getCategoryList(): Observable<Category[]> {
-    return this.http.get<CategoryResponse>(`${this.apiUrl}/getCategories`).pipe(
-      map((response) => response.categories)
-=======
   constructor(private http: HttpClient) { }
 
   getCategoryList() : Observable<any>{
@@ -41,20 +35,7 @@ export class CategoryRequestService {
         }
         throw new Error('Invalid category data format');
       })
->>>>>>> cbf4d539675e0aa57cf095b461ebae243f42fb3f
     );
-  }
-  getCategoryById(id: string): Observable<Category> {
-    return this.http
-      .get<ProductResponse>(`${this.apiUrl}/getCategoryById/${id}`)
-      .pipe(
-        map((response) => {
-          if (response && response.existingCategory) {
-            return response.existingCategory;
-          }
-          throw new Error('Invalid category data format');
-        })
-      );
   }
 
   getCategoryByName(name: string): Observable<Category> {
@@ -68,15 +49,8 @@ export class CategoryRequestService {
           return response.existingCategory;
         }
         throw new Error('Invalid category data format');
->>>>>>> cbf4d539675e0aa57cf095b461ebae243f42fb3f
       })
-      .pipe(
-        map((response) => {
-          if (response && response.existingCategory) {
-            return response.existingCategory;
-          }
-          throw new Error('Invalid category data format');
-        })
-      );
+    );
   }
+
 }
