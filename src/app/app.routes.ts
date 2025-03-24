@@ -19,6 +19,8 @@ import { OrderDetailsComponent } from './pages/account/order-details/order-detai
 import { EditAddressesComponent } from './pages/account/edit-addresses/edit-addresses.component';
 import { AdminAddProductComponent } from './pages/admin/admin-add-product/admin-add-product.component';
 import { AdminUpdateProductComponent } from './pages/admin/admin-update-product/admin-update-product.component';
+import { NewAddressComponent } from './pages/account/new-address/new-address.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -33,7 +35,8 @@ export const routes: Routes = [
       { path: 'orders', component: OrdersComponent },
       { path: 'orders/:id', component: OrderDetailsComponent },
       { path: 'addresses', component: AddressesComponent },
-      { path: 'addresses/edit', component: EditAddressesComponent },
+      { path: 'addresses/edit/:id', component: EditAddressesComponent },
+      { path: 'addresses/new', component: NewAddressComponent },
       { path: 'details', component: AccountDetailsComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
@@ -44,9 +47,9 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: AdminDashboardComponent },
-      { path: 'products', component: AdminProductsComponent }, 
-      { path: 'products/add', component: AdminAddProductComponent }, 
-      { path: 'products/update/:id', component: AdminUpdateProductComponent }, 
+      { path: 'products', component: AdminProductsComponent },
+      { path: 'products/add', component: AdminAddProductComponent },
+      { path: 'products/update/:id', component: AdminUpdateProductComponent },
       //{ path: 'orders', component: OrdersComponent },
     ],
   },

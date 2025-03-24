@@ -78,6 +78,9 @@ export class AccountDetailsComponent implements OnInit {
         if (!account) {
           console.log('Account data is not available yet.');
         } else {
+          this.account = account.user;
+          console.log('user:', this.account.address);
+
           console.log('Account received:', account);
           this.editAccountForm.patchValue({
             firstName: account.user.firstName,
@@ -109,6 +112,7 @@ export class AccountDetailsComponent implements OnInit {
       if (!formData.currentPassword) delete formData.currentPassword;
       if (!formData.newPassword) delete formData.newPassword;
       delete formData.confirmPassword;
+
       this.accountService.updateAccount(formData).subscribe({
         next: () => {
           console.log('Account updated successfully');

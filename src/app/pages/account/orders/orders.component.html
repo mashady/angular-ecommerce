@@ -1,5 +1,5 @@
 <table class="table table-bordered" *ngIf="account$ | async as account">
-  <thead>
+  <thead *ngIf="account.user.orders.length > 0">
     <tr>
       <th scope="col">Order</th>
       <th scope="col">Date</th>
@@ -28,6 +28,12 @@
     </tr>
   </tbody>
   <!--new-->
+  <div *ngIf="account?.user?.orders?.length <= 0">
+    <p>No orders found.</p>
+    <button class="btn">
+      <a routerLink="/shop">Return to shop</a>
+    </button>
+  </div>
 </table>
 <!--
   MOD

@@ -1,16 +1,17 @@
-.editAddress h3 {
+.addAddress h3 {
   font-size: 18px;
 }
-.editAddress .form-group {
+.addAddress .form-group {
   margin-bottom: 0.6rem;
 }
-.editAddress .form-group label {
+.addAddress .form-group label {
   font-size: 14px;
   margin-bottom: 0.3rem;
 }
-.editAddress button {
+.addAddress button {
   font-size: 14px;
   background-color: var(--color-section-bg);
+
   font-weight: bold;
   margin-top: 5px;
   height: 42px;

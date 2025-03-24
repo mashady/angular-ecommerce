@@ -3,6 +3,8 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { CounterServiceService } from '../../services/counter.service';
+import { Observable } from 'rxjs';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,17 +15,28 @@ import { CounterServiceService } from '../../services/counter.service';
 export class NavbarComponent {
   username: string = '';
   counter: number = 0;
+  account$!: Observable<any>;
+
   constructor(
     public AuthService: AuthService,
-    public counterServiceService: CounterServiceService
+    public counterServiceService: CounterServiceService,
+    private accountService: AccountService
   ) {
-    this.AuthService.userData.subscribe((user) => {
+    /*this.AuthService.userData.subscribe((user) => {
       this.username = user.firstName;
       console.log(user);
-    });
+    });*/
     this.counterServiceService.getCounter().subscribe((response) => {
       this.counter = response;
     });
+    this.account$ = this.accountService.account$;
+    this.account$.subscribe((accountData) => {
+      if (accountData && accountData.user) {
+        this.username = accountData.user.firstName;
+      }
+    });
+    this.accountService.getAccount().subscribe();
+    console.log(this.account$);
   }
 }
 
