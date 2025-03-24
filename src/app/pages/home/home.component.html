@@ -133,7 +133,6 @@
   </div>
   -->
 
-  <!-- Promotional Cards Row -->
   <div class="row promo-row">
     <!-- Promo Card 1 -->
     <div class="col-md-6">
@@ -182,7 +181,11 @@
       </div>
     </div>
   </div>
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+
+  <!-- products -->
+  <!--
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
     <div class="col">
       <div class="card h-100">
         <div class="card-img-container">
@@ -428,6 +431,37 @@
             <span class="old-price">$11.20</span>
           </p>
           <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+   -->
+
+  <div class="container mt-5 mb-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mt-4">
+      <div *ngFor="let product of products" class="col">
+        <div class="card h-100">
+          <div class="card-img-container">
+            <div class="discount-badge">{{ product.discount }}%</div>
+            <i class="far fa-heart heart-icon"></i>
+            <img
+              [src]="'http://localhost:8088' + product.images[0]"
+              class="card-img-top"
+              alt="{{ product.name }}"
+            />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="mb-0">
+              <span class="current-price">{{ product.price | currency }}</span>
+              <span *ngIf="product.discount > 0" class="old-price">{{
+                product.oldPrice | currency
+              }}</span>
+            </p>
+            <button class="add-btn">+</button>
+          </div>
         </div>
       </div>
     </div>
