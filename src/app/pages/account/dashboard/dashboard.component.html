@@ -10,14 +10,16 @@
     <a routerLink="/account/addresses">shipping and billing addresses</a>, and
     <a routerLink="/account/details">edit your password and account details</a>.
   </p>
-  <button class="btn">
-    <a routerLink="/store/settings">
-      {{
-        account.user.role == "seller"
-          ? "Go To Vendor Dashboard"
-          : "Became a Seller"
-      }}
-    </a>
+  <button *ngIf="account.user.role === 'seller'" class="btn">
+    <a routerLink="/store/settings"> Go To Vendor Dashboard </a>
+  </button>
+
+  <button
+    *ngIf="account.user.role !== 'seller'"
+    class="btn"
+    (click)="onBeSeller()"
+  >
+    Become a Seller
   </button>
 </section>
 <!--

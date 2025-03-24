@@ -109,4 +109,14 @@ export class AccountService {
       return throwError(() => new Error('Failed to update address'));
     }
   }
+  beAseller(): Observable<any> {
+    return this.httpClient
+      .put<any>('http://localhost:8088/user/profile', { role: 'seller' })
+      .pipe(
+        catchError((error) => {
+          console.error('Error changing role to seller:', error);
+          throw error;
+        })
+      );
+  }
 }

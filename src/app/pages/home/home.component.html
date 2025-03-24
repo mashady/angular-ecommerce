@@ -453,7 +453,12 @@
             />
           </div>
           <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
+            <h5
+              class="card-title"
+              [routerLink]="'product-details/' + product._id"
+            >
+              {{ product.name }}
+            </h5>
             <p class="mb-0">
               <span class="current-price">{{ product.price | currency }}</span>
               <span *ngIf="product.discount > 0" class="old-price">{{
