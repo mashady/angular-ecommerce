@@ -15,18 +15,25 @@ declare var bootstrap: any;
 })
 export class AdminProductsComponent {
   products !: Product[];
-
+  page: number = 1;
+  totalPages: number = 0;
+  pagesArray: number[] = [];
+  currentPage: number = 1;
+  limit: number = 9;
   constructor (
     private productService: ProductRequestService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.productService.getProductsList(1,60).subscribe({
+    this.productService.getProductsList(this.page, this.limit).subscribe({
       next: (response) => {
         this.products = response.data;
+        this.totalPages = response.totalPages;
+        this.pagesArray = Array.from({length: this.totalPages}, (_, i) => i + 1);
       } 
     });
+    this.pagenumber(this.currentPage);
   }
 
   deleteProduct(id: string) {
@@ -44,6 +51,19 @@ export class AdminProductsComponent {
       },
       error: (err) => {
         console.error('Error deleting product', err);
+      }
+    });
+  }
+
+  pagenumber(page: number): void {
+    console.log(page);
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.productService.getProductsList(page, this.limit).subscribe({
+      next: (response) => {
+        this.products = response.data;
+        this.totalPages = response.totalPages;
+        this.pagesArray = Array.from({length: this.totalPages}, (_, i) => i + 1);
       }
     });
   }

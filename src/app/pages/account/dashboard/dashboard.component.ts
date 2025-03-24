@@ -15,12 +15,23 @@ export class DashboardComponent {
   account$!: Observable<any>;
   constructor(
     private router: Router,
-    private accountService: AccountService,
+    public accountService: AccountService,
     private authService: AuthService
   ) {}
   ngOnInit() {
     this.account$ = this.accountService.account$;
     console.log(this.account$);
+  }
+  onBeSeller() {
+    this.accountService.beAseller().subscribe({
+      next: (response) => {
+        console.log('Role changed to seller successfully', response);
+        this.router.navigate(['/store/settings']);
+      },
+      error: (error) => {
+        console.error('Error while changing role:', error);
+      },
+    });
   }
   handleLogout() {
     console.log('logout');

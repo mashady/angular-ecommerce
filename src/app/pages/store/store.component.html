@@ -1,0 +1,28 @@
+<div class="store">
+  <div class="d-flex align-items-center gap-3"></div>
+</div>
+<div class="store-container">
+  <nav>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <a routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
+      <li class="list-group-item">
+        <a routerLink="products" routerLinkActive="active">Products</a>
+      </li>
+      <li class="list-group-item">
+        <a routerLink="orders" routerLinkActive="active">Orders</a>
+      </li>
+
+      <li class="list-group-item">
+        <a routerLink="settings" routerLinkActive="active">Settings</a>
+      </li>
+      <li class="list-group-item">
+        <span (click)="handleLogout()">Logout</span>
+      </li>
+    </ul>
+  </nav>
+  <div style="width: 100%">
+    <router-outlet></router-outlet>
+  </div>
+</div>

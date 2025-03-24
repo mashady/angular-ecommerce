@@ -1,7 +1,7 @@
 import { Account } from './../interfaces/account';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError, map } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -15,6 +15,11 @@ export class AccountService {
 
   getAccount(): Observable<any> {
     return this.httpClient.get<any>('http://localhost:8088/user/profile').pipe(
+      /* map((res) => {
+        console.log(res.user);
+        this.accountData = res.user;
+        return res.user;
+      })*/
       tap((account) => this.accountData.next(account)),
       catchError((error) => {
         console.error('Error fetching account', error);
@@ -103,5 +108,15 @@ export class AccountService {
       console.error('No address array found in the account data.');
       return throwError(() => new Error('Failed to update address'));
     }
+  }
+  beAseller(): Observable<any> {
+    return this.httpClient
+      .put<any>('http://localhost:8088/user/profile', { role: 'seller' })
+      .pipe(
+        catchError((error) => {
+          console.error('Error changing role to seller:', error);
+          throw error;
+        })
+      );
   }
 }

@@ -75,7 +75,7 @@ loadCart() {
         console.log('Cart not found. Resetting to empty cart.');
         this.myCart = { products: [] };
       } else {
-        alert('Failed to load cart. Please try again.');
+        
       }
     }
   });

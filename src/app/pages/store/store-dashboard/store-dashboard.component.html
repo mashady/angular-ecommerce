@@ -1,0 +1,13 @@
+<section class="dashboard" *ngIf="account$ | async as account">
+  <p>
+    Hello <span>{{ account.user.firstName }}</span> (not
+    <span>{{ account.user.firstName }}</span> ?
+    <span class="logoutSpan" (click)="handleLogout()">Log out</span>)
+  </p>
+  <p>
+    From your store dashboard you can view your
+    <a routerLink="/account/orders">recent orders</a>, manage your
+    <a routerLink="/account/addresses">shipping and billing addresses</a>, and
+    <a routerLink="/account/details">edit your password and account details</a>.
+  </p>
+</section>

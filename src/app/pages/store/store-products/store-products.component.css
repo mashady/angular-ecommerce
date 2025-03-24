@@ -1,0 +1,12 @@
+.storeProducts h2 {
+  font-size: 40px;
+}
+.storeProducts h2 {
+  margin-bottom: 1rem;
+}
+.storeProducts .newProduct {
+  background-color: var(--color-primary);
+  color: #fff;
+  width: 100px;
+  height: 40px;
+}
