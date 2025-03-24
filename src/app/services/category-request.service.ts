@@ -53,4 +53,16 @@ export class CategoryRequestService {
     );
   }
 
+  addCategory(category: Category): Observable<any> {
+    return this.http.post<CategoryResponse>(`${this.apiUrl}/addCategory`, category);
+  }
+
+  updateCategory(id: string, category: Category): Observable<any> {
+    return this.http.put<CategoryResponse>(`${this.apiUrl}/updateCategory/${id}`, category);
+  }
+
+  deleteCategory(id: string): Observable<any> {
+    return this.http.delete<CategoryResponse>(`${this.apiUrl}/deleteCategory/${id}`);
+  }
+
 }
