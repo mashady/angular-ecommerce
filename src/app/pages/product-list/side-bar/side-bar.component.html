@@ -1,0 +1,59 @@
+<!-- Breadcrumb -->
+<nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a
+        class="text-decoration-none text-secondary"
+        href="#"
+        (click)="goToHome($event)"
+        >Home</a
+      >
+    </li>
+    <li class="breadcrumb-item text-dark">
+      <a class="text-decoration-none text-secondary" href="#">Shop</a>
+    </li>
+  </ol>
+</nav>
+
+<!-- Price Filter -->
+<div class="container mt-4">
+  <h5 class="fw-bold">Widget Price Filter</h5>
+  <div class="d-flex align-items-center">
+    <div class="w-25">
+      <label for="min-price" class="form-label small">Min Price</label>
+    </div>
+    <span class="mx-2"> - </span>
+    <div class="w-25">
+      <label for="max-price" class="form-label small">Max Price</label>
+    </div>
+  </div>
+
+
+  <p class="mt-2">Price: ${{ minValue }} — ${{ maxValue }}</p>
+  <button class="btn btn-light border px-4 mb-3">Filter</button>
+</div>
+
+<hr />
+
+<!-- Product Categories -->
+<div class="mt-4">
+  <h5 class="fw-bold">Product Categories</h5>
+  <form class="check_product">
+    <div *ngIf="categories.length > 0; else noCategories">
+      <div *ngFor="let category of categories" class="form-check mb-2">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          [id]="category._id"
+          (change)="onCategoryChange(category._id, $any($event.target).checked)"
+        />
+        <label class="form-check-label" [for]="category._id">
+          {{ category.name }}
+        </label>
+      </div>
+    </div>
+    <ng-template #noCategories>
+      <p class="text-muted">No categories available.</p>
+    </ng-template>
+  </form>
+</div>
