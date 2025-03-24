@@ -8,9 +8,10 @@ import {
   DatePipe,
   SlicePipe,
   CurrencyPipe,
+  TitleCasePipe,
 } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
+import { FormsModule, NgModel } from '@angular/forms';
 @Component({
   selector: 'app-store-orders',
   imports: [
@@ -21,13 +22,21 @@ import { RouterLink } from '@angular/router';
     SlicePipe,
     CurrencyPipe,
     RouterLink,
+    FormsModule,
+    TitleCasePipe,
   ],
   templateUrl: './store-orders.component.html',
   styleUrls: ['./store-orders.component.css'],
 })
 export class StoreOrdersComponent implements OnInit {
   storeOrders$!: Observable<any[]>;
-
+  statusOptions: string[] = [
+    'pending',
+    'paid',
+    'shipped',
+    'delivered',
+    'cancelled',
+  ];
   constructor(private storeService: StoreService) {}
 
   ngOnInit(): void {
@@ -41,5 +50,17 @@ export class StoreOrdersComponent implements OnInit {
         console.error('Error fetching orders:', error);
       }
     );
+  }
+  onStatusChange(orderId: string, newStatus: string): void {
+    console.log(`Order ID: ${orderId}, New Status: ${newStatus}`);
+
+    this.storeService.updateOrderStatus(orderId, newStatus).subscribe({
+      next: (updatedOrder) => {
+        console.log('Order status updated successfully', updatedOrder);
+      },
+      error: (err) => {
+        console.error('Error updating order status', err);
+      },
+    });
   }
 }

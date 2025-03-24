@@ -40,4 +40,9 @@ export class StoreService {
       .delete<any>(`http://localhost:8088/store/${storeId}`)
       .pipe(map((res) => res.data));
   }
+  updateOrderStatus(orderId: string, status: any): Observable<any[]> {
+    return this.http
+      .put<any>(`http://localhost:8088/orders/${orderId}`, { status: status })
+      .pipe(map((res) => res));
+  }
 }
