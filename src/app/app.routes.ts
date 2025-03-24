@@ -30,6 +30,7 @@ import { StoreNewProductComponent } from './pages/store/store-new-product/store-
 import { StoreSettingsComponent } from './pages/store/store-settings/store-settings.component';
 import { StoreDetailsComponent } from './pages/store/store-details/store-details.component';
 import { AdminCategoriesComponent } from './pages/admin/admin-categories/admin-categories.component';
+import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.component';
 
 import { WishlistComponent } from './pages/wish-list/wish-list/wish-list.component';
 
@@ -79,6 +80,7 @@ export const routes: Routes = [
       { path: 'products/add', component: AdminAddProductComponent },
       { path: 'products/update/:id', component: AdminUpdateProductComponent },
       { path: 'categories', component: AdminCategoriesComponent },
+      { path: 'users', component: AdminUsersComponent },
     ],
   },
   {
