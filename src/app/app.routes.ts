@@ -21,6 +21,7 @@ import { AdminAddProductComponent } from './pages/admin/admin-add-product/admin-
 import { AdminUpdateProductComponent } from './pages/admin/admin-update-product/admin-update-product.component';
 import { NewAddressComponent } from './pages/account/new-address/new-address.component';
 import { AdminCategoriesComponent } from './pages/admin/admin-categories/admin-categories.component';
+import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.component';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,7 @@ export const routes: Routes = [
       { path: 'products/add', component: AdminAddProductComponent },
       { path: 'products/update/:id', component: AdminUpdateProductComponent },
       { path: 'categories', component: AdminCategoriesComponent },
+      { path: 'users', component: AdminUsersComponent },
     ],
   },
   {
