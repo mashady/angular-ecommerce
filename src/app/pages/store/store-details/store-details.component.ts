@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
+import { CurrencyPipe, NgFor, NgIf, NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
 import { StoreService } from '../../../services/store.service';
 import { ActivatedRoute } from '@angular/router';
@@ -6,7 +6,7 @@ import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-store-details',
-  imports: [NgStyle, CurrencyPipe, NgFor, NgClass, NgIf],
+  imports: [NgStyle, CurrencyPipe, NgFor, NgIf],
   templateUrl: './store-details.component.html',
   styleUrl: './store-details.component.css',
 })

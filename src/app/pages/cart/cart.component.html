@@ -80,7 +80,7 @@
                             <td>
                             <div class="d-flex align-items-center">
                               <button class="btn btn-sm btn-outline-white me-2 border" (click)="deleteFromCart(item.productId)">x</button>
-                              <img [src]="item.image" alt="Product Image" class="product-image">
+                              <img [src]="'http://localhost:8088'+item.image" alt="Product Image" class="product-image">
                               <span>{{ item.name }}</span>
                             </div>
                           </td>
@@ -161,11 +161,11 @@
             </div>
 
             <div class="modal-body">
-                <div *ngIf="successMessage" class="alert alert-success">
-                    {{ successMessage }}
+                <div *ngIf="orderSuccessMessage" class="alert alert-success">
+                    {{ orderSuccessMessage }}
                   </div>
-                <div *ngIf="errorMessage" class="alert alert-danger">
-                    {{ errorMessage }}
+                <div *ngIf="orderErrorMessage" class="alert alert-danger">
+                    {{ orderErrorMessage }}
                   </div>
                 <div class="row g-4">
                     <div class="col-md-4">
