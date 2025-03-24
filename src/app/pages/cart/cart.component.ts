@@ -28,7 +28,9 @@ export class CartComponent  implements OnInit {
   addresses!: any;
   promoCode: string = '';
   successMessage:string='';
+  orderSuccessMessage:string='';
   errorMessage:string='';
+  orderErrorMessage:string='';
   myCart: any = { products: [] };
   cartService=inject(CartService);
   router=inject(Router);
@@ -251,13 +253,13 @@ onSubmit(): void {
     }
 
     const selectedPaymentMethod = (document.querySelector('input[name="paymentMethod"]:checked') as HTMLInputElement)?.value;
-  
+
     if (selectedPaymentMethod === "cash") {
       this.cashCheckOut(this.myCart._id, this.selectedAddress);
     } else if (selectedPaymentMethod === "epay") {
       this.ePayCheckOut(this.myCart._id, this.selectedAddress);
     } else {
-      this.errorMessage = "Please select a payment method.";
+      this.orderErrorMessage = "Please select a payment method.";
     }
   }
   
@@ -265,7 +267,7 @@ onSubmit(): void {
     this.orderService.cashCheckOut(cart, shippingAddress).subscribe({
       next: (response) => {
         console.log("Order placed successfully!", response);
-        this.successMessage = response.status;
+        this.orderSuccessMessage = response.status;
         setTimeout(() => {
           window.location.href = '/account/orders'      
         }, 2000);
@@ -276,8 +278,8 @@ onSubmit(): void {
       },
       error: (err) => {
         console.error("Error placing order:", err);
-        this.successMessage = "";
-        this.errorMessage = err.error?.message || "An unexpected error occurred";
+        this.orderSuccessMessage = "";
+        this.orderErrorMessage = err.error?.message || "An unexpected error occurred";
       },
     });
   }
@@ -286,7 +288,7 @@ onSubmit(): void {
     this.orderService.ePayCheckOut(cart, shippingAddress).subscribe({
       next: (response) => {
         console.log("order successful!", response);
-        this.successMessage = `${response.status} complete  your payment  process`;
+        this.orderSuccessMessage = `${response.status} complete  your payment  process`;
         this.modalRef.hide(); 
         window.open(response.url, '_blank')
         this.loadCart();
@@ -296,8 +298,8 @@ onSubmit(): void {
       },
       error: (err) => {
         console.error("Error processing payment:", err);
-        this.successMessage = "";
-        this.errorMessage = err.error?.message || "Payment failed. Please try again.";
+        this.orderSuccessMessage = "";
+        this.orderErrorMessage = err.error?.message || "Payment failed. Please try again.";
       },
     });
   }

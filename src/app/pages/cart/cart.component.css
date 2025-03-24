@@ -176,6 +176,8 @@ background-color: #fffbfbfb;
     z-index: 1050 !important;
 }
 
-.modal-backdrop.show {
-    z-index: 1049; /* Keep backdrop behind both modals */
-  }
+.form-check-input:checked {
+    background-color:var(--color-primary)!important; 
+    border-color: #ffffff !important;
+}
+
