@@ -127,3 +127,55 @@ color: #a2a5aa !important;
         max-width: 95%;
     }
 }
+.li{
+    color: var(--color-primary);
+}
+.addressButton{
+
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 14px;
+    width: 100px;
+    height:46px;
+    font-weight: 650;
+    padding: 2px;
+    display: flex;
+    float: right;
+}
+.payment{
+    color: white;
+    width:200px;
+    height:30px;
+    font-size: 14px;
+    font-weight: 650;
+    padding: 7px;
+
+
+
+}
+.cancel{
+    color:var(--color-primary);
+  border-color:var(--color-primary); ;
+
+
+}
+.order-card{
+background-color: #fffbfbfb;
+
+}
+.cancel:hover {
+    background: #e5e7eb;
+    color:var(--color-primary);
+
+}
+.modal-backdrop.show {
+    z-index: 1040 !important;
+}
+
+#confirmModal {
+    z-index: 1050 !important;
+}
+
+.modal-backdrop.show {
+    z-index: 1049; /* Keep backdrop behind both modals */
+  }
