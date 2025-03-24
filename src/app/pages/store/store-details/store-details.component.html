@@ -1,25 +1,58 @@
 <div class="container mt-5 mb-5">
   <div class="row">
     <div class="col-md-3">
-      <div class="card bg-secondary text-white">
+      <div class="card mainCard bg-secondary text-white">
         <div class="card-body text-center">
           <div class="mb-3">
             <img
-              src="https://secure.gravatar.com/avatar/67efac1f6ba32f86f6b5218c4f5dd2e0?s=96&d=mm&r=g"
+              [src]="storeInfo.storeLogo"
               alt="Profile"
               class="img-thumbnail bg-light mt-4"
               style="width: 100px"
             />
           </div>
           <h2 class="mb-3">{{ storeInfo.businessName }}</h2>
-          <p><i class="fa fa-phone"></i> {{ storeInfo.phone }}</p>
+          <p class="mb-3">"{{ storeInfo.storeDescription }}"</p>
+          <p><i class="fa fa-phone"></i> 01551262315</p>
         </div>
       </div>
     </div>
 
     <div class="col-md-9 p-0">
-      <div class="bg-image-container">
+      <div
+        class="bg-image-container"
+        [ngStyle]="{ 'background-image': 'url(' + storeInfo.storeBanner + ')' }"
+      >
         <div class="content-overlay text-center"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5 mb-5">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mt-4 gap-2">
+    <div *ngFor="let product of storeInfo.products" class="col">
+      <div class="card" style="height: 400px; padding: 1rem">
+        <div class="card-img-container">
+          <!-- Discount Badge -->
+          <div class="discount-badge">{{ product.discount }}%</div>
+          <i class="far fa-heart heart-icon"></i>
+          <img
+            [src]="'http://localhost:8088' + product.images[0]"
+            class="card-img-top"
+            alt="{{ product.name }}"
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="mb-0">
+            <span class="current-price">{{ product.price | currency }}</span>
+            <span class="old-price" *ngIf="product.discount > 0">{{
+              product.oldPrice | currency
+            }}</span>
+          </p>
+          <button class="add-btn">+</button>
+        </div>
       </div>
     </div>
   </div>
