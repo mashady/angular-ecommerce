@@ -6,6 +6,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-admin-categories',
   imports: [ReactiveFormsModule, CommonModule, RouterModule],
@@ -60,6 +63,30 @@ export class AdminCategoriesComponent {
     this.id = category._id!;
   }
 
+  deleteCategory(id: string) {
+    this.submitting = true;
+
+    this.categoryService.deleteCategory(id).subscribe({
+      next: (response) => {
+        console.log('Category deleted successfully', response);
+        this.submitting = false;
+        this.mode = 'add';
+        this.id = undefined;
+        this.categoryForm.reset();
+        const modalElement = document.getElementById('deleteCategory');
+        if (modalElement) {
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          modal?.hide();
+        }
+        this.ngOnInit();
+      },
+      error: (error) => {
+        console.error('Error deleting category', error);
+        this.submitting = false;
+      }
+    })
+  }
+
   updateCategory(id: string) {
     if(this.categoryForm.invalid) {
       return;
@@ -73,7 +100,7 @@ export class AdminCategoriesComponent {
         this.categoryForm.reset();
         this.submitting = false;
         this.mode = 'add';
-        this.id = undefined;
+        this.id = undefined; 
         this.ngOnInit();
       },
       error: (error) => {
