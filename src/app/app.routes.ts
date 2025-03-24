@@ -22,6 +22,9 @@ import { AdminUpdateProductComponent } from './pages/admin/admin-update-product/
 import { NewAddressComponent } from './pages/account/new-address/new-address.component';
 import { AdminCategoriesComponent } from './pages/admin/admin-categories/admin-categories.component';
 
+import { WishlistComponent } from './pages/wish-list/wish-list/wish-list.component';
+
+
 export const routes: Routes = [
   {
     path: '',
@@ -59,6 +62,7 @@ export const routes: Routes = [
     component: ProductListComponent,
     title: 'Poroducts List Page',
   },
+
   {
     path: 'product-details/:id',
     component: ProductDetailsComponent,
@@ -80,6 +84,11 @@ export const routes: Routes = [
     component: RegisterComponent,
     title: 'Register Page',
     canActivate: [authGuard],
+  },
+  {
+    path: 'wishlist',
+    component: WishlistComponent,
+    title: 'wish-list',
   },
   {
     path: '**',
