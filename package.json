@@ -22,12 +22,9 @@
     "bootstrap-icons": "^1.11.3",
     "cors": "^2.8.5",
     "jwt-decode": "^4.0.0",
-<<<<<<< HEAD
     "ngx-bootstrap": "^19.0.2",
-=======
     "ng5-slider": "^1.2.6",
     "nouislider": "^15.8.1",
->>>>>>> 862c7255ea632938b5f6b67c54ffe76a02c15b9d
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
