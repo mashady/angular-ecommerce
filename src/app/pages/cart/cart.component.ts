@@ -2,31 +2,61 @@ import { Component ,inject,OnInit} from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common'; 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'; 
+import { FormBuilder, FormsModule } from '@angular/forms'; 
 import {CounterServiceService} from "../../services/counter.service";
+import { AccountService } from '../../services/account.service';
+import {
+  FormGroup,Validators,  ReactiveFormsModule,
 
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { take } from 'rxjs';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule,HttpClientModule,FormsModule],
+  imports: [CommonModule,HttpClientModule,FormsModule,  ReactiveFormsModule,NgFor,NgIf
+  ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent  implements OnInit {
+  
+  addresses!: any;
   promoCode: string = '';
   successMessage:string='';
   errorMessage:string='';
   myCart: any = { products: [] };
   cartService=inject(CartService);
+  router=inject(Router);
   counterService=inject(CounterServiceService);
-  
+  accountService=inject(AccountService);
+  fb=inject(FormBuilder);
+  addressForm!: FormGroup;
+  apiError: string = '';
+  isSubmitting: boolean = false;
+  isAddingAddress: boolean = false;
 
 
-  
 ngOnInit() {
-  
+    this.addressForm = this.fb.group({
+        address: ['', Validators.required],
+        city: ['', Validators.required],
+        country: ['', Validators.required],
+        zip: ['', [Validators.required, Validators.pattern('^[0-9]{5,10}$')]],
+      });
+      
 this.loadCart();
+  this.accountService.account$?.subscribe({
+    next: (account) => {
+      this.addresses = account.user.address;
+      console.log(this.addresses);
+    },
+  });
+}
+get f() {
+  return this.addressForm.controls;
 }
 
 loadCart() {
@@ -45,6 +75,11 @@ loadCart() {
       }
     }
   });
+}
+
+
+toggleAddressForm() {
+  this.isAddingAddress = !this.isAddingAddress;
 }
 
 addProductToCart(productId: string, quantity: number) {
@@ -124,4 +159,80 @@ deleteFromCart(productId: string) {
       console.error('Error delete  product  from cart:', err);
       },
 });
-}}
+}
+
+
+
+onSubmit(): void {
+    if (this.addressForm.valid && !this.isSubmitting) {
+      const newAddress = this.addressForm.value;
+
+      const cleanedAddress = { ...newAddress };
+      delete cleanedAddress._id;
+
+      this.isSubmitting = true;
+
+      this.accountService.account$.pipe(take(1)).subscribe({
+        next: (account) => {
+          if (account) {
+            const updatedAddresses = account.user.address.map(
+              (address: any) => {
+                const { _id, ...cleanedExistingAddress } = address;
+                return cleanedExistingAddress;
+              }
+            );
+
+            const isDuplicate = updatedAddresses.some(
+              (existingAddress: any) =>
+                existingAddress.address === cleanedAddress.address &&
+                existingAddress.city === cleanedAddress.city &&
+                existingAddress.country === cleanedAddress.country &&
+                existingAddress.zip === cleanedAddress.zip
+            );
+
+            if (isDuplicate) {
+              this.apiError = 'This address is already in your list.';
+              this.isSubmitting = false;
+              return;
+            }
+
+            updatedAddresses.push(cleanedAddress);
+
+            this.accountService.addAddress(cleanedAddress).subscribe({
+              next: () => {
+                this.successMessage =
+                  'Your address has been successfully added!';
+                this.apiError = '';
+
+                setTimeout(() => {
+                  this.successMessage = '';
+                }, 2000);
+              },
+              error: (err) => {
+                if (err.error && err.error.errors) {
+                  this.apiError = err.error.errors.join(', ');
+                } else {
+                  this.apiError = err.message;
+                }
+              },
+              complete: () => {
+                this.isSubmitting = false;
+              },
+            });
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching account:', err);
+          this.isSubmitting = false;
+        },
+      });
+    }
+  }
+
+
+
+
+
+
+  
+}

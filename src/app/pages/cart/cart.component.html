@@ -140,12 +140,317 @@
                         <span class="fw-bold">${{myCart.subtotal.toFixed(2)}}</span>
                     </div>
 
-                    <button class="btn btn-dark checkout-btn w-100 mb-3">
+                    <button class="btn btn-dark checkout-btn w-100 mb-3"  data-bs-toggle="modal" data-bs-target="#checkoutModal">
                         Proceed to Checkout
                     </button>
                     
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h5 class="modal-title  fw-bold li ">
+                    <i class="fa-solid fa-cart-shopping li"></i> Checkout
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card p-4 shadow-sm border-0 order-card">
+                            <h5 class="fw-bold mb-3">
+                                <i class="fa-solid fa-receipt"></i> Order Summary
+                            </h5>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Subtotal</span>
+                                <span class="fw-semibold">${{ myCart.subtotalBeforeDiscount.toFixed(2) }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Discount</span>
+                                <span class="text-success fw-semibold">%{{ myCart.discountPercentage }}</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="d-flex justify-content-between">
+                                <span class="fw-bold text-dark">Total</span>
+                                <span class="fw-bold text-dark">${{ myCart.subtotal.toFixed(2) }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <button type="button" class="btn btn-outline-dark w-100 mb-3"  
+                                (click)="toggleAddressForm()">
+                             {{ isAddingAddress ? 'Back' : 'Add New Address' }}
+                        </button>
+
+                        <div *ngIf="isAddingAddress">
+                            <h5 class="fw-bold text-secondary mb-3">Add New Address</h5>
+                            <section class="addAddress">
+                                <div *ngIf="successMessage" class="alert alert-success" role="alert">
+                                  {{ successMessage }}
+                                </div>
+                                <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+                                  <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                      <label for="address">Address</label>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        id="address"
+                                        placeholder="Enter your address"
+                                        formControlName="address"
+                                      />
+                                      <div
+                                        *ngIf="f['address'].touched && f['address'].invalid"
+                                        class="alert alert-danger mt-2"
+                                      >
+                                        <div *ngIf="f['address'].hasError('required')">
+                                          Address is required.
+                                        </div>
+                                      </div>
+                                    </div>
+                              
+                                    <div class="form-group col-md-6">
+                                      <label for="city">City</label>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        id="city"
+                                        placeholder="City"
+                                        formControlName="city"
+                                      />
+                                      <div
+                                        *ngIf="f['city'].touched && f['city'].invalid"
+                                        class="alert alert-danger mt-2"
+                                      >
+                                        <div *ngIf="f['city'].hasError('required')">City is required.</div>
+                                      </div>
+                                    </div>
+                              
+                                    <div class="form-group col-md-6">
+                                      <label for="country">Country</label>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        id="country"
+                                        placeholder="Country"
+                                        formControlName="country"
+                                      />
+                                      <div
+                                        *ngIf="f['country'].touched && f['country'].invalid"
+                                        class="alert alert-danger mt-2"
+                                      >
+                                        <div *ngIf="f['country'].hasError('required')">
+                                          Country is required.
+                                        </div>
+                                      </div>
+                                    </div>
+                              
+                                    <div class="form-group col-md-6">
+                                      <label for="zip">Zip Code</label>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        id="zip"
+                                        placeholder="Zip Code"
+                                        formControlName="zip"
+                                      />
+                                      <div
+                                        *ngIf="f['zip'].touched && f['zip'].invalid"
+                                        class="alert alert-danger mt-2"
+                                      >
+                                        <div *ngIf="f['zip'].hasError('required')">Zip code is required.</div>
+                                        <div *ngIf="f['zip'].hasError('pattern')">
+                                          Enter a valid zip code.
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                              
+                                  <div *ngIf="apiError?.length !== 0">
+                                    <div
+                                      *ngFor="let error of apiError.split(', ')"
+                                      class="alert alert-danger mt-2"
+                                    >
+                                      {{ error }}
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer d-flex justify-content-between">
+                                    <button type="button" class="btn btn-light" (click)="toggleAddressForm()">Cancel</button>
+                                    <button type="submit" class="btn btn-dark" [disabled]="addressForm.invalid"> add</button>
+                                                
+                                </div>
+                                </form>
+                                
+                            </section>
+                        </div>
+
+                        <div *ngIf="!isAddingAddress">
+                            <h5 class="fw-bold text-secondary mb-3">Your Addresses</h5>
+                            <div class="list-group">
+                                <div class="list-group-item form-check p-3 border rounded" *ngFor="let address of addresses; let i = index">
+                                    <input class="form-check-input me-2" type="radio" name="addressSelection" value="{{ address }}" checked>
+                                    <label class="form-check-label">
+                                        <ul class="list-unstyled mb-0">
+                                            <li><strong class="text-dark">Address:</strong> {{ address.address }}</li>
+                                            <li><strong class="text-dark">Country:</strong> {{ address.country }}</li>
+                                            <li><strong class="text-dark">City:</strong>    {{ address.city }}</li>
+                                            <li><strong class="text-dark">Zip Code:</strong> {{ address.zip }}</li>
+                                        </ul>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="fw-bold mt-4">
+                            <i class="fa-solid fa-credit-card"></i> Payment Method
+                        </h5>
+                        <div class="form-check py-3 px-4 border rounded d-flex align-items-center gap-2">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="cashPayment" value="cash">
+                            <label class="form-check-label fw-semibold" for="cashPayment">
+                                <i class="fa-solid fa-money-bill text-success"></i> Cash on Delivery
+                            </label>
+                        </div>
+
+                        <div class="form-check py-3 px-4 border rounded mt-2 d-flex align-items-center gap-2">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="ePayPayment" value="epay">
+                            <label class="form-check-label fw-semibold" for="ePayPayment">
+                                <i class="fa-solid fa-money-check text-primary"></i> E-Pay
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-white cancel" data-bs-dismiss="modal">Cancel <i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn btn-dark">
+                    <i class="fa-solid fa-check"></i> Confirm Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark fw-bold">
+                    <i class="fa-solid fa-cart-shopping"></i> Add New Address
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <section class="addAddress">
+                <div *ngIf="successMessage" class="alert alert-success" role="alert">
+                  {{ successMessage }}
+                </div>
+                <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+                  <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <label for="address">Address</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="address"
+                        placeholder="Enter your address"
+                        formControlName="address"
+                      />
+                      <div
+                        *ngIf="f['address'].touched && f['address'].invalid"
+                        class="alert alert-danger mt-2"
+                      >
+                        <div *ngIf="f['address'].hasError('required')">
+                          Address is required.
+                        </div>
+                      </div>
+                    </div>
+              
+                    <div class="form-group col-md-6">
+                      <label for="city">City</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="city"
+                        placeholder="City"
+                        formControlName="city"
+                      />
+                      <div
+                        *ngIf="f['city'].touched && f['city'].invalid"
+                        class="alert alert-danger mt-2"
+                      >
+                        <div *ngIf="f['city'].hasError('required')">City is required.</div>
+                      </div>
+                    </div>
+              
+                    <div class="form-group col-md-6">
+                      <label for="country">Country</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="country"
+                        placeholder="Country"
+                        formControlName="country"
+                      />
+                      <div
+                        *ngIf="f['country'].touched && f['country'].invalid"
+                        class="alert alert-danger mt-2"
+                      >
+                        <div *ngIf="f['country'].hasError('required')">
+                          Country is required.
+                        </div>
+                      </div>
+                    </div>
+              
+                    <div class="form-group col-md-6">
+                      <label for="zip">Zip Code</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="zip"
+                        placeholder="Zip Code"
+                        formControlName="zip"
+                      />
+                      <div
+                        *ngIf="f['zip'].touched && f['zip'].invalid"
+                        class="alert alert-danger mt-2"
+                      >
+                        <div *ngIf="f['zip'].hasError('required')">Zip code is required.</div>
+                        <div *ngIf="f['zip'].hasError('pattern')">
+                          Enter a valid zip code.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              
+                  <div *ngIf="apiError?.length !== 0">
+                    <div
+                      *ngFor="let error of apiError.split(', ')"
+                      class="alert alert-danger mt-2"
+                    >
+                      {{ error }}
+                    </div>
+                  </div>
+                  <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-white cancel" data-bs-dismiss="modal">Cancel<i class="fa-solid fa-xmark"></i></button>
+                    <button type="submit" class="btn btn-dark" [disabled]="addressForm.invalid">
+                        <i class="fa-solid fa-check"></i> Add
+                    </button>
+                                
+                </div>
+                </form>
+                
+              </section>
+              
         </div>
     </div>
 </div>

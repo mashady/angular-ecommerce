@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Category } from '../../interfaces/category';
 import { CategoryRequestService } from '../../services/category-request.service';
 
+
 @Component({
   selector: 'app-product-details',
   standalone: true,
@@ -21,10 +22,12 @@ export class ProductDetailsComponent implements OnInit {
   loading = true;
   error: string | null = null;
 
+    
   constructor(
     private productService: ProductRequestService,
     private route: ActivatedRoute,
-    private categoryService: CategoryRequestService
+    private categoryService: CategoryRequestService,
+    
   ) {}
 
   ngOnInit() {
@@ -62,5 +65,7 @@ export class ProductDetailsComponent implements OnInit {
         this.loading = false;
       },
     });
+    
   }
+  
 }
