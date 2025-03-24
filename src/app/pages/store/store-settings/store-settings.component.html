@@ -1,0 +1,102 @@
+<section class="settings">
+  <h2>
+    Store Settings ->
+    <span class="storeLink" [routerLink]="['/store', storeSettings._id]">
+      Manage Store</span
+    >
+  </h2>
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="apiError" class="alert alert-danger" role="alert">
+    {{ apiError }}
+  </div>
+
+  <form [formGroup]="storeSettingsForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="businessName">Business Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="businessName"
+          placeholder="Enter your business name"
+          formControlName="businessName"
+        />
+        <div
+          *ngIf="f['businessName'].touched && f['businessName'].invalid"
+          class="alert alert-danger mt-2"
+        >
+          <div *ngIf="f['businessName'].hasError('required')">
+            Business Name is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="storeDescription">Store Description</label>
+        <textarea
+          class="form-control"
+          id="storeDescription"
+          placeholder="Enter your store description"
+          formControlName="storeDescription"
+        ></textarea>
+        <div
+          *ngIf="f['storeDescription'].touched && f['storeDescription'].invalid"
+          class="alert alert-danger mt-2"
+        >
+          <div *ngIf="f['storeDescription'].hasError('required')">
+            Store Description is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="storeBanner">Store Banner URL</label>
+        <input
+          type="url"
+          class="form-control"
+          id="storeBanner"
+          placeholder="Enter store banner URL"
+          formControlName="storeBanner"
+        />
+        <div
+          *ngIf="f['storeBanner'].touched && f['storeBanner'].invalid"
+          class="alert alert-danger mt-2"
+        >
+          <div *ngIf="f['storeBanner'].hasError('required')">
+            Store Banner URL is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="storeLogo">Store Logo URL</label>
+        <input
+          type="url"
+          class="form-control"
+          id="storeLogo"
+          placeholder="Enter store logo URL"
+          formControlName="storeLogo"
+        />
+        <div
+          *ngIf="f['storeLogo'].touched && f['storeLogo'].invalid"
+          class="alert alert-danger mt-2"
+        >
+          <div *ngIf="f['storeLogo'].hasError('required')">
+            Store Logo URL is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="storeSettingsForm.invalid"
+    >
+      {{ isNewStore ? "Create Store" : "Update Store" }}
+    </button>
+  </form>
+</section>

@@ -1,0 +1,7 @@
+.storeNewProduct button {
+  background-color: var(--color-primary);
+  border: none;
+  color: #fff;
+  width: 100px;
+  height: 40px;
+}

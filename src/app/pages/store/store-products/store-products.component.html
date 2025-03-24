@@ -1,0 +1,71 @@
+<section class="storeProducts">
+  <div class="d-flex justify-content-between align-content-center">
+    <h2>Porducts</h2>
+    <button class="btn newProduct" [routerLink]="['new']">New</button>
+  </div>
+  <table
+    class="table table-bordered"
+    *ngIf="products$ | async as products; else loading"
+  >
+    <thead *ngIf="products.length > 0">
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Name</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Price</th>
+        <th scope="col">Category</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="products.length > 0">
+      <tr *ngFor="let product of products">
+        <td>
+          <img
+            [src]="'http://localhost:8088' + product.images[0]"
+            alt="Product Image"
+            style="width: 50px; height: auto"
+          />
+        </td>
+        <td>
+          <span>{{ product.name }}</span>
+        </td>
+        <td>
+          <span>{{ product.stock }}</span>
+        </td>
+        <td>
+          <span>{{ product.price | currency }}</span>
+        </td>
+        <td>
+          <span>{{ product.category }}</span>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn"
+            [routerLink]="['edit', product._id]"
+          >
+            Edit
+          </button>
+          |
+          <button
+            type="button"
+            class="btn"
+            (click)="deleteProduct(product._id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <div *ngIf="products.length <= 0">
+      <p>No products found.</p>
+      <button class="btn">
+        <a routerLink="/shop">Return to shop</a>
+      </button>
+    </div>
+  </table>
+
+  <ng-template #loading>
+    <p>Loading products...</p>
+  </ng-template>
+</section>
