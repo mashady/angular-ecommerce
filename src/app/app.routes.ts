@@ -82,7 +82,7 @@ export const routes: Routes = [
       { path: 'categories', component: AdminCategoriesComponent },
       { path: 'users', component: AdminUsersComponent },
     ],
-  },
+  }, //67cd510036cff1e805928845
   {
     path: 'products-list',
     component: ProductListComponent,
