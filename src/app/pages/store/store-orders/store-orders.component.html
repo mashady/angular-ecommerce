@@ -17,7 +17,15 @@
         <span>{{ order.createdAt | date : "MMM d, y, h:mm a" }}</span>
       </td>
       <td>
-        <span>{{ order.status }}</span>
+        <select
+          [(ngModel)]="order.status"
+          (ngModelChange)="onStatusChange(order._id, order.status)"
+          class="form-control"
+        >
+          <option *ngFor="let status of statusOptions" [value]="status">
+            {{ status | titlecase }}
+          </option>
+        </select>
       </td>
       <td>
         <span>{{ order.totalOrderPrice | currency }}</span>
