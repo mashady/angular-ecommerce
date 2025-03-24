@@ -29,6 +29,9 @@ import { StoreEditProductComponent } from './pages/store/store-edit-product/stor
 import { StoreNewProductComponent } from './pages/store/store-new-product/store-new-product.component';
 import { StoreSettingsComponent } from './pages/store/store-settings/store-settings.component';
 import { StoreDetailsComponent } from './pages/store/store-details/store-details.component';
+import { AdminCategoriesComponent } from './pages/admin/admin-categories/admin-categories.component';
+
+import { WishlistComponent } from './pages/wish-list/wish-list/wish-list.component';
 
 export const routes: Routes = [
   {
@@ -75,7 +78,7 @@ export const routes: Routes = [
       { path: 'products', component: AdminProductsComponent },
       { path: 'products/add', component: AdminAddProductComponent },
       { path: 'products/update/:id', component: AdminUpdateProductComponent },
-      //{ path: 'orders', component: OrdersComponent },
+      { path: 'categories', component: AdminCategoriesComponent },
     ],
   },
   {
@@ -83,6 +86,7 @@ export const routes: Routes = [
     component: ProductListComponent,
     title: 'Poroducts List Page',
   },
+
   {
     path: 'product-details/:id',
     component: ProductDetailsComponent,
@@ -104,6 +108,11 @@ export const routes: Routes = [
     component: RegisterComponent,
     title: 'Register Page',
     canActivate: [authGuard],
+  },
+  {
+    path: 'wishlist',
+    component: WishlistComponent,
+    title: 'wish-list',
   },
   {
     path: '**',
