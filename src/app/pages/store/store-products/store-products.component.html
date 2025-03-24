@@ -7,6 +7,8 @@
     class="table table-bordered"
     *ngIf="products$ | async as products; else loading"
   >
+    <p *ngIf="products.length == 0">No products found</p>
+
     <thead *ngIf="products.length > 0">
       <tr>
         <th scope="col">Image</th>

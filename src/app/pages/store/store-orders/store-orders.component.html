@@ -1,5 +1,6 @@
 <table class="table table-bordered" *ngIf="storeOrders$ | async as orders">
   <thead *ngIf="orders.length > 0">
+    <p *ngIf="orders.length == 0">No orders found</p>
     <tr>
       <th scope="col">Order</th>
       <th scope="col">Date</th>
