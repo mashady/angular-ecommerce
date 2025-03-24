@@ -68,7 +68,7 @@ export class LoginComponent {
             console.log(this.AuthService.userData.value);
             this.apiError = '';
             console.log('navigate');
-            this.router.navigate(['/']);
+            this.router.navigate(['/account']);
           }
         },
         error: (err) => {

@@ -11,8 +11,12 @@
     <a routerLink="/account/details">edit your password and account details</a>.
   </p>
   <button class="btn">
-    <a routerLink="/store">
-      {{ account.user.seller ? "Go To Vendor Dashboard" : "Became a Seller" }}
+    <a routerLink="/store/settings">
+      {{
+        account.user.role == "seller"
+          ? "Go To Vendor Dashboard"
+          : "Became a Seller"
+      }}
     </a>
   </button>
 </section>

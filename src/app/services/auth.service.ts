@@ -62,6 +62,6 @@ export class AuthService {
     localStorage.removeItem('userToken');
     this.userData.next(null);
     this.accountService.accountData.next(null);
-    //this.router.navigate(['/']);
+    this.router.navigate(['/']);
   }
 }

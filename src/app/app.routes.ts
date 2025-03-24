@@ -39,7 +39,7 @@ export const routes: Routes = [
     component: HomeComponent,
     title: 'Home Page',
   },
-  { path: 'store/:id', component: StoreDetailsComponent },
+  { path: 'explore/store/:id', component: StoreDetailsComponent },
 
   {
     path: 'account',

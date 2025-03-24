@@ -6,7 +6,7 @@ import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-store-details',
-  imports: [NgIf, NgFor],
+  imports: [],
   templateUrl: './store-details.component.html',
   styleUrl: './store-details.component.css',
 })
