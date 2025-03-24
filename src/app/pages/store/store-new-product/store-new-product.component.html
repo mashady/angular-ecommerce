@@ -1,7 +1,7 @@
-<div class="m-5">
-  <h2 class="text-center">Add New Product</h2>
+<div class="storeNewProduct">
+  <h2>Add New Product</h2>
   <form
-    [formGroup]="productForm"
+    [formGroup]="productFormForSeller"
     class="row g-3 my-3"
     (ngSubmit)="addProduct()"
   >
@@ -20,17 +20,18 @@
 
       <div
         *ngIf="
-          productForm.get('name')?.invalid && productForm.get('name')?.touched
+          productFormForSeller.get('name')?.invalid &&
+          productFormForSeller.get('name')?.touched
         "
         class="text-danger"
       >
-        <div *ngIf="productForm.get('name')?.errors?.['required']">
+        <div *ngIf="productFormForSeller.get('name')?.errors?.['required']">
           Product name is required.
         </div>
-        <div *ngIf="productForm.get('name')?.errors?.['minlength']">
+        <div *ngIf="productFormForSeller.get('name')?.errors?.['minlength']">
           Product name must be at least 5 characters long.
         </div>
-        <div *ngIf="productForm.get('name')?.errors?.['maxlength']">
+        <div *ngIf="productFormForSeller.get('name')?.errors?.['maxlength']">
           Product name must not exceed 100 characters.
         </div>
       </div>
@@ -49,18 +50,18 @@
 
       <div
         *ngIf="
-          productForm.get('discount')?.invalid &&
-          productForm.get('discount')?.touched
+          productFormForSeller.get('discount')?.invalid &&
+          productFormForSeller.get('discount')?.touched
         "
         class="text-danger"
       >
-        <div *ngIf="productForm.get('discount')?.errors?.['required']">
+        <div *ngIf="productFormForSeller.get('discount')?.errors?.['required']">
           Product discount is required at least as 0 for no discount.
         </div>
-        <div *ngIf="productForm.get('discount')?.errors?.['min']">
+        <div *ngIf="productFormForSeller.get('discount')?.errors?.['min']">
           Product Discount must be at least 0 as 0% discount.
         </div>
-        <div *ngIf="productForm.get('discount')?.errors?.['max']">
+        <div *ngIf="productFormForSeller.get('discount')?.errors?.['max']">
           Product Discount can't exceed 1 as 100% discount.
         </div>
       </div>
@@ -79,15 +80,19 @@
 
       <div
         *ngIf="
-          productForm.get('description')?.invalid &&
-          productForm.get('description')?.touched
+          productFormForSeller.get('description')?.invalid &&
+          productFormForSeller.get('description')?.touched
         "
         class="text-danger"
       >
-        <div *ngIf="productForm.get('description')?.errors?.['required']">
+        <div
+          *ngIf="productFormForSeller.get('description')?.errors?.['required']"
+        >
           Product description is required.
         </div>
-        <div *ngIf="productForm.get('description')?.errors?.['minlength']">
+        <div
+          *ngIf="productFormForSeller.get('description')?.errors?.['minlength']"
+        >
           Product description must be at least 10 characters long.
         </div>
       </div>
@@ -108,17 +113,18 @@
 
       <div
         *ngIf="
-          productForm.get('price')?.invalid && productForm.get('price')?.touched
+          productFormForSeller.get('price')?.invalid &&
+          productFormForSeller.get('price')?.touched
         "
         class="text-danger"
       >
-        <div *ngIf="productForm.get('price')?.errors?.['required']">
+        <div *ngIf="productFormForSeller.get('price')?.errors?.['required']">
           Product price is required at least as 0 for no discount.
         </div>
-        <div *ngIf="productForm.get('price')?.errors?.['min']">
+        <div *ngIf="productFormForSeller.get('price')?.errors?.['min']">
           Product price must be at least 0 as a free product.
         </div>
-        <div *ngIf="productForm.get('price')?.errors?.['max']">
+        <div *ngIf="productFormForSeller.get('price')?.errors?.['max']">
           Product price can't exceed 10,000.
         </div>
       </div>
@@ -138,14 +144,15 @@
 
       <div
         *ngIf="
-          productForm.get('stock')?.invalid && productForm.get('price')?.touched
+          productFormForSeller.get('stock')?.invalid &&
+          productFormForSeller.get('price')?.touched
         "
         class="text-danger"
       >
-        <div *ngIf="productForm.get('stock')?.errors?.['required']">
+        <div *ngIf="productFormForSeller.get('stock')?.errors?.['required']">
           Product stock is required at least as 0 for no discount.
         </div>
-        <div *ngIf="productForm.get('stock')?.errors?.['min']">
+        <div *ngIf="productFormForSeller.get('stock')?.errors?.['min']">
           Product stock must be at least 0
         </div>
       </div>
@@ -203,12 +210,14 @@
     <div class="col-12">
       <button
         type="submit"
-        class="btn btn-primary rounded-5 w-100"
+        class="btn rounded-5"
         [disabled]="
-          productForm.invalid || submitting || selectedImages.length === 0
+          productFormForSeller.invalid ||
+          submitting ||
+          selectedImages.length === 0
         "
       >
-        Add Product
+        Save
       </button>
     </div>
   </form>

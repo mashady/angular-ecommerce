@@ -1,0 +1,24 @@
+.settings h3 {
+  font-size: 18px;
+}
+.settings .form-group {
+  margin-top: 20px;
+  margin-bottom: 0.6rem;
+}
+.settings .form-group label {
+  font-size: 14px;
+  margin-bottom: 0.3rem;
+}
+.settings button {
+  background-color: var(--color-primary);
+  border: none;
+  color: #fff;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  margin-top: 20px;
+}
+.storeLink {
+  color: var(--color-primary);
+  cursor: pointer;
+}
