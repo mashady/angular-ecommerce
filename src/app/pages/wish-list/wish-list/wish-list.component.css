@@ -1,55 +1,168 @@
-.wishlist-table img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-  
-  .wishlist-table th, .wishlist-table td {
-    vertical-align: middle;
-    text-align: center;
-  }
-  
-  .wishlist-table .product-info {
-    text-align: left;
-  }
-  
-  .wishlist-table .old-price {
-    text-decoration: line-through;
-    color: gray;
-  }
-  
-  .wishlist-table .add-to-cart-btn {
-    background-color: #6c5ce7;
-    border: none;
-    color: white;
-    padding: 5px 15px;
-    border-radius: 5px;
-  }
-  
-  .wishlist-table .remove-btn {
-    border: none;
-    background: none;
-    color: red;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  .social-icons a {
-    margin-right: 10px;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .newsletter {
-    background-color: #f8f9fa;
-    padding: 20px;
-    text-align: center;
-    margin-top: 30px;
-  }
-  
-  .newsletter input {
-    width: 300px;
-    padding: 8px;
-    margin-right: 10px;
-  }
+/* Wishlist Page Styling */
+.wishlist-container {
+  max-width: 900px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Wishlist Title */
+.wishlist-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Wishlist Table */
+.wishlist-table {
+  width: 100%;
+  background: #f9f9f9;
+}
+
+.wishlist-table th {
+  text-align: left;
+  font-size: 15px;
+  padding: 12px;
+}
+
+.wishlist-table td {
+  text-align: left;
+  vertical-align: middle;
+  padding: 12px;
+}
+
+/* Product Image */
+.wishlist-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Product Name */
+.product-info {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Price Styling */
+.old-price {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+/* Add to Cart Button */
+.add-to-cart-btn {
+  background: #6a35ff;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.add-to-cart-btn:hover {
+  background: #5023e1;
+}
+
+/* Remove Button */
+.remove-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  color: red;
+}
+
+/* Social Icons */
+.social-icons {
+  margin-top: 20px;
+}
+
+.social-icons span {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.social-icons a {
+  color: #333;
+  font-size: 20px;
+  margin: 0 10px;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #6a35ff;
+}
+
+/* Newsletter Box */
+.newsletter-box {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.newsletter-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.newsletter-text {
+  font-size: 14px;
+  color: #666;
+}
+
+.newsletter-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.newsletter-input input {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.send-btn {
+  background: #6a35ff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+.send-btn:hover {
+  background: #5023e1;
+}
+
+/* Terms and Conditions */
+.newsletter-terms {
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.newsletter-terms a {
+  color: #6a35ff;
+  text-decoration: none;
+}
+
+.newsletter-terms a:hover {
+  text-decoration: underline;
+}

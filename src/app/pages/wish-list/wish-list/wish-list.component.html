@@ -1,4 +1,7 @@
-<div class="container mt-4">
+<div class="container mt-4 wishlist-container">
+  <h2 class="wishlist-title">My Wishlist ({{ wishlistCount }})</h2>
+  <p class="total-price">Total Price: ${{ totalPrice.toFixed(2) }}</p>
+
   <table class="table wishlist-table">
     <thead>
       <tr>
@@ -6,32 +9,35 @@
         <th>Price</th>
         <th>Date Added</th>
         <th>Stock</th>
-        <th>Add to Cart</th>
+        <th>Add to cart</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of wishlist">
         <td class="d-flex align-items-center">
-          <img [src]="item.images[0]" alt="{{ item.name }}" class="me-3">
-          <span class="product-info">{{ item.name }}</span>
+          <img *ngIf="item.productId?.images?.length" 
+               [src]="item.productId.images[0]" 
+               alt="{{ item.productId?.name }}" 
+               class="wishlist-img me-3">
+          <span class="product-info">{{ item.productId?.name }}</span>
         </td>
         <td>
-          <span class="old-price" *ngIf="item.discount > 0">
-            ${{ (item.price / (1 - item.discount)).toFixed(2) }}
+          <span class="old-price" *ngIf="item.productId?.discount > 0">
+            ${{ (item.productId.price / (1 - item.productId.discount)).toFixed(2) }}
           </span>
-          <span class="text-danger fw-bold"> ${{ item.price }}</span>
+          <span class="text-dark fw-bold"> ${{ item.productId?.price }}</span>
         </td>
-        <td>{{ currentDate }}</td>
-        <td [ngClass]="{'text-danger': item.stock === 0, 'text-success': item.stock > 0}">
-          {{ item.stock > 0 ? 'In Stock' : 'Out of Stock' }}
-        </td>
-        <td>
-          <button class="btn btn-primary add-to-cart-btn">Add to cart</button>
+        <td>{{ currentDate  }}</td>
+        <td class="text-success">
+          {{ item.productId?.stock > 0 ? 'In Stock' : 'Out of Stock' }}
         </td>
         <td>
-          <button class="remove-btn" (click)="removeFromWishlist(item._id)">×</button>
+          <button class="btn add-to-cart-btn">Add to cart</button>
         </td>
+        <td>
+            <button class="remove-btn" (click)="removeFromWishlist(item.productId._id)">×</button>
+                  </td>
       </tr>
     </tbody>
   </table>
@@ -45,15 +51,16 @@
     <a href="#"><i class="fab fa-linkedin"></i></a>
   </div>
 
-  <!-- Newsletter Section -->
-  <!-- <div class="newsletter">
-    <h5>Join our newsletter for £10 offs</h5>
-    <p>Register now to get the latest updates on promotions & coupons. Don't worry, we won't spam!</p>
-    <input type="email" placeholder="Enter your email address" class="form-control d-inline-block">
-    <button class="btn btn-primary">SEND</button>
-    <p class="mt-2">
-      By subscribing you agree to our <a href="#">Terms & Conditions</a> and
-      <a href="#">Privacy & Cookies Policy</a>.
-    </p> -->
-  <!-- </div> -->
+  <!-- Newsletter Subscription Box -->
+  <div class="newsletter-box">
+    <p class="newsletter-title">Join our newsletter for £10 offs</p>
+    <p class="newsletter-text">Register now to get latest updates on promotions & coupons. Don't worry, we not spam!</p>
+    <div class="newsletter-input">
+      <input type="email" class="form-control" placeholder="Enter your email address">
+      <button class="btn send-btn">SEND</button>
+    </div>
+    <p class="newsletter-terms">
+      By subscribing you agree to our <a href="#">Terms & Conditions</a> and <a href="#">Privacy & Cookies Policy</a>.
+    </p>
+  </div>
 </div>
