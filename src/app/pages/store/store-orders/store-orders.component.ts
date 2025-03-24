@@ -35,10 +35,10 @@ export class StoreOrdersComponent implements OnInit {
     console.log(this.storeService.getOrders());
     this.storeOrders$.subscribe(
       (orders) => {
-        console.log('Orders fetched:', orders); // Logs the orders when fetched
+        console.log('Orders fetched:', orders);
       },
       (error) => {
-        console.error('Error fetching orders:', error); // Logs any error if it occurs
+        console.error('Error fetching orders:', error);
       }
     );
   }

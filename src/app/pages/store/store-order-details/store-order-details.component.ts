@@ -21,7 +21,6 @@ import {
     NgFor,
     NgIf,
     AsyncPipe,
-    JsonPipe,
     RouterLink,
   ],
   templateUrl: './store-order-details.component.html',

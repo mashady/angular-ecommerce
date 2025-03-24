@@ -15,16 +15,16 @@ export class AccountService {
 
   getAccount(): Observable<any> {
     return this.httpClient.get<any>('http://localhost:8088/user/profile').pipe(
-      map((res) => {
+      /* map((res) => {
         console.log(res.user);
         this.accountData = res.user;
         return res.user;
-      })
-      /*tap((account) => this.accountData.next(account)),
+      })*/
+      tap((account) => this.accountData.next(account)),
       catchError((error) => {
         console.error('Error fetching account', error);
         return throwError(() => new Error('Failed to fetch account'));
-      })*/
+      })
     );
   }
 
