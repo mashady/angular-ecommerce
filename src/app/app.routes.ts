@@ -20,6 +20,7 @@ import { EditAddressesComponent } from './pages/account/edit-addresses/edit-addr
 import { AdminAddProductComponent } from './pages/admin/admin-add-product/admin-add-product.component';
 import { AdminUpdateProductComponent } from './pages/admin/admin-update-product/admin-update-product.component';
 import { NewAddressComponent } from './pages/account/new-address/new-address.component';
+import { AdminCategoriesComponent } from './pages/admin/admin-categories/admin-categories.component';
 
 export const routes: Routes = [
   {
@@ -50,7 +51,7 @@ export const routes: Routes = [
       { path: 'products', component: AdminProductsComponent },
       { path: 'products/add', component: AdminAddProductComponent },
       { path: 'products/update/:id', component: AdminUpdateProductComponent },
-      //{ path: 'orders', component: OrdersComponent },
+      { path: 'categories', component: AdminCategoriesComponent },
     ],
   },
   {
