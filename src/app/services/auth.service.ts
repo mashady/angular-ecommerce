@@ -27,6 +27,7 @@ export class AuthService {
 
     try {
       const decoded: any = jwtDecode(token);
+      console.log('decoded', decoded);
       if (decoded.exp * 1000 < Date.now()) {
         this.logout();
         return false;
