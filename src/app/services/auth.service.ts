@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
 import { AccountService } from './account.service';
+import { CounterServiceService } from './counter.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,8 @@ export class AuthService {
   constructor(
     public httpClient: HttpClient,
     private router: Router,
-    private accountService: AccountService
+    private accountService: AccountService,
+    public counter:CounterServiceService
   ) {
     if (localStorage.getItem('userToken')) {
       this.decode();
@@ -63,6 +65,7 @@ export class AuthService {
     localStorage.removeItem('userToken');
     this.userData.next(null);
     this.accountService.accountData.next(null);
+    this.counter.refreshCounter()
     this.router.navigate(['/']);
   }
 }
