@@ -15,7 +15,14 @@ export class AddressesComponent implements OnInit {
   ngOnInit(): void {
     this.accountService.account$?.subscribe({
       next: (account) => {
-        this.addresses = account.user.address;
+        console.log('account', account);
+        this.addresses = account?.user.address;
+        console.log(this.addresses);
+      },
+    });
+    this.accountService.accountData?.subscribe({
+      next: (account) => {
+        this.addresses = account?.user.address;
         console.log(this.addresses);
       },
     });
