@@ -22,6 +22,14 @@ export class AppComponent {
 
   ngOnInit() {
     console.log(location.pathname.startsWith('/admin'));
-    this.currentLayout = location.pathname.startsWith('/admin');
+    //this.currentLayout = location.pathname.startsWith('/admin');
+    if(location.pathname.startsWith('/admin')){
+      this.currentLayout = true;
+      console.log('admin');
+    }else{
+      this.currentLayout = false;
+      console.log('not admin');
+    }
+
   }
 }
