@@ -13,7 +13,11 @@ import { ProductRequestService } from '../../../services/product-request.service
 })
 export class StoreProductsComponent implements OnInit {
   products$!: Observable<any[]>;
-
+  paginatedProducts: any[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalProducts: number = 0;
+  totalPages: number = 0;
   constructor(
     private storeService: StoreService,
     private productService: ProductRequestService
@@ -22,8 +26,11 @@ export class StoreProductsComponent implements OnInit {
   ngOnInit(): void {
     this.products$ = this.storeService.getProducts().pipe(
       map((response: any) => {
-        console.log(response.data);
-        return response.data;
+        const products = response.data;
+        this.totalProducts = products.length;
+        this.totalPages = Math.ceil(this.totalProducts / this.itemsPerPage);
+        this.updatePaginatedProducts(products);
+        return products;
       })
     );
     console.log(this.products$);
@@ -40,6 +47,16 @@ export class StoreProductsComponent implements OnInit {
         return response.data;
       })
     );
+  }
+  updatePaginatedProducts(products: any[]): void {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.paginatedProducts = products.slice(start, end);
+  }
+
+  setPage(page: number): void {
+    this.currentPage = page;
+    this.loadProducts();
   }
   deleteProduct(productId: string): void {
     this.productService.deleteProduct(productId).subscribe({

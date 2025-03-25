@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody *ngIf="orders.length > 0">
-    <tr *ngFor="let order of orders">
+    <tr *ngFor="let order of paginatedOrders">
       <th scope="row">
         <span class="orderNumber">#{{ order._id | slice : 0 : 5 }}...</span>
       </th>
@@ -52,3 +52,23 @@
     </div>
   </ng-template>
 </table>
+<div class="d-flex justify-content-center align-items-center mt-4" *ngIf="totalPages > 1">
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" (click)="setPage(currentPage - 1)" >Previous</a>
+    </li>
+    <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index">
+      <a
+        class="page-link"
+
+        (click)="setPage(i + 1)"
+        [class.active]="currentPage === i + 1"
+      >
+        {{ i + 1 }}
+      </a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" (click)="setPage(currentPage + 1)" >Next</a>
+    </li>
+  </ul>
+</div>

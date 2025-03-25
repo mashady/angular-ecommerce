@@ -30,6 +30,11 @@ import { FormsModule, NgModel } from '@angular/forms';
 })
 export class StoreOrdersComponent implements OnInit {
   storeOrders$!: Observable<any[]>;
+  paginatedOrders: any[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalOrders: number = 0;
+  totalPages: number = 0;
   statusOptions: string[] = [
     'pending',
     'paid',
@@ -44,12 +49,25 @@ export class StoreOrdersComponent implements OnInit {
     console.log(this.storeService.getOrders());
     this.storeOrders$.subscribe(
       (orders) => {
-        console.log('Orders fetched:', orders);
+        this.totalOrders = orders.length;
+        this.totalPages = Math.ceil(this.totalOrders / this.itemsPerPage);
+        this.updatePaginatedOrders();
       },
       (error) => {
         console.error('Error fetching orders:', error);
       }
     );
+  }
+  updatePaginatedOrders() {
+    this.storeOrders$.subscribe((orders) => {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      this.paginatedOrders = orders.slice(start, end);
+    });
+  }
+  setPage(page: number): void {
+    this.currentPage = page;
+    this.updatePaginatedOrders();
   }
   onStatusChange(orderId: string, newStatus: string): void {
     console.log(`Order ID: ${orderId}, New Status: ${newStatus}`);
