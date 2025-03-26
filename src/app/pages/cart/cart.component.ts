@@ -55,7 +55,7 @@ ngOnInit() {
       
 this.loadCart();
   this.accountService.account$?.subscribe({
-    next: (account) => {
+    next: (account: any) => {
       this.addresses = account.user.address;
       console.log(this.addresses);
     },
@@ -286,7 +286,7 @@ onSubmit(): void {
   
   ePayCheckOut(cart: string, shippingAddress: any) {
     this.orderService.ePayCheckOut(cart, shippingAddress).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log("order successful!", response);
         this.orderSuccessMessage = `${response.status} complete  your payment  process`;
         this.modalRef.hide(); 
@@ -296,7 +296,7 @@ onSubmit(): void {
         
 
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error("Error processing payment:", err);
         this.orderSuccessMessage = "";
         this.orderErrorMessage = err.error?.message || "Payment failed. Please try again.";
