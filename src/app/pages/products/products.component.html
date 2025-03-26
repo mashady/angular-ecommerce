@@ -1,0 +1,173 @@
+<div class="container-fluid mt-4 mb-4">
+  <div class="row mb-4">
+    <div class="col-12">
+
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3 bg-light p-3">
+      <div class="mb-4">
+        <h5 class="mb-3">Price Range</h5>
+        <div class="input-group">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Min"
+            [(ngModel)]="abovePrice"
+            (change)="onPriceChange()"
+          >
+          <span class="input-group-text">-</span>
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Max"
+            [(ngModel)]="belowPrice"
+            (change)="onPriceChange()"
+          >
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h5 class="mb-3">Product Categories</h5>
+        <div class="form-check" *ngFor="let category of categories">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [value]="category.name"
+            (change)="onCategoryChange(category._id, $event)"
+            id="category-{{ category.name | lowercase }}"
+          >
+          <label
+            class="form-check-label"
+            for="category-{{ category.name | lowercase }}"
+          >
+            {{ category.name }}
+          </label>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="col-9">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <span>Showing {{ products.length }} of total results</span>
+        </div>
+        <div class="d-flex align-items-center">
+          <select
+            class="form-select me-2"
+            style="width: auto;"
+            [(ngModel)]="sortBy"
+            (change)="onSortChange()"
+          >
+            <option value="latest">Latest</option>
+            <option value="price-asc">Price Low to High</option>
+            <option value="price-desc">Price High to Low</option>
+          </select>
+          <div class="btn-group">
+            <button
+              class="btn btn-outline-secondary"
+              [class.active]="viewMode === 'grid'"
+              (click)="toggleViewMode('grid')"
+            >
+              <i class="bi bi-grid"></i>
+            </button>
+            <button
+              class="btn btn-outline-secondary"
+              [class.active]="viewMode === 'list'"
+              (click)="toggleViewMode('list')"
+            >
+              <i class="bi bi-list"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div [ngClass]="viewMode === 'grid' ? 'row row-cols-4 g-3' : 'list-group'">
+        <div
+          *ngFor="let product of products"
+          [ngClass]="viewMode === 'grid' ? 'col' : 'list-group-item'"
+        >
+          <div class="card h-100 position-relative">
+            <div *ngIf="product.discount" class="position-absolute top-0 start-0 bg-danger text-white p-2 m-2 rounded">
+              {{ product.discount }}%
+            </div>
+
+
+            <img
+            [src]="'http://localhost:8088' + product.images[0]"
+              class="card-img-top"
+              [alt]="product.name"
+              style="height: 200px; object-fit: cover;"
+            >
+
+            <div class="card-body">
+              <h5 class="card-title text-truncate">{{ product.name }}</h5>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="text-danger fw-bold me-2">${{ product.price }}</span>
+                  <span *ngIf="product.originalPrice" class="text-muted text-decoration-line-through">
+                    ${{ product.originalPrice  }}
+                  </span>
+                </div>
+                <span class="badge bg-success">In Stock</span>
+              </div>
+
+              <div *ngIf="product.rating" class="d-flex justify-content-between align-items-center mt-2">
+                <div class="text-warning">
+                  {{ generateStarRating(product.rating) }}
+                  <span class="text-muted ms-2">({{ product.rating }})</span>
+                </div>
+                <button class="btn btn-outline-secondary btn-sm">
+                  <i class="bi bi-heart"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="mt-4 d-flex justify-content-center">
+        <ul class="pagination">
+          <li
+            class="page-item"
+            [class.disabled]="page === 1"
+          >
+            <button
+              class="page-link"
+              (click)="changePage(page - 1)"
+            >
+              Previous
+            </button>
+          </li>
+          <li
+            *ngFor="let pageNum of [].constructor(totalPages); let idx = index"
+            class="page-item"
+            [class.active]="page === idx + 1"
+          >
+            <button
+              class="page-link"
+              (click)="changePage(idx + 1)"
+            >
+              {{ idx + 1 }}
+            </button>
+          </li>
+          <li
+            class="page-item"
+            [class.disabled]="page === totalPages"
+          >
+            <button
+              class="page-link"
+              (click)="changePage(page + 1)"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

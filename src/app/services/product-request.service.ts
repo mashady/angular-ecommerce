@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { Observable, map } from 'rxjs';
@@ -50,4 +50,30 @@ export class ProductRequestService {
   updateProduct(id: string, data: FormData): Observable<Product> {
     return this.http.put<Product>(`${this.apiUrl}/updateProduct/${id}`, data);
   }
+  // handle filering and sorting logic
+  getProducts(query: string = '', categories: string[] = [], abovePrice: any = '', belowPrice: any = '', sortBy: string = 'latest', page: number = 1, limit: number = 20): Observable<any> {
+    let params = new HttpParams()
+      .set('query', query)
+      //.set('aboveprice', abovePrice.toString())
+      //.set('belowprice', belowPrice.toString())
+      .set('sortBy', sortBy)
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+
+    categories.forEach(category => {
+      params = params.append('category', category);
+    });
+    if (abovePrice > 0) {
+      params = params.set('aboveprice', abovePrice.toString());
+    }
+
+    if (belowPrice > 0) {
+      params = params.set('belowprice', belowPrice.toString());
+    }
+
+    return this.http.get<any>(`${this.apiUrl}/allproducts`, { params });
+  }
+
+
 }
+//allproducts
