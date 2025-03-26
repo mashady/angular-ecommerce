@@ -1,0 +1,20 @@
+.form-check-input{
+  color: var(--color-primary);
+}
+.form-check-input:checked[type="checkbox"] {
+  background-color: var(--color-primary);
+  border:var(--color-primary) ;
+}
+
+li.page-item:nth-child(2) > button:nth-child(1){
+  background-color: var(--color-primary)!important;
+  border:var(--color-primary) ;
+}
+button.btn-outline-secondary.active{
+  background-color: var(--color-primary)!important;
+  border:var(--color-primary) ;
+}
+button.btn-outline-secondary:hover{
+  background-color: var(--color-primary)!important;
+  border:var(--color-primary) ;
+}
