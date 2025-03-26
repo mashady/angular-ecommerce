@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WishlistService } from '../../../services/wishlist.service';
+import { CartService } from '../../../services/cart.service';
 import { WishlistItem } from '../../../interfaces/wishlist';
 import { NgFor, NgIf } from '@angular/common';
+import { CounterServiceService } from '../../../services/counter.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -10,11 +12,11 @@ import { NgFor, NgIf } from '@angular/common';
   imports: [NgFor, NgIf],
 })
 export class WishlistComponent implements OnInit {
-  wishlist: WishlistItem[] = []; // List of wishlist items
-  wishlistCount: number = 0; // Counter for the wishlist items
-  totalPrice: number = 0; // ✅ Total price counter
+  wishlist: WishlistItem[] = []; 
+  wishlistCount: number = 0; 
+  totalPrice: number = 0; 
 
-  constructor(private wishlistService: WishlistService) {}
+  constructor(private wishlistService: WishlistService,private cartService:CartService,private counterService: CounterServiceService) {}
 
   ngOnInit(): void {
     this.fetchWishlist();
@@ -23,13 +25,13 @@ export class WishlistComponent implements OnInit {
   fetchWishlist(): void {
     this.wishlistService.getWishlist().subscribe({
       next: (data: WishlistItem[]) => {
-        console.log('🛠 Raw Wishlist Data:', data);
+        console.log(' Raw Wishlist Data:', data);
         this.wishlist = data.filter(item => item.productId !== null);
-        this.wishlistCount = this.wishlist.length;        this.calculateTotalPrice(); 
-        console.log('📌 Processed Wishlist Data:', this.wishlist);
+        this.wishlistCount = this.wishlist.length; this.calculateTotalPrice(); 
+        console.log(' Processed Wishlist Data:', this.wishlist);
       },
       error: (err) => {
-        console.error('❌ Error fetching wishlist:', err);
+        console.error(' Error fetching wishlist:', err);
       }
     });
   }
@@ -43,27 +45,40 @@ export class WishlistComponent implements OnInit {
 
     
   currentDate: string = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  removeFromWishlist(productId: string): void {
-    console.log("Product ID to remove:", productId); // Add this line for debugging
+  removeFromWishlist(productId: string): any {
+    console.log("Product ID to remove:", productId); 
     if (!productId) {
-      console.error("❌ Error: Product ID is undefined");
+      console.error(" Error: Product ID is undefined");
       return;
     }
   
     this.wishlistService.removeFromWishlist(productId).subscribe({
       next: () => {
-        console.log("✅ Successfully removed item from wishlist");
+        console.log(" Successfully removed item from wishlist");
         
-        // Update the wishlist array
         this.wishlist = this.wishlist.filter(item => item.productId._id !== productId);
         
-        // Recalculate the wishlist count and total price
         this.wishlistCount = this.wishlist.length;
         this.calculateTotalPrice();
       },
       error: (err) => {
-        console.error("❌ Error removing item from wishlist:", err);
+        console.error(" Error removing item from wishlist:", err);
       }
     });
   }
+  
+addProductToCart(productId: string, quantity: number) {
+  this.cartService.addProductToCart(productId, quantity).subscribe({
+    next: (response) => {
+      console.log('Product added to cart:', response);
+      this.counterService.refreshCounter();
+
+    },
+    error: (err) => {
+      console.error('Error adding product to cart:', err);
+      },
+});
+}
+
+
 }
