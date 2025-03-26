@@ -1,9 +1,8 @@
-import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-confirm-delete-modal',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './confirm-delete-modal.component.html',
   styleUrl: './confirm-delete-modal.component.css'
 })

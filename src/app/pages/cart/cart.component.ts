@@ -265,7 +265,7 @@ onSubmit(): void {
   
   cashCheckOut(cart: string, shippingAddress: any) {
     this.orderService.cashCheckOut(cart, shippingAddress).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log("Order placed successfully!", response);
         this.orderSuccessMessage = response.status;
         setTimeout(() => {
@@ -276,7 +276,7 @@ onSubmit(): void {
         this.loadCart();
         this.counterService.refreshCounter()
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error("Error placing order:", err);
         this.orderSuccessMessage = "";
         this.orderErrorMessage = err.error?.message || "An unexpected error occurred";
@@ -305,5 +305,3 @@ onSubmit(): void {
   }
  
   }
-
-

@@ -34,7 +34,15 @@ export class OrderService {
       .put<Order>(` http://localhost:8088/orders/${orderId}`, { status: status })
       .pipe(map((res) => res));
   }
-  // cashCheckOut(productId: string, quantity: number): Observable<any> {
-  //   const body = { quantity }; 
-  //   return this.http.post(`${this.apiUrl}/${productId}`, body);
-  // }
+
+  cashCheckOut(cart: string, shippingAddress: any): Observable<any> {
+    const body = { cart, shippingAddress };  
+    console.log("Sending Checkout Request:", body); // Debugging line
+    return this.http.post<any>('http://127.0.0.1:8088/checkout/cash', body);
+  }
+  ePayCheckOut(cart: string, shippingAddress: any): Observable<any> {
+    const body = { cart, shippingAddress };  
+    console.log("Sending Checkout Request:", body); 
+    return this.http.post<any>('http://127.0.0.1:8088/checkout/epay', body);
+  }
+}
