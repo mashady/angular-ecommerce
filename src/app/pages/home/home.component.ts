@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild,ElementRef } from '@angular/core';
 import { ProductRequestService } from '../../services/product-request.service';
 import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -6,6 +6,7 @@ import {CounterServiceService} from "../../services/counter.service"
 import { CartService } from "../../services/cart.service";
 import { WishlistService} from '../../services/wishlist.service';
 import { CommonModule } from '@angular/common'; 
+declare var bootstrap: any; 
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,8 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent {
   products!: any;
   wishlistProductIds: string[] = [];
+  errorMessage:string='';
+  @ViewChild('errorToast', { static: true }) errorToast!: ElementRef;
 
   constructor(private productRequestService: ProductRequestService,private cartService: CartService,private wishListService:WishlistService,
       private counterService: CounterServiceService) {
@@ -66,10 +69,16 @@ export class HomeComponent {
       next: (response) => {
         console.log('Product added to cart:', response);
         this.counterService.refreshCounter();
+        this.errorMessage='';
+
   
       },
       error: (err) => {
-        console.error('Error adding product to cart:', err);
+       console.error('Error adding product to cart:', err);
+       this.showErrorToast('Error adding product to cart');
+
+       this.errorMessage = err.error;
+
         },
   });
   }
@@ -84,7 +93,11 @@ export class HomeComponent {
         },
   });
   }
-  
+  showErrorToast(message: string): void {
+    this.errorMessage = message;
+    const toast = new bootstrap.Toast(this.errorToast.nativeElement);
+    toast.show();
+  }
   
 
 }
