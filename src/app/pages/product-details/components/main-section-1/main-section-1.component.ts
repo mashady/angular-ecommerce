@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component,ViewChild,ElementRef, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // ✅ Import this
+import { FormsModule } from '@angular/forms';
 import { Product } from '../../../../interfaces/product';
 import { Router } from '@angular/router';
 import {CounterServiceService} from "../../../../services/counter.service"
 import { CartService } from "../../../../services/cart.service";
+declare var bootstrap: any;
 @Component({
   selector: 'app-main-section-1',
   standalone: true,
@@ -16,6 +17,8 @@ export class MainSection1Component {
   @Input() product?: Product;
   myCart: any = { products: [] };
   quantity:number=0;
+  @ViewChild('errorToast', { static: true }) errorToast!: ElementRef;
+  errorMessage: string = '';
   constructor(private router: Router, 
     private cartService: CartService,
     private counterService: CounterServiceService) {}
@@ -50,7 +53,9 @@ export class MainSection1Component {
       },
       error: (err) => {
         console.error('Error adding product to cart:', err);
-        },
+        this.showErrorToast('Error adding product to cart!');
+        this.errorMessage = err.error;
+      },
   });
   }
   
@@ -65,8 +70,11 @@ export class MainSection1Component {
       this.quantity--; 
     }
   }
-
-
+  showErrorToast(message: string): void {
+    this.errorMessage = message;
+    const toast = new bootstrap.Toast(this.errorToast.nativeElement);
+    toast.show();
+  }
   
   
 }

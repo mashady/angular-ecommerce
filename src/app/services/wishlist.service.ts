@@ -10,11 +10,19 @@ export class WishlistService {
 
   constructor(private http: HttpClient) {}
 
+  addToWishlist(productId: string):Observable<any>{
+    const body = {productId}; 
+    return this.http.post(this.apiUrl, body);
+  }
+  
   getWishlist(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
-
-  removeFromWishlist(productId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${productId}`);
+  removeFromWishlist(productId: string): Observable<any> {
+    const body = { productId };
+    return this.http.delete<any>(this.apiUrl,{ body });
   }
+
+
+  
 }

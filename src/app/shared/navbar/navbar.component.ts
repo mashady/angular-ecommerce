@@ -17,6 +17,7 @@ import { ProductRequestService } from '../../services/product-request.service';
 export class NavbarComponent {
   username: string = '';
   counter: number = 0;
+  wishCounter:number=0;
   account$!: Observable<any>;
   searchQuery222: string = '';
 
@@ -30,7 +31,10 @@ export class NavbarComponent {
     this.counterServiceService.getCounter().subscribe((response) => {
       this.counter = response;
     });
-
+    this.counterServiceService.getWishCounter().subscribe((response) => {
+      this.wishCounter = response;
+      console.log(this.wishCounter)
+    });
     this.account$ = this.accountService.account$;
     this.account$.subscribe((accountData) => {
       if (accountData && accountData.user) {
