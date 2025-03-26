@@ -15,7 +15,6 @@
         <th scope="col">Name</th>
         <th scope="col">Stock</th>
         <th scope="col">Price</th>
-        <th scope="col">Category</th>
         <th scope="col">Actions</th>
       </tr>
     </thead>
@@ -37,24 +36,22 @@
         <td>
           <span>{{ product.price | currency }}</span>
         </td>
-        <td>
-          <span>{{ product.category }}</span>
-        </td>
-        <td>
+
+        <td class="d-flex justify-content-center align-items-center">
           <button
             type="button"
             class="btn"
             [routerLink]="['edit', product._id]"
           >
-            Edit
+          <i class="fas fa-edit"></i>
           </button>
           |
           <button
             type="button"
             class="btn"
-            (click)="deleteProduct(product._id)"
+            (click)="openDeleteModal(product._id)"
           >
-            Delete
+          <i class="fa-solid fa-trash"></i>
           </button>
         </td>
       </tr>
@@ -92,3 +89,7 @@
     <p>Loading products...</p>
   </ng-template>
 </section>
+<app-confirm-delete-modal
+  (deleteConfirmed)="deleteProduct($event)"
+  (closeModal)="closeModal()">
+</app-confirm-delete-modal>
