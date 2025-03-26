@@ -1,0 +1,18 @@
+.editAccount h3 {
+  font-size: 18px;
+}
+.editAccount .form-group {
+  margin-bottom: 0.6rem;
+}
+.editAccount .form-group label {
+  font-size: 14px;
+  margin-bottom: 0.3rem;
+}
+.editAccount button {
+  font-size: 14px;
+  background-color: var(--color-section-bg);
+  font-weight: bold;
+  margin-top: 5px;
+  height: 42px;
+  border: none;
+}

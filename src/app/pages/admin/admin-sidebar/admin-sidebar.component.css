@@ -1,0 +1,13 @@
+button {
+    color: var(--color-dark);
+    max-width: 70%;
+}
+
+button:hover {
+    color: var(--color-dark);
+}
+
+.active_nav_link {
+    color: #fff;
+    background-color:#634C9F;
+}

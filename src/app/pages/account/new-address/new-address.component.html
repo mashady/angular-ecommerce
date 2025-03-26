@@ -1,0 +1,96 @@
+<section class="addAddress">
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+  </div>
+  <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="address">Address</label>
+        <input
+          type="text"
+          class="form-control"
+          id="address"
+          placeholder="Enter your address"
+          formControlName="address"
+        />
+        <div
+          *ngIf="f['address'].touched && f['address'].invalid"
+          class="alert alert-danger mt-2"
+        >
+          <div *ngIf="f['address'].hasError('required')">
+            Address is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="city">City</label>
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          placeholder="City"
+          formControlName="city"
+        />
+        <div
+          *ngIf="f['city'].touched && f['city'].invalid"
+          class="alert alert-danger mt-2"
+        >
+          <div *ngIf="f['city'].hasError('required')">City is required.</div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="country">Country</label>
+        <input
+          type="text"
+          class="form-control"
+          id="country"
+          placeholder="Country"
+          formControlName="country"
+        />
+        <div
+          *ngIf="f['country'].touched && f['country'].invalid"
+          class="alert alert-danger mt-2"
+        >
+          <div *ngIf="f['country'].hasError('required')">
+            Country is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="zip">Zip Code</label>
+        <input
+          type="text"
+          class="form-control"
+          id="zip"
+          placeholder="Zip Code"
+          formControlName="zip"
+        />
+        <div
+          *ngIf="f['zip'].touched && f['zip'].invalid"
+          class="alert alert-danger mt-2"
+        >
+          <div *ngIf="f['zip'].hasError('required')">Zip code is required.</div>
+          <div *ngIf="f['zip'].hasError('pattern')">
+            Enter a valid zip code.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="apiError?.length !== 0">
+      <div
+        *ngFor="let error of apiError.split(', ')"
+        class="alert alert-danger mt-2"
+      >
+        {{ error }}
+      </div>
+    </div>
+
+    <button type="submit" class="btn" [disabled]="addressForm.invalid">
+      Add Address
+    </button>
+  </form>
+</section>

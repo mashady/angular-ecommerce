@@ -1,1 +1,44 @@
-<div>sidebar</div>
+<div class="p-4">
+    <div id="logo" class="mb-4">
+        <a class="navbar-brand" routerLink="/">
+            <img
+              src="https://klbtheme.com/grogin/wp-content/uploads/2023/11/grogin-logo-dark.png"
+              alt="Grogin – Grocery Store and Food WooCommerce Theme"
+              width="142"
+              height="34"
+              class="me-2"
+            />
+        </a>
+    </div>
+    <nav class="nav flex-column">
+        <button 
+            class="nav-link active btn rounded-pill"
+            routerLink="/admin/dashboard"
+            routerLinkActive="active_nav_link"
+            [routerLinkActiveOptions]="{ exact: true }" 
+        >
+        Dashboard
+        </button>
+        <button 
+            class="nav-link active btn rounded-pill"
+            routerLink="/admin/products"
+            routerLinkActive="active_nav_link"
+        >
+        Products
+        </button>
+        <button 
+            class="nav-link active btn rounded-pill"
+            routerLink="/admin/categories"
+            routerLinkActive="active_nav_link"
+        >
+        Categories
+        </button>
+        <button 
+            class="nav-link active btn rounded-pill"
+            routerLink="/admin/users"
+            routerLinkActive="active_nav_link"
+        >
+        Users
+        </button>
+    </nav>
+</div>

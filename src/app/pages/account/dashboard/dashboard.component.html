@@ -1,1 +1,29 @@
-<p>dashboard works!</p>
+<section class="dashboard" *ngIf="account$ | async as account">
+  <p>
+    Hello <span>{{ account.user.firstName }}</span> (not
+    <span>{{ account.user.firstName }}</span> ?
+    <span class="logoutSpan" (click)="handleLogout()">Log out</span>)
+  </p>
+  <p>
+    From your account dashboard you can view your
+    <a routerLink="/account/orders">recent orders</a>, manage your
+    <a routerLink="/account/addresses">shipping and billing addresses</a>, and
+    <a routerLink="/account/details">edit your password and account details</a>.
+  </p>
+  <button *ngIf="account.user.role === 'seller'" class="btn">
+    <a routerLink="/store/settings"> Go To Vendor Dashboard </a>
+  </button>
+
+  <button
+    *ngIf="account.user.role !== 'seller'"
+    class="btn"
+    (click)="onBeSeller()"
+  >
+    Become a Seller
+  </button>
+</section>
+<!--
+  todo
+  1- create the vendor dashboard
+  2- if not seller be a seller
+-->

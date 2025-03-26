@@ -1,0 +1,26 @@
+.storeProducts h2 {
+  font-size: 40px;
+}
+.storeProducts h2 {
+  margin-bottom: 1rem;
+}
+.storeProducts .newProduct {
+  background-color: var(--color-primary);
+  color: #fff;
+  width: 100px;
+  height: 40px;
+}
+.pagination .page-item .page-link {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.pagination .page-item .page-link.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: var(--color-primary);
+  color: white;
+}

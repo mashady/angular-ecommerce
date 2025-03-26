@@ -108,7 +108,7 @@
 
 <nav class="navbar navbar-expand-lg p-2">
   <div class="container">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" routerLink="/">
       <!--
       <span class="me-1">
         <img src="assets/images/g10.png" width="40px" height="40" />
@@ -177,14 +177,20 @@
         <li class="nav-item">
           <a
             class="nav-link fw-bold d-flex gap-2 align-items-center"
-            routerLink="/login"
+            [routerLink]="
+              (AuthService.userData | async) ? '/account' : '/login'
+            "
           >
             <img src="assets/images/account.png" alt="account" />
-            <div class="">
-              <div class="nav-sign">{{ username ? "welcome" : "Sign in" }}</div>
+            <div>
+              <div class="nav-sign">
+                {{ (AuthService.userData | async) ? "Welcome" : "Sign in" }}
+              </div>
               <div class="nav-account">
-                <a *ngIf="username" routerLink="/account">{{ username }}</a>
-                <span *ngIf="!username">Account</span>
+                <a *ngIf="AuthService.userData | async as user">{{
+                  username
+                }}</a>
+                <span *ngIf="!(AuthService.userData | async)">Account</span>
               </div>
             </div>
           </a>
@@ -210,7 +216,7 @@
             <div class="position-relative">
               <span
                 class="position-absolute top-0 start-100 translate-middle counter badge rounded-pill text-dark"
-                >0</span
+                >{{ counter }}</span
               >
               <img src="assets/images/cart.png" alt="cart" />
             </div>

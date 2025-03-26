@@ -4,9 +4,14 @@ import { Observable, map } from 'rxjs';
 import { Category } from '../interfaces/category';
 
 
-interface ProductResponse {
-  message: string;
+interface CategoryResponse {
+  message: string,
   existingCategory: Category;
+}
+
+interface CategoriesResponse {
+  Message: string,
+  categories: Category[]; 
 }
 
 
@@ -19,11 +24,11 @@ export class CategoryRequestService {
   constructor(private http: HttpClient) { }
 
   getCategoryList() : Observable<any>{
-    return this.http.get(`${this.apiUrl}/getCategories`);
+    return this.http.get<CategoriesResponse>(`${this.apiUrl}/getCategories`);
   }
 
   getCategoryById(id: string) :Observable<Category> {
-    return this.http.get<ProductResponse>(`${this.apiUrl}/getCategoryById/${id}`).pipe(
+    return this.http.get<CategoryResponse>(`${this.apiUrl}/getCategoryById/${id}`).pipe(
       map(response => {
         if (response && response.existingCategory) {
           return response.existingCategory;
@@ -34,7 +39,7 @@ export class CategoryRequestService {
   }
 
   getCategoryByName(name: string): Observable<Category> {
-    return this.http.get<ProductResponse>(`${this.apiUrl}/getCategoryByName`, {
+    return this.http.get<CategoryResponse>(`${this.apiUrl}/getCategoryByName`, {
       params: {
         name: name
       }
@@ -46,6 +51,18 @@ export class CategoryRequestService {
         throw new Error('Invalid category data format');
       })
     );
+  }
+
+  addCategory(category: Category): Observable<any> {
+    return this.http.post<CategoryResponse>(`${this.apiUrl}/addCategory`, category);
+  }
+
+  updateCategory(id: string, category: Category): Observable<any> {
+    return this.http.put<CategoryResponse>(`${this.apiUrl}/updateCategory/${id}`, category);
+  }
+
+  deleteCategory(id: string): Observable<any> {
+    return this.http.delete<CategoryResponse>(`${this.apiUrl}/deleteCategory/${id}`);
   }
 
 }

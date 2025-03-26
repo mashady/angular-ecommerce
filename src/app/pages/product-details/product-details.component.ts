@@ -22,46 +22,50 @@ export class ProductDetailsComponent implements OnInit {
   loading = true;
   error: string | null = null;
 
+    
   constructor(
     private productService: ProductRequestService,
     private route: ActivatedRoute,
-    private categoryService: CategoryRequestService
+    private categoryService: CategoryRequestService,
+    
   ) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    
+
     if (!id) {
       this.error = 'Product ID not found';
       this.loading = false;
       return;
     }
-    
-    this.productService.getSingleProduct(id)
-      .subscribe({
-        next: (data) => {
-          this.currProduct = data;
-          // Check if currProduct exists and has a category before accessing it
-          if (this.currProduct && this.currProduct.category) {
-            this.categoryService.getCategoryById(this.currProduct.category)
-              .subscribe({
-                next: (data) => {
-                  // Make sure currProduct still exists when this callback executes
-                  if (this.currProduct) {
-                    this.currProduct.category = data.name;
-                  }
-                },
-                error: (err) => {
-                  this.error = 'Failed to load category data';
-                }  
-              });
-          }
-          this.loading = false;
-        },
-        error: (err) => {
-          this.error = 'Failed to load product data';
-          this.loading = false;
+
+    this.productService.getSingleProduct(id).subscribe({
+      next: (data) => {
+        this.currProduct = data;
+        // Check if currProduct exists and has a category before accessing it
+        if (this.currProduct && this.currProduct.category) {
+          this.categoryService
+            .getCategoryById(this.currProduct.category)
+            .subscribe({
+              next: (data) => {
+                // Make sure currProduct still exists when this callback executes
+                if (this.currProduct) {
+                  this.currProduct.category = data.name;
+                }
+              },
+              error: (err) => {
+                this.error = 'Failed to load category data';
+              },
+            });
         }
-      });
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Failed to load product data';
+        this.loading = false;
+      },
+    });
+    
   }
+  
 }

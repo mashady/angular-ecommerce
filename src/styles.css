@@ -5,6 +5,7 @@ body {
 :root {
   /** project colors */
   --color-primary: #634c9f;
+  --color-primary-light: #f5f4fe;
   --color-dark: #030712;
   --color-dark-2: #111827;
   --color-dark-3: #212529;
@@ -21,4 +22,5 @@ body {
   --color-another-gray: #4b5563;
   --color--nice-blue: #1d4ed8;
   --color--admin-bg: #f5f4fe;
+  --color--mark: #fff3cd;
 }

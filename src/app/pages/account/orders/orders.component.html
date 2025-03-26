@@ -1,5 +1,6 @@
-<table class="table table-bordered">
-  <thead>
+<table class="table table-bordered" *ngIf="account$ | async as account">
+  <p *ngIf="account.user.orders.length == 0">No order found</p>
+  <thead *ngIf="account.user.orders.length > 0">
     <tr>
       <th scope="col">Order</th>
       <th scope="col">Date</th>
@@ -8,15 +9,60 @@
       <th scope="col">Actions</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>mdo</td>
+  <tbody *ngIf="account.user.orders && account.user.orders.length > 0">
+    <tr *ngFor="let order of paginatedOrders">
+      <th scope="row">
+        <span class="orderNumber">#{{ order._id | slice : 0 : 5 }}...</span>
+      </th>
       <td>
-        <button type="button" class="btn">View</button>
+        <span> {{ order.createdAt | date : "MMM d, y, h:mm a" }} </span>
+      </td>
+      <td>
+        <span>{{ order.status }}</span>
+      </td>
+      <td>
+        <span>{{ order.totalOrderPrice }}</span>
+      </td>
+      <td>
+        <button type="button" class="btn" [routerLink]="order._id">View</button>
       </td>
     </tr>
   </tbody>
+  <!--new-->
+  <div *ngIf="account?.user?.orders?.length <= 0">
+    <p>No orders found.</p>
+    <button class="btn">
+      <a routerLink="/shop">Return to shop</a>
+    </button>
+  </div>
 </table>
+<nav *ngIf="totalPages > 1" aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link"  (click)="goToPreviousPage()" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index">
+      <a
+        class="page-link"
+
+        (click)="setPage(i + 1)"
+        [class.active]="currentPage === i + 1"
+      >
+        {{ i + 1 }}
+      </a>
+    </li>
+
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link"  (click)="goToNextPage()" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+<!--
+  MOD
+
+-->
