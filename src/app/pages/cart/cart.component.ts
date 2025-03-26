@@ -285,7 +285,7 @@ onSubmit(): void {
   
   cashCheckOut(cart: string, shippingAddress: any) {
     this.orderService.cashCheckOut(cart, shippingAddress).subscribe({
-      next: (response: any) => {
+      next: (response) => {
         console.log("Order placed successfully!", response);
         this.orderSuccessMessage = response.status;
         this.showAlert = true;
@@ -298,7 +298,7 @@ onSubmit(): void {
         this.loadCart();
         this.counterService.refreshCounter();
       },
-      error: (err: any) => {
+      error: (err) => {
         console.error("Error placing order:", err);
         this.orderSuccessMessage = "";
         this.orderErrorMessage = err.error?.message || "An unexpected error occurred";
@@ -307,24 +307,30 @@ onSubmit(): void {
   }
   ePayCheckOut(cart: string, shippingAddress: any) {
     this.orderService.ePayCheckOut(cart, shippingAddress).subscribe({
-      next: (response) => {
-        console.log("order successful!", response);
-        this.orderSuccessMessage = `${response.status} complete  your payment  process`;
-        this.modalRef.hide(); 
-        window.open(response.url, '_blank')
-        this.loadCart();
-        this.counterService.refreshCounter()
+      next: (response: any) => {
+        console.log("Order initiated!", response);
         
-
-      },
+        this.showAlert = true;
+        this.counterService.refreshCounter()
+        this.loadCart();
+        this.epaySuccessMessage = "Please complete your payment...";
+        window.open(response.url, '_blank');
+        
+         },
       error: (err) => {
-        console.error("Error processing payment:", err);
-        this.orderSuccessMessage = "";
-        this.orderErrorMessage = err.error?.message || "Payment failed. Please try again.";
+        console.error("Payment error:", err);
+        this.showAlert = true;
+        this.orderErrorMessage = "Payment failed. Please try again.";
       },
     });
   }
+  closeAlert(){
+    this.showAlert = false;
+  }
  
+  
   }
 
 
+
+  

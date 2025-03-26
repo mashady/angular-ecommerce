@@ -10,18 +10,18 @@ export class CouponRequestService {
   constructor(private http: HttpClient) { }
 
   getAllCoupons(): Observable<CouponResponse> {
-    return this.http.get<CouponResponse>(`${this.apiUrl}/getBanners`);
+    return this.http.get<CouponResponse>(`${this.apiUrl}/getPromocodes`);
   }
 
   addCoupon(coupon: Coupon): Observable<CouponResponse> {
-    return this.http.post<CouponResponse>(`${this.apiUrl}/addBanner`, coupon);
+    return this.http.post<CouponResponse>(`${this.apiUrl}/addPromocode`, coupon);
   }
 
   updateCoupon(id: string, coupon: Coupon): Observable<CouponResponse> {
-    return this.http.put<CouponResponse>(`${this.apiUrl}/updateBanner/${id}`, coupon);
+    return this.http.put<CouponResponse>(`${this.apiUrl}/updatePromocode/${id}`, coupon);
   }
 
   deleteCoupon(id: string): Observable<CouponResponse> {
-    return this.http.delete<CouponResponse>(`${this.apiUrl}/deleteBanner/${id}`);
+    return this.http.delete<CouponResponse>(`${this.apiUrl}/deletePromocode/${id}`);
   }
 }

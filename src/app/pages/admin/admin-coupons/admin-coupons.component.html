@@ -1,4 +1,3 @@
-
 <div class="m-5" id="container">
     <div class="card mb-3">
       <div class="card-header text-center bg-light">
@@ -10,7 +9,7 @@
           (ngSubmit)="
             mode === 'edit' ? updateCoupon(id!) : addCoupon()
           "
-          class="d-flex"
+          class="d-flex flex-column align-items-center"
         >
           <div
             class="form-group d-flex align-items-center justify-content-between"
@@ -28,29 +27,7 @@
               maxlength="30"
             />
           </div>
-          @if(mode === 'edit') {
-          <button
-            type="submit"
-            class="btn btn-primary mt-2 mx-3"
-            style="width: 30%"
-            [disabled]="couponForm.invalid"
-            [ngClass]="{ 'btn-success': couponForm.valid }"
-          >
-            Update Coupon
-          </button>
-          } @else {
-          <button
-            type="submit"
-            class="btn btn-primary mt-2 mx-3"
-            style="width: 30%"
-            [disabled]="couponForm.invalid"
-            [ngClass]="{ 'btn-success': couponForm.valid }"
-          >
-            Add Coupon
-          </button>
-          }
-        </form>
-        <div
+          <div
           class="text-danger ms-5"
           *ngIf="
             couponForm.get('name')?.invalid &&
@@ -76,6 +53,72 @@
             Name must be at most 30 characters long
           </div>
         </div>
+
+        <div
+            class="form-group d-flex align-items-center justify-content-between"
+            style="width: 70%"
+          >
+            <label for="name" class="form-label mt-2 me-3">Value:</label>
+            <input
+              type="number"
+              formControlName="value"
+              id="value"
+              class="form-control"
+              placeholder="Enter value"
+              required
+              min="0"
+              max="1"
+            />
+          </div>
+          <div
+          class="text-danger ms-5"
+          *ngIf="
+            couponForm.get('value')?.invalid &&
+            couponForm.get('value')?.touched
+          "
+        >
+          <div
+            class="ms-3"
+            *ngIf="couponForm.get('value')?.hasError('required')"
+          >
+            Value is required
+          </div>
+          <div
+            class="ms-3"
+            *ngIf="couponForm.get('value')?.hasError('min')"
+          >
+            Value must be at least 0
+          </div>
+          <div
+            class="ms-3"
+            *ngIf="couponForm.get('value')?.hasError('max')"
+          >
+            Value must be at most 1
+          </div>
+        </div>
+          @if(mode === 'edit') {
+          <button
+            type="submit"
+            class="btn btn-primary mt-2 mx-3"
+            style="width: 30%"
+            [disabled]="couponForm.invalid"
+            [ngClass]="{ 'btn-success': couponForm.valid }"
+          >
+            Update Coupon
+          </button>
+          } @else {
+          <button
+            type="submit"
+            class="btn btn-primary mt-2 mx-3"
+            style="width: 30%"
+            [disabled]="couponForm.invalid"
+            [ngClass]="{ 'btn-success': couponForm.valid }"
+          >
+            Add Coupon
+          </button>
+          }
+        </form>
+        
       </div>
     </div>
 

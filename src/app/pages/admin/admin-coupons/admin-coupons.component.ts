@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Coupon, CouponResponse } from '../../../interfaces/coupon';
+import { Coupon } from '../../../interfaces/coupon';
 import { CouponRequestService } from '../../../services/coupon-request.service';
 @Component({
   selector: 'app-admin-coupons',
@@ -28,7 +28,7 @@ export class AdminCouponsComponent {
 
     this.couponForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
-      value: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      value: ['', [Validators.required, Validators.min(0), Validators.max(1)]],
     });
   }
 
@@ -36,8 +36,10 @@ export class AdminCouponsComponent {
     this.submitting = true;
     this.couponRequestService.addCoupon(this.couponForm.value).subscribe({
       next: (response) => {
-        this.coupons = response.Promocodes;
+        console.log('Coupon added successfully', response);
+        this.couponForm.reset();
         this.submitting = false;
+        this.ngOnInit();
       },
       error: (error) => {
         console.error('Error adding coupon:', error);
@@ -73,7 +75,7 @@ export class AdminCouponsComponent {
         this.ngOnInit();
       },
       error: (error) => {
-        console.error('Error updating category', error);
+        console.error('Error updating coupon', error);
         this.submitting = false;
       }
     })
@@ -83,8 +85,9 @@ export class AdminCouponsComponent {
     this.submitting = true;
     this.couponRequestService.deleteCoupon(id).subscribe({
       next: (response) => {
-        this.coupons = response.Promocodes;
+        console.log('Coupon deleted successfully', response);
         this.submitting = false;
+        this.ngOnInit();
       },
       error: (error) => {
         console.error('Error deleting coupon:', error);
