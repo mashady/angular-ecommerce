@@ -22,3 +22,17 @@ button a {
   color: #fff;
   text-decoration: none;
 }
+.pagination .page-item .page-link {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.pagination .page-item .page-link.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: var(--color-primary);
+  color: white;
+}

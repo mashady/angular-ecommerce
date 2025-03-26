@@ -26,6 +26,12 @@ export class DashboardComponent {
     this.accountService.beAseller().subscribe({
       next: (response) => {
         console.log('Role changed to seller successfully', response);
+        // call auth decoded
+        console.log('response.token', response.token);
+
+        localStorage.setItem('userToken', response.token);
+        this.authService.decode();
+
         this.router.navigate(['/store/settings']);
       },
       error: (error) => {

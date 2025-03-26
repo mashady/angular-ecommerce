@@ -7,7 +7,7 @@ export const sellerGuard: CanActivateFn = (route, state) => {
     const router = inject(Router);
 
     if (!authService.userData.subscribe({
-      next: (user) => {
+      next: (user:any) => {
         if (user.role !== 'seller') {
           console.log('not seller');
           router.navigate(['/unauthorized']);

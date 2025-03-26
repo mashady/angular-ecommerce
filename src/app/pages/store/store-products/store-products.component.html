@@ -15,12 +15,11 @@
         <th scope="col">Name</th>
         <th scope="col">Stock</th>
         <th scope="col">Price</th>
-        <th scope="col">Category</th>
         <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody *ngIf="products.length > 0">
-      <tr *ngFor="let product of products">
+      <tr *ngFor="let product of paginatedProducts">
         <td>
           <img
             [src]="'http://localhost:8088' + product.images[0]"
@@ -37,24 +36,22 @@
         <td>
           <span>{{ product.price | currency }}</span>
         </td>
-        <td>
-          <span>{{ product.category }}</span>
-        </td>
-        <td>
+
+        <td class="d-flex justify-content-center align-items-center">
           <button
             type="button"
             class="btn"
             [routerLink]="['edit', product._id]"
           >
-            Edit
+          <i class="fas fa-edit"></i>
           </button>
           |
           <button
             type="button"
             class="btn"
-            (click)="deleteProduct(product._id)"
+            (click)="openDeleteModal(product._id)"
           >
-            Delete
+          <i class="fa-solid fa-trash"></i>
           </button>
         </td>
       </tr>
@@ -66,8 +63,33 @@
       </button>
     </div>
   </table>
+  <div *ngIf="totalPages > 1" class="pagination-container d-flex justify-content-center align-items-center">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" (click)="setPage(currentPage - 1)" >Previous</a>
+      </li>
 
+      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index">
+        <a
+          class="page-link"
+
+          (click)="setPage(i + 1)"
+          [class.active]="currentPage === i + 1"
+        >
+          {{ i + 1 }}
+        </a>
+      </li>
+
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link" (click)="setPage(currentPage + 1)" >Next</a>
+      </li>
+    </ul>
+  </div>
   <ng-template #loading>
     <p>Loading products...</p>
   </ng-template>
 </section>
+<app-confirm-delete-modal
+  (deleteConfirmed)="deleteProduct($event)"
+  (closeModal)="closeModal()">
+</app-confirm-delete-modal>
