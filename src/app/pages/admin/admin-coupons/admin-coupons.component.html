@@ -149,14 +149,14 @@
               type="button"
               class="btn btn-outline-danger mx-4"
               data-bs-toggle="modal"
-              data-bs-target="#deleteCoupon"
+              [attr.data-bs-target]="'#deleteCoupon' + coupon._id"
             >
             <i class="fa-solid fa-delete-left"></i>
             </button>
             <!-- Modal -->
             <div
               class="modal fade"
-              id="deleteCoupon"
+              [attr.id]="'deleteCoupon' + coupon._id"
               tabindex="-1"
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"

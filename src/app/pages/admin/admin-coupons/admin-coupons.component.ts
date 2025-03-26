@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Coupon } from '../../../interfaces/coupon';
 import { CouponRequestService } from '../../../services/coupon-request.service';
+
+declare var bootstrap: any;
+
+
 @Component({
   selector: 'app-admin-coupons',
   imports: [CommonModule, ReactiveFormsModule],
@@ -87,6 +91,12 @@ export class AdminCouponsComponent {
       next: (response) => {
         console.log('Coupon deleted successfully', response);
         this.submitting = false;
+        this.resetForm();
+        const modalElement = document.getElementById('deleteCoupon');
+        if (modalElement) {
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          modal?.hide();
+        }
         this.ngOnInit();
       },
       error: (error) => {
