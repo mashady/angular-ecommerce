@@ -1,5 +1,4 @@
 <table class="table table-bordered" *ngIf="account$ | async as account">
-  <p *ngIf="account.user.orders.length == 0">No order found</p>
   <thead *ngIf="account.user.orders.length > 0">
     <tr>
       <th scope="col">Order</th>

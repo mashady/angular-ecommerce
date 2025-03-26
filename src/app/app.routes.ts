@@ -37,6 +37,7 @@ import { adminGuard } from './guards/admin.guard';
 import { sellerGuard } from './guards/seller.guard';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { GoogleCallbackComponent } from './pages/google-callback/google-callback.component';
+import { ProductsComponent } from './pages/products/products.component';
 
 export const routes: Routes = [
   {
@@ -49,6 +50,11 @@ export const routes: Routes = [
     path: 'unauthorized',
     component:UnauthorizedComponent ,
     title: 'Aunthorized Page',
+  },
+  {
+    path: 'products',
+    component:ProductsComponent ,
+    title: 'products Page',
   },
   { path: 'explore/store/:id', component: StoreDetailsComponent },
   { path: 'auth-success', component: GoogleCallbackComponent },
