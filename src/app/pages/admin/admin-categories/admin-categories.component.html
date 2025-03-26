@@ -1,7 +1,7 @@
-<div class="container">
-  <div class="row m-5">
+
+  <div class="m-5" id="container">
     <div class="card mb-3">
-      <div class="card-header text-center">
+      <div class="card-header text-center bg-light">
         <h3>Add Category</h3>
       </div>
       <div class="card-body p-3">
@@ -96,21 +96,19 @@
           <td>{{ category.name }}</td>
           <td>
             <button
-              class="btn btn-success mx-4"
-              style="width: 30%"
+              class="btn btn-outline-primary mx-4"
               (click)="category._id && getCategoryData(category)"
             >
-              Update
+            <i class="fa-solid fa-pencil"></i>
             </button>
 
             <button
               type="button"
-              class="btn btn-danger mx-4"
-              style="width: 30%"
+              class="btn btn-outline-danger mx-4"
               data-bs-toggle="modal"
               data-bs-target="#deleteCategory"
             >
-              Delete
+            <i class="fa-solid fa-delete-left"></i>
             </button>
             <!-- Modal -->
             <div
@@ -162,4 +160,4 @@
       </tbody>
     </table>
   </div>
-</div>
+

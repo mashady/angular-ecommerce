@@ -31,7 +31,8 @@ import { StoreSettingsComponent } from './pages/store/store-settings/store-setti
 import { StoreDetailsComponent } from './pages/store/store-details/store-details.component';
 import { AdminCategoriesComponent } from './pages/admin/admin-categories/admin-categories.component';
 import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.component';
-
+import { AdminOrdersComponent } from './pages/admin/admin-orders/admin-orders.component';
+import { AdminOrderDetailsComponent } from './pages/admin/admin-order-details/admin-order-details.component';
 import { WishlistComponent } from './pages/wish-list/wish-list/wish-list.component';
 
 export const routes: Routes = [
@@ -81,8 +82,10 @@ export const routes: Routes = [
       { path: 'products/update/:id', component: AdminUpdateProductComponent },
       { path: 'categories', component: AdminCategoriesComponent },
       { path: 'users', component: AdminUsersComponent },
+      { path: 'orders', component: AdminOrdersComponent },
+      { path: 'orders/:id', component: AdminOrderDetailsComponent },
     ],
-  }, //67cd510036cff1e805928845
+  },
   {
     path: 'products-list',
     component: ProductListComponent,

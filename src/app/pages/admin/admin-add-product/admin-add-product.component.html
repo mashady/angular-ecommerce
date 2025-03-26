@@ -1,5 +1,8 @@
 <div class="m-5">
   <h2 class="text-center">Add New Product</h2>
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
   <form
     [formGroup]="productForm"
     class="row g-3 my-3"

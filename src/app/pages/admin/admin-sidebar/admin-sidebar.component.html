@@ -4,41 +4,42 @@
             <img
               src="https://klbtheme.com/grogin/wp-content/uploads/2023/11/grogin-logo-dark.png"
               alt="Grogin – Grocery Store and Food WooCommerce Theme"
-              width="142"
-              height="34"
+              width="130"
+              height="30"
               class="me-2"
             />
         </a>
     </div>
     <nav class="nav flex-column">
         <button 
-            class="nav-link active btn rounded-pill"
-            routerLink="/admin/dashboard"
-            routerLinkActive="active_nav_link"
-            [routerLinkActiveOptions]="{ exact: true }" 
+            class="nav-link active btn rounded-pill "
+            routerLink="/admin/products/add"
         >
-        Dashboard
+        Add Product
         </button>
         <button 
             class="nav-link active btn rounded-pill"
             routerLink="/admin/products"
-            routerLinkActive="active_nav_link"
         >
         Products
         </button>
         <button 
             class="nav-link active btn rounded-pill"
             routerLink="/admin/categories"
-            routerLinkActive="active_nav_link"
         >
         Categories
         </button>
         <button 
             class="nav-link active btn rounded-pill"
             routerLink="/admin/users"
-            routerLinkActive="active_nav_link"
         >
         Users
+        </button>
+        <button 
+            class="nav-link active btn rounded-pill"
+            routerLink="/admin/orders"
+        >
+        Orders
         </button>
     </nav>
 </div>

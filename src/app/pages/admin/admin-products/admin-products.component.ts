@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ProductRequestService } from '../../../services/product-request.service';
 import { Product } from '../../../interfaces/product';
-import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 declare var bootstrap: any;
 
@@ -22,7 +22,6 @@ export class AdminProductsComponent {
   limit: number = 9;
   constructor (
     private productService: ProductRequestService,
-    private router: Router
   ) {}
 
   ngOnInit() {
