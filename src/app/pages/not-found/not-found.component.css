@@ -1,0 +1,10 @@
+button{
+  background-color: var(--color-primary);
+  color: #fff;
+  font-size: 14px;
+}
+button:hover{
+  background-color: var(--color-primary);
+  color: #fff;
+  font-size: 14px;
+}
