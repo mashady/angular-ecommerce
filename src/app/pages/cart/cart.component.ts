@@ -64,7 +64,7 @@ ngOnInit() {
       }
 this.loadCart();
   this.accountService.account$?.subscribe({
-    next: (account) => {
+    next: (account: any) => {
       this.addresses = account.user.address;
       console.log(this.addresses);
     },
@@ -334,5 +334,3 @@ onSubmit(): void {
 
 
   
-
-
