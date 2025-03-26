@@ -34,12 +34,20 @@ import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.compo
 import { AdminOrdersComponent } from './pages/admin/admin-orders/admin-orders.component';
 import { AdminOrderDetailsComponent } from './pages/admin/admin-order-details/admin-order-details.component';
 import { WishlistComponent } from './pages/wish-list/wish-list/wish-list.component';
+import { adminGuard } from './guards/admin.guard';
+import { sellerGuard } from './guards/seller.guard';
+import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     title: 'Home Page',
+  },
+  {
+    path: 'unauthorized',
+    component:UnauthorizedComponent ,
+    title: 'Aunthorized Page',
   },
   { path: 'explore/store/:id', component: StoreDetailsComponent },
 
@@ -56,10 +64,12 @@ export const routes: Routes = [
       { path: 'details', component: AccountDetailsComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
-  },
+  },//aunthorized
   {
     path: 'store',
     component: StoreComponent,
+    canActivate: [sellerGuard],
+
     children: [
       { path: 'dashboard', component: StoreDashboardComponent },
       { path: 'orders', component: StoreOrdersComponent },
@@ -74,6 +84,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
+    canActivate: [adminGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: AdminDashboardComponent },
@@ -124,4 +135,5 @@ export const routes: Routes = [
     component: NotFoundComponent,
     title: 'Not Found Page',
   },
+
 ];

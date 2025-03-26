@@ -3,18 +3,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError, map } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
+import { AccountResponse } from '../interfaces/account-response';
+import { UpdateAccountData } from '../interfaces/update-account-data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-  public accountData = new BehaviorSubject<any>(null);
+  public accountData = new BehaviorSubject<AccountResponse | null>(null);
   account$ = this.accountData.asObservable();
 
   constructor(private httpClient: HttpClient) {}
 
-  getAccount(): Observable<any> {
-    return this.httpClient.get<any>('http://localhost:8088/user/profile').pipe(
+  getAccount(): Observable<AccountResponse> {
+    return this.httpClient.get<AccountResponse>('http://localhost:8088/user/profile').pipe(
       /* map((res) => {
         console.log(res.user);
         this.accountData = res.user;
@@ -28,13 +30,11 @@ export class AccountService {
     );
   }
 
-  setAccount(account: any) {
-    this.accountData.next(account);
-  }
 
-  updateAccount(data: any): Observable<any> {
+
+  updateAccount(data: UpdateAccountData): Observable<any> {
     return this.httpClient
-      .put<any>('http://localhost:8088/user/profile', data)
+      .put<UpdateAccountData>('http://localhost:8088/user/profile', data)
       .pipe(
         switchMap(() => this.getAccount()),
         tap((updatedAccount) => this.accountData.next(updatedAccount)),

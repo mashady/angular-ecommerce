@@ -65,5 +65,8 @@ export class MainSection1Component {
       this.quantity--; 
     }
   }
+
+
+  
   
 }

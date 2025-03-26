@@ -5,13 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormsModule } from '@angular/forms'; 
 import {CounterServiceService} from "../../services/counter.service";
 import { AccountService } from '../../services/account.service';
+import { OrderService } from '../../services/order.service';
 import {
   FormGroup,Validators,  ReactiveFormsModule,
 
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf} from '@angular/common';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-cart',
@@ -22,16 +24,20 @@ import { NgFor, NgIf } from '@angular/common';
   styleUrl: './cart.component.css'
 })
 export class CartComponent  implements OnInit {
-  
+  selectedAddress: any = null;
   addresses!: any;
   promoCode: string = '';
   successMessage:string='';
+  orderSuccessMessage:string='';
   errorMessage:string='';
+  orderErrorMessage:string='';
   myCart: any = { products: [] };
   cartService=inject(CartService);
   router=inject(Router);
   counterService=inject(CounterServiceService);
   accountService=inject(AccountService);
+  orderService=inject(OrderService);
+  modalRef=inject(BsModalRef);
   fb=inject(FormBuilder);
   addressForm!: FormGroup;
   apiError: string = '';
@@ -76,7 +82,10 @@ loadCart() {
     }
   });
 }
-
+removeId(address: any) {
+  const { _id, ...rest } = address;
+  this.selectedAddress = rest;
+}
 
 toggleAddressForm() {
   this.isAddingAddress = !this.isAddingAddress;
@@ -95,6 +104,13 @@ addProductToCart(productId: string, quantity: number) {
       },
 });
 }
+
+
+
+
+
+
+
 
 
 reduceProductQuantity(productId: string, quantity: number) {
@@ -230,9 +246,64 @@ onSubmit(): void {
   }
 
 
+  handleCheckout() {
+    if (!this.selectedAddress) {
+      this.errorMessage = " Please select a shipping address before proceeding.";
+      return;
+    }
 
+    const selectedPaymentMethod = (document.querySelector('input[name="paymentMethod"]:checked') as HTMLInputElement)?.value;
 
-
-
+    if (selectedPaymentMethod === "cash") {
+      this.cashCheckOut(this.myCart._id, this.selectedAddress);
+    } else if (selectedPaymentMethod === "epay") {
+      this.ePayCheckOut(this.myCart._id, this.selectedAddress);
+    } else {
+      this.orderErrorMessage = "Please select a payment method.";
+    }
+  }
   
-}
+  cashCheckOut(cart: string, shippingAddress: any) {
+    this.orderService.cashCheckOut(cart, shippingAddress).subscribe({
+      next: (response) => {
+        console.log("Order placed successfully!", response);
+        this.orderSuccessMessage = response.status;
+        setTimeout(() => {
+          window.location.href = '/account/orders'      
+        }, 2000);
+        this.modalRef.hide(); 
+       
+        this.loadCart();
+        this.counterService.refreshCounter()
+      },
+      error: (err) => {
+        console.error("Error placing order:", err);
+        this.orderSuccessMessage = "";
+        this.orderErrorMessage = err.error?.message || "An unexpected error occurred";
+      },
+    });
+  }
+  
+  ePayCheckOut(cart: string, shippingAddress: any) {
+    this.orderService.ePayCheckOut(cart, shippingAddress).subscribe({
+      next: (response) => {
+        console.log("order successful!", response);
+        this.orderSuccessMessage = `${response.status} complete  your payment  process`;
+        this.modalRef.hide(); 
+        window.open(response.url, '_blank')
+        this.loadCart();
+        this.counterService.refreshCounter()
+        
+
+      },
+      error: (err) => {
+        console.error("Error processing payment:", err);
+        this.orderSuccessMessage = "";
+        this.orderErrorMessage = err.error?.message || "Payment failed. Please try again.";
+      },
+    });
+  }
+ 
+  }
+
+

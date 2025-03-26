@@ -80,7 +80,7 @@
                             <td>
                             <div class="d-flex align-items-center">
                               <button class="btn btn-sm btn-outline-white me-2 border" (click)="deleteFromCart(item.productId)">x</button>
-                              <img [src]="item.image" alt="Product Image" class="product-image">
+                              <img [src]="'http://localhost:8088'+item.image" alt="Product Image" class="product-image">
                               <span>{{ item.name }}</span>
                             </div>
                           </td>
@@ -161,6 +161,12 @@
             </div>
 
             <div class="modal-body">
+                <div *ngIf="orderSuccessMessage" class="alert alert-success">
+                    {{ orderSuccessMessage }}
+                  </div>
+                <div *ngIf="orderErrorMessage" class="alert alert-danger">
+                    {{ orderErrorMessage }}
+                  </div>
                 <div class="row g-4">
                     <div class="col-md-4">
                         <div class="card p-4 shadow-sm border-0 order-card">
@@ -295,8 +301,11 @@
                             <h5 class="fw-bold text-secondary mb-3">Your Addresses</h5>
                             <div class="list-group">
                                 <div class="list-group-item form-check p-3 border rounded" *ngFor="let address of addresses; let i = index">
-                                    <input class="form-check-input me-2" type="radio" name="addressSelection" value="{{ address }}" checked>
-                                    <label class="form-check-label">
+                                    <input class="form-check-input me-2" type="radio" name="addressSelection" 
+                                    [value]="address"
+                                    [(ngModel)]="selectedAddress"
+                                    (ngModelChange)="removeId($event)">
+                                                                 <label class="form-check-label">
                                         <ul class="list-unstyled mb-0">
                                             <li><strong class="text-dark">Address:</strong> {{ address.address }}</li>
                                             <li><strong class="text-dark">Country:</strong> {{ address.country }}</li>
@@ -330,7 +339,7 @@
 
             <div class="modal-footer d-flex justify-content-between">
                 <button type="button" class="btn btn-white cancel" data-bs-dismiss="modal">Cancel <i class="fa-solid fa-xmark"></i></button>
-                <button type="button" class="btn btn-dark">
+                <button type="button" class="btn btn-dark" (click)="handleCheckout()">
                     <i class="fa-solid fa-check"></i> Confirm Checkout
                 </button>
             </div>
