@@ -445,7 +445,13 @@
         <div class="card h-100">
           <div class="card-img-container">
             <div class="discount-badge">{{ product.discount }}%</div>
-            <i class="far fa-heart heart-icon"></i>
+          
+            <i 
+            class="fa-heart heart-icon"
+            [ngClass]="{ 'fas': isInWishlist(product._id), 'far': !isInWishlist(product._id), 'text-danger': isInWishlist(product._id) }"
+            (click)="toggleWishlist(product._id)">
+          </i>
+
             <img
               [src]="'http://localhost:8088' + product.images[0]"
               class="card-img-top"
