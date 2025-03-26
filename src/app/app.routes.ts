@@ -36,19 +36,22 @@ import { WishlistComponent } from './pages/wish-list/wish-list/wish-list.compone
 import { adminGuard } from './guards/admin.guard';
 import { sellerGuard } from './guards/seller.guard';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
+import { GoogleCallbackComponent } from './pages/google-callback/google-callback.component';
+
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     title: 'Home Page',
   },
-  
+
   {
     path: 'unauthorized',
     component:UnauthorizedComponent ,
     title: 'Aunthorized Page',
   },
   { path: 'explore/store/:id', component: StoreDetailsComponent },
+  { path: 'auth-success', component: GoogleCallbackComponent },
 
   {
     path: 'account',
