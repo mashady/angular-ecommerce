@@ -175,9 +175,58 @@ background-color: #fffbfbfb;
 #confirmModal {
     z-index: 1050 !important;
 }
-
-.form-check-input:checked {
-    background-color:var(--color-primary)!important; 
-    border-color: #ffffff !important;
-}
-
+.custom-alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 1050;
+    width: 350px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+.custom-alert-epay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: var(--color-primary);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 1050;
+    width: 350px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .order-image {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .alert-content h3 {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .alert-content p {
+    margin-top: 5px;
+    font-size: 16px;
+  }
+  .address-list {
+    max-height: 300px; 
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch; 
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -55%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+  }
