@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, NgModel, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductRequestService } from '../../services/product-request.service';
 import { CategoryRequestService } from '../../services/category-request.service';
-import { NgIf, NgFor, NgClass, LowerCasePipe } from '@angular/common';
+import { NgIf, NgFor, NgClass, LowerCasePipe, CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 interface Product {
   id: number;
@@ -20,10 +21,10 @@ interface Product {
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
-  imports:[NgIf,NgFor,NgClass,LowerCasePipe,FormsModule, ReactiveFormsModule]
+  imports:[NgIf,NgFor,NgClass,LowerCasePipe,FormsModule, ReactiveFormsModule,RouterLink, NgIf,CurrencyPipe]
 })
 export class ProductsComponent implements OnInit {
-  products: Product[] = [];
+  products: any[] = [];
   categories: any[] = [];
   selectedCategories: string[] = [];
   searchQuery: string = '';
@@ -52,7 +53,18 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("nnnnn");
     this.getProducts();
+    this.productService.getSearchQuery().subscribe({
+      next: (data:any) => {
+        console.log(data);
+      },
+      error: (error:any) => {
+        console.log(error);
+      }
+    })
+    console.log(this.productService.getSearchQuery());
+    console.log("qqqqqqqqqqqqq",this.searchQuery);
 
     this.categoryService.getCategoryList().subscribe({
       next: (response) => {
@@ -108,7 +120,7 @@ export class ProductsComponent implements OnInit {
 
   getProducts(): void {
     console.log('Fetching products with query parameters:', {
-      query: this.searchQuery,
+      query: this.productService.getSearchQuery(),
       categories: this.selectedCategories,
       abovePrice: this.abovePrice,
       belowPrice: this.belowPrice,
@@ -117,7 +129,7 @@ export class ProductsComponent implements OnInit {
     });
 
     this.productService.getProducts(
-      this.searchQuery,
+      this.productService.getSearchQuery(),
       this.selectedCategories,
       this.abovePrice,
       this.belowPrice,
@@ -148,11 +160,15 @@ export class ProductsComponent implements OnInit {
     this.getProducts();
   }
 
+  onSearchSubmit(): void {
+    console.log('Search submitted with:', this.searchQuery);
+    this.page = 1;
+    this.getProducts();
+  }
+
   toggleViewMode(mode: 'grid' | 'list'): void {
     this.viewMode = mode;
   }
 
-  generateStarRating(rating: number): string {
-    return '★'.repeat(rating) + '☆'.repeat(5 - rating);
-  }
+
 }
