@@ -37,6 +37,8 @@ import { WishlistComponent } from './pages/wish-list/wish-list/wish-list.compone
 import { adminGuard } from './guards/admin.guard';
 import { sellerGuard } from './guards/seller.guard';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
+import { AdminCouponsComponent } from './pages/admin/admin-coupons/admin-coupons.component';
+import { AdminBannersComponent } from './pages/admin/admin-banners/admin-banners.component';
 export const routes: Routes = [
   {
     path: '',
@@ -95,6 +97,8 @@ export const routes: Routes = [
       { path: 'users', component: AdminUsersComponent },
       { path: 'orders', component: AdminOrdersComponent },
       { path: 'orders/:id', component: AdminOrderDetailsComponent },
+      { path: 'coupons', component: AdminCouponsComponent },
+      { path: 'banners', component: AdminBannersComponent },
     ],
   },
   {
