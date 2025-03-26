@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { NgFor, NgIf} from '@angular/common';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-cart',
@@ -29,6 +30,10 @@ export class CartComponent  implements OnInit {
   promoCode: string = '';
   successMessage:string='';
   orderSuccessMessage:string='';
+  epaySuccessMessage:string='';
+  orderId: string | null = null;
+  
+  showAlert: boolean = false;
   errorMessage:string='';
   orderErrorMessage:string='';
   myCart: any = { products: [] };
@@ -39,6 +44,7 @@ export class CartComponent  implements OnInit {
   orderService=inject(OrderService);
   modalRef=inject(BsModalRef);
   fb=inject(FormBuilder);
+  http=inject(HttpClient);
   addressForm!: FormGroup;
   apiError: string = '';
   isSubmitting: boolean = false;
@@ -53,6 +59,9 @@ ngOnInit() {
         zip: ['', [Validators.required, Validators.pattern('^[0-9]{5,10}$')]],
       });
       
+      if (this.addresses && this.addresses.length > 0) {
+        this.selectedAddress = this.removeId(this.addresses[0]); 
+      }
 this.loadCart();
   this.accountService.account$?.subscribe({
     next: (account) => {
@@ -82,11 +91,15 @@ loadCart() {
     }
   });
 }
+
+
 removeId(address: any) {
   const { _id, ...rest } = address;
-  this.selectedAddress = rest;
+  return rest;
 }
-
+isSelected(address: any) {
+  return JSON.stringify(this.selectedAddress) === JSON.stringify(this.removeId(address));
+}
 toggleAddressForm() {
   this.isAddingAddress = !this.isAddingAddress;
 }
@@ -178,6 +191,12 @@ deleteFromCart(productId: string) {
 }
 
 
+confirmClearCart() {
+  this.deleteCart();
+  this.showAlert = false; 
+}
+
+
 
 onSubmit(): void {
     if (this.addressForm.valid && !this.isSubmitting) {
@@ -248,7 +267,7 @@ onSubmit(): void {
 
   handleCheckout() {
     if (!this.selectedAddress) {
-      this.errorMessage = " Please select a shipping address before proceeding.";
+      this.orderErrorMessage = " Please select a shipping address before proceeding.";
       return;
     }
 
@@ -263,18 +282,21 @@ onSubmit(): void {
     }
   }
   
+  
   cashCheckOut(cart: string, shippingAddress: any) {
     this.orderService.cashCheckOut(cart, shippingAddress).subscribe({
       next: (response) => {
         console.log("Order placed successfully!", response);
         this.orderSuccessMessage = response.status;
+        this.showAlert = true;
+
         setTimeout(() => {
-          window.location.href = '/account/orders'      
-        }, 2000);
-        this.modalRef.hide(); 
-       
+          this.showAlert = false;
+          window.location.href = '/account/orders/' + response.data._id;
+        }, 3000);
+
         this.loadCart();
-        this.counterService.refreshCounter()
+        this.counterService.refreshCounter();
       },
       error: (err) => {
         console.error("Error placing order:", err);
@@ -283,27 +305,34 @@ onSubmit(): void {
       },
     });
   }
-  
   ePayCheckOut(cart: string, shippingAddress: any) {
     this.orderService.ePayCheckOut(cart, shippingAddress).subscribe({
-      next: (response) => {
-        console.log("order successful!", response);
-        this.orderSuccessMessage = `${response.status} complete  your payment  process`;
-        this.modalRef.hide(); 
-        window.open(response.url, '_blank')
-        this.loadCart();
-        this.counterService.refreshCounter()
+      next: (response: any) => {
+        console.log("Order initiated!", response);
         
-
-      },
+        this.showAlert = true;
+        this.counterService.refreshCounter()
+        this.loadCart();
+        this.epaySuccessMessage = "Please complete your payment...";
+        window.open(response.url, '_blank');
+        
+         },
       error: (err) => {
-        console.error("Error processing payment:", err);
-        this.orderSuccessMessage = "";
-        this.orderErrorMessage = err.error?.message || "Payment failed. Please try again.";
+        console.error("Payment error:", err);
+        this.showAlert = true;
+        this.orderErrorMessage = "Payment failed. Please try again.";
       },
     });
   }
- 
+  closeAlert(){
+    this.showAlert = false;
   }
+ 
+  
+  }
+
+
+
+  
 
 

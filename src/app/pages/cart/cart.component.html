@@ -23,8 +23,7 @@
                     <a href="shop.html" class="btn btn-dark shop-btn mt-3">Return to Shop</a>
                 </div>
             </div>
-                 
-
+                
                    
                     
                 </div>
@@ -33,6 +32,7 @@
    
 
 <!-- if cart is not empty show cart componnent-->
+
 
 <div class="cart-wrapper" *ngIf="myCart.products.length>0">
     <div class="container">
@@ -55,13 +55,11 @@
                     <div class="d-flex align-items-center">
                         <i class="bi bi-box-seam me-2"></i>
                         <span>
-                            Add <strong class="text-danger">$237.07</strong> to cart and get free shipping!
+                          Your Cart: Review, Modify & Checkout Seamlessly!" 
                         </span>
                         
                     </div>
-                    <div class="progress mt-2" style="height: 6px;">
-                        <div class="progress-bar" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                   
                 </div>
 
                 <div class="table-responsive">
@@ -109,7 +107,7 @@
                                           </div>
                                         </div>
                                     
-                                    <button type="button" class="btn btn-md btn-clear w-md-auto mt-2 mt-md-0 " style="background-color: #e7e9ec; " (click)="deleteCart()">ClearAll</button>
+                                    <button type="button" class="btn btn-md btn-clear w-md-auto mt-2 mt-md-0 " style="background-color: #e7e9ec;"  data-bs-toggle="modal" data-bs-target="#clearCartModal">ClearAll</button>
                                 </form>
                             </td>
                         </tr>
@@ -121,7 +119,24 @@
                   
                 </div>
             </div>
-
+            <div class="modal fade" id="clearCartModal" tabindex="-1" aria-labelledby="clearCartModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title li" id="clearCartModalLabel">Confirm Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <img src="../../../assets/images/Animation - 1742961663688.gif">
+                    Are you sure you want to clear your cart?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn cancel" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" (click)="confirmClearCart()" data-bs-dismiss="modal">Yes, Clear</button>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="col-lg-4" >
                 <div class="summary-card p-4 shadow-sm">
                     <h5 class="mb-4">Cart totals</h5>
@@ -157,13 +172,26 @@
                 <h5 class="modal-title  fw-bold li ">
                     <i class="fa-solid fa-cart-shopping li"></i> Checkout
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeAlert()"></button>
             </div>
 
-            <div class="modal-body">
-                <div *ngIf="orderSuccessMessage" class="alert alert-success">
-                    {{ orderSuccessMessage }}
-                  </div>
+            <div class="modal-body" >
+              <div *ngIf="showAlert &&epaySuccessMessage" class="custom-alert-epay">
+                <div  class="alert-content">
+                  <img src="../../../assets/images/payment (2).gif" class="order-image">
+                  <h3>Complete Your Payment Process!</h3>
+                  <p>{{ epaySuccessMessage }}</p>
+                </div>
+              </div>
+            
+              <div *ngIf="showAlert&& orderSuccessMessage" class="custom-alert bg-success">
+                <div class="alert-content">
+                  <img src="../../../assets/images/order.gif" class="order-image">
+                  <h3>Order Placed Successfully!</h3>
+                  <p>{{ orderSuccessMessage }}</p>
+                </div>
+              </div>
+          
                 <div *ngIf="orderErrorMessage" class="alert alert-danger">
                     {{ orderErrorMessage }}
                   </div>
@@ -300,45 +328,50 @@
                         <div *ngIf="!isAddingAddress">
                             <h5 class="fw-bold text-secondary mb-3">Your Addresses</h5>
                             <div class="list-group">
-                                <div class="list-group-item form-check p-3 border rounded" *ngFor="let address of addresses; let i = index">
-                                    <input class="form-check-input me-2" type="radio" name="addressSelection" 
-                                    [value]="address"
-                                    [(ngModel)]="selectedAddress"
-                                    (ngModelChange)="removeId($event)">
-                                                                 <label class="form-check-label">
-                                        <ul class="list-unstyled mb-0">
-                                            <li><strong class="text-dark">Address:</strong> {{ address.address }}</li>
-                                            <li><strong class="text-dark">Country:</strong> {{ address.country }}</li>
-                                            <li><strong class="text-dark">City:</strong>    {{ address.city }}</li>
-                                            <li><strong class="text-dark">Zip Code:</strong> {{ address.zip }}</li>
-                                        </ul>
-                                    </label>
-                                </div>
+                              <div class="list-group-item form-check p-3 border rounded" *ngFor="let address of addresses; let i = index">
+                                <input 
+                                  class="form-check-input" 
+                                  type="radio" 
+                                  name="addressSelection"  
+                                  [value]="removeId(address)" 
+                                  [(ngModel)]="selectedAddress"
+                                  [checked]="isSelected(address)">
+                                
+                                <label class="form-check-label">
+                                  <ul class="list-unstyled mb-0">
+                                    <li><strong class="li">Address:</strong> {{ address.address }}</li>
+                                    <li><strong class="text-dark">Country:</strong> {{ address.country }}</li>
+                                    <li><strong class="text-success">City:</strong> {{ address.city }}</li>
+                                    <li><strong class="text-danger">Zip Code:</strong> {{ address.zip }}</li>
+                                  </ul>
+                                </label>
+                              </div>
+                              
+                              
                             </div>
+                            <h5 class="fw-bold mt-4">
+                              <i class="fa-solid fa-credit-card"></i> Payment Method
+                          </h5>
+                                <div class="btn-group d-flex" role="group" aria-label="Payment Methods">
+                        <input type="radio" class="btn-check" name="paymentMethod" id="cashPayment" autocomplete="off" value="cash">
+                        <label class="btn btn-outline-success d-flex align-items-center justify-content-center flex-grow-1" for="cashPayment">
+                          <i class="fa-solid fa-money-bill me-2"></i> Cash on Delivery
+                        </label>
+
+                        <input type="radio" class="btn-check" name="paymentMethod" id="ePayPayment" autocomplete="off" value="epay">
+                        <label class="btn btn-outline-primary d-flex align-items-center justify-content-center flex-grow-1" for="ePayPayment">
+                          <i class="fa-solid fa-money-check me-2"></i> E-Pay
+                        </label>
+                                  </div>
+                      </div>
+                  </div>
+              </div>
                         </div>
 
-                        <h5 class="fw-bold mt-4">
-                            <i class="fa-solid fa-credit-card"></i> Payment Method
-                        </h5>
-                        <div class="form-check py-3 px-4 border rounded d-flex align-items-center gap-2">
-                            <input class="form-check-input" type="radio" name="paymentMethod" id="cashPayment" value="cash">
-                            <label class="form-check-label fw-semibold" for="cashPayment">
-                                <i class="fa-solid fa-money-bill text-success"></i> Cash on Delivery
-                            </label>
-                        </div>
-
-                        <div class="form-check py-3 px-4 border rounded mt-2 d-flex align-items-center gap-2">
-                            <input class="form-check-input" type="radio" name="paymentMethod" id="ePayPayment" value="epay">
-                            <label class="form-check-label fw-semibold" for="ePayPayment">
-                                <i class="fa-solid fa-money-check text-primary"></i> E-Pay
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                   
 
             <div class="modal-footer d-flex justify-content-between">
-                <button type="button" class="btn btn-white cancel" data-bs-dismiss="modal">Cancel <i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn btn-white cancel" data-bs-dismiss="modal" (click)="closeAlert()">Cancel <i class="fa-solid fa-xmark"></i> </button>
                 <button type="button" class="btn btn-dark" (click)="handleCheckout()">
                     <i class="fa-solid fa-check"></i> Confirm Checkout
                 </button>
@@ -347,119 +380,3 @@
     </div>
 </div>
 
-
-
-<div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-dialog-centered">
-        <div class="modal-content p-3">
-            <div class="modal-header">
-                <h5 class="modal-title text-dark fw-bold">
-                    <i class="fa-solid fa-cart-shopping"></i> Add New Address
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <section class="addAddress">
-                <div *ngIf="successMessage" class="alert alert-success" role="alert">
-                  {{ successMessage }}
-                </div>
-                <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
-                  <div class="form-row">
-                    <div class="form-group col-md-12">
-                      <label for="address">Address</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="address"
-                        placeholder="Enter your address"
-                        formControlName="address"
-                      />
-                      <div
-                        *ngIf="f['address'].touched && f['address'].invalid"
-                        class="alert alert-danger mt-2"
-                      >
-                        <div *ngIf="f['address'].hasError('required')">
-                          Address is required.
-                        </div>
-                      </div>
-                    </div>
-              
-                    <div class="form-group col-md-6">
-                      <label for="city">City</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="city"
-                        placeholder="City"
-                        formControlName="city"
-                      />
-                      <div
-                        *ngIf="f['city'].touched && f['city'].invalid"
-                        class="alert alert-danger mt-2"
-                      >
-                        <div *ngIf="f['city'].hasError('required')">City is required.</div>
-                      </div>
-                    </div>
-              
-                    <div class="form-group col-md-6">
-                      <label for="country">Country</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="country"
-                        placeholder="Country"
-                        formControlName="country"
-                      />
-                      <div
-                        *ngIf="f['country'].touched && f['country'].invalid"
-                        class="alert alert-danger mt-2"
-                      >
-                        <div *ngIf="f['country'].hasError('required')">
-                          Country is required.
-                        </div>
-                      </div>
-                    </div>
-              
-                    <div class="form-group col-md-6">
-                      <label for="zip">Zip Code</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="zip"
-                        placeholder="Zip Code"
-                        formControlName="zip"
-                      />
-                      <div
-                        *ngIf="f['zip'].touched && f['zip'].invalid"
-                        class="alert alert-danger mt-2"
-                      >
-                        <div *ngIf="f['zip'].hasError('required')">Zip code is required.</div>
-                        <div *ngIf="f['zip'].hasError('pattern')">
-                          Enter a valid zip code.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              
-                  <div *ngIf="apiError?.length !== 0">
-                    <div
-                      *ngFor="let error of apiError.split(', ')"
-                      class="alert alert-danger mt-2"
-                    >
-                      {{ error }}
-                    </div>
-                  </div>
-                  <div class="modal-footer d-flex justify-content-between">
-                    <button type="button" class="btn btn-white cancel" data-bs-dismiss="modal">Cancel<i class="fa-solid fa-xmark"></i></button>
-                    <button type="submit" class="btn btn-dark" [disabled]="addressForm.invalid">
-                        <i class="fa-solid fa-check"></i> Add
-                    </button>
-                                
-                </div>
-                </form>
-                
-              </section>
-              
-        </div>
-    </div>
-</div>
