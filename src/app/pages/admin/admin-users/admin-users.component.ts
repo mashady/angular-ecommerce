@@ -14,7 +14,7 @@ export class AdminUsersComponent {
   totalPages: number = 0;
   pagesArray: number[] = [];
   currentPage: number = 1;
-  limit: number = 15;
+  limit: number = 10;
   
   constructor(private userRequestService: UserRequestService) { }
 
@@ -22,9 +22,10 @@ export class AdminUsersComponent {
     this.userRequestService.getUserData(this.page, this.limit).subscribe((data) => {
       this.users = data.data;
       this.totalPages = data.totalPages;
+      console.log(this.totalPages);
+      console.log(this.users.length);
       this.pagesArray = Array.from({length: this.totalPages}, (_, i) => i + 1);
     });
-    this.pagenumber(this.currentPage);
   }
 
   approve(userId: string): void {
@@ -42,7 +43,6 @@ export class AdminUsersComponent {
   }
 
   pagenumber(page: number): void {
-    console.log(page);
     if (page < 1 || page > this.totalPages) return;
     this.currentPage = page;
     this.userRequestService.getUserData(page, this.limit).subscribe((data) => {

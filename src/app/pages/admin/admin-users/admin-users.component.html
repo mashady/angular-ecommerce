@@ -1,25 +1,36 @@
-<div class="table-responsive">
-  <table class="table table-bordered">
+  <table id="container" class="table table-bordered m-3">
     <thead>
       <tr class="text-center table-dark">
-        <th scope="col" class="text-center">#</th>
-        <th scope="col" class="text-center">Name</th>
-        <th scope="col" class="text-center">Email</th>
-        <th scope="col" class="text-center">Role</th>
-        <th scope="col" class="text-center">Status</th>
-        <th scope="col" class="text-center">Actions</th>
+        <th scope="col" class="text-center align-middle">#</th>
+        <th scope="col" class="text-center align-middle">Name</th>
+        <th scope="col" class="text-center align-middle">Email</th>
+        <th scope="col" class="text-center align-middle">Role</th>
+        <th scope="col" class="text-center align-middle">Status</th>
+        <th scope="col" class="text-center align-middle">Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let user of users; let i = index">
-        <td scope="row" class="text-center">{{ i + 1 }}</td>
-        <td scope="row" class="text-center">{{ user.firstName + ' ' + user.lastName }}</td>
-        <td scope="row" class="text-center">{{ user.email }}</td>
-        <td scope="row" class="text-center">{{ user.role }}</td>
-        <td scope="row" class="text-center">{{ user.AdministrativeStatus }}</td>
-        <td scope="row" class="text-center d-flex justify-content-center">
-          <button class="btn btn-primary mx-2" style="width: 45%;" (click)="approve(user._id)">Approve</button>
-          <button class="btn btn-danger mx-2" style="width: 45%;" (click)="reject(user._id)">Reject</button>
+        <td scope="row" class="text-center align-middle">{{ i + 1 }}</td>
+        <td scope="row" class="text-center align-middle">{{ user.firstName + ' ' + user.lastName }}</td>
+        <td scope="row" class="text-center align-middle">{{ user.email }}</td>
+        <td scope="row" class="text-center align-middle">{{ user.role }}</td>
+        <td scope="row" class="text-center align-middle">{{ user.AdministrativeStatus }}</td>
+        <td scope="row" class="text-center align-middle d-flex justify-content-center p-3">
+          <button 
+          class="btn btn-outline-primary mx-2" 
+          style="width: 45%;" 
+          (click)="approve(user._id)"
+          [disabled]="user.AdministrativeStatus === 'approved'"
+          >
+            <i class="fa-solid fa-circle-check"></i>
+          </button>
+          <button class="btn btn-outline-danger mx-2" 
+          style="width: 45%;" 
+          (click)="reject(user._id)"
+          [disabled]="user.AdministrativeStatus === 'restrict'">
+            <i class="fa-solid fa-ban"></i>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -31,4 +42,3 @@
       </li>
     </ul>
   </nav>
-</div>

@@ -1,0 +1,38 @@
+.card {
+    min-height: 345px;
+    height: 407px;
+  }
+  .card h3 {
+    font-size: 21px;
+    font-weight: 600;
+    height: 51px;
+  }
+  
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s;
+    height: 100%;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .card-img-container {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    position: relative;
+  }
+  .card-img-top {
+    max-height: 180px;
+    object-fit: contain;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 4px;
+    height: 40px;
+    overflow: hidden;
+  }

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { StoreService } from '../../../services/store.service';
-import { AsyncPipe, CurrencyPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, NgFor, NgIf } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { ProductRequestService } from '../../../services/product-request.service';
 import { ConfirmDeleteModalComponent } from '../../../shared/confirm-delete-modal/confirm-delete-modal.component';
@@ -10,7 +10,7 @@ import { CategoryRequestService } from '../../../services/category-request.servi
 
 @Component({
   selector: 'app-store-products',
-  imports: [RouterLink, CurrencyPipe, AsyncPipe, NgFor, NgIf, ConfirmDeleteModalComponent,JsonPipe],
+  imports: [RouterLink, CurrencyPipe, AsyncPipe, NgFor, NgIf, ConfirmDeleteModalComponent],
   templateUrl: './store-products.component.html',
   styleUrls: ['./store-products.component.css'],
 })

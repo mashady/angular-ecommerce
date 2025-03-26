@@ -17,6 +17,7 @@ export class AdminAddProductComponent {
   previewImages: string[] = [];
   submitting = false;
   categories !: Category[];
+  successMessage: string = '';
 
   constructor(
     private productService: ProductRequestService,
@@ -88,16 +89,17 @@ export class AdminAddProductComponent {
 
     this.productService.addProduct(formData).subscribe({
       next: (response) => {
-        console.log('Product added successfully', response);
+        this.successMessage = 'Product added successfully';
         this.productForm.reset();
         this.selectedImages = [];
         this.previewImages = [];
         this.submitting = false;
+        this.successMessage = '';
       },
       error: (error) => {
         console.error('Error adding product', error);
         this.submitting = false;
-      }
+        }
     })
   }
 }
