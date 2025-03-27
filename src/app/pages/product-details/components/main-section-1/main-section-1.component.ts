@@ -27,14 +27,14 @@ export class MainSection1Component {
   successMessage:string='';
   wishlistProductIds: string[] = [];
   @ViewChild('errorToast', { static: true }) errorToast!: ElementRef;
-  constructor(private router: Router, 
+  constructor(private router: Router,
     private cartService: CartService,
     private counterService: CounterServiceService,
     private wishListService:WishlistService,
     private fb: FormBuilder,
     private http: HttpClient,
   ) {
-    
+
   }
 
   ngOnInit() {
@@ -48,16 +48,17 @@ export class MainSection1Component {
   }
 
   addReview() {
+    console.log(this.product?._id);
     if(!this.reviewForm) {
       return;
     }
     if (!this.reviewForm.valid || !this.product?._id) {
       return;
     }
-    
+
     const reviewData = {
       ...this.reviewForm.value,
-      productId: this.product._id
+      productID: this.product?._id
     };
 
     this.http.post('http://localhost:8088/review', reviewData).subscribe({
@@ -92,7 +93,7 @@ export class MainSection1Component {
         console.log('Product added to cart:', response);
         this.quantity=1;
         this.counterService.refreshCounter();
-        this.loginErrorMessage ='';  
+        this.loginErrorMessage ='';
       },
       error: (err) => {
         this.showErrorToast('Error adding product to cart!');
@@ -100,16 +101,16 @@ export class MainSection1Component {
       },
   });
   }
-  
+
   increaseQuantity(product: any) {
     if (this.quantity < product.stock) {
-      this.quantity++; 
+      this.quantity++;
     }
   }
-  
+
   decreaseQuantity() {
     if (this.quantity > 1) {
-      this.quantity--; 
+      this.quantity--;
     }
   }
   showErrorToast(message: string): void {
@@ -147,7 +148,7 @@ export class MainSection1Component {
       this.wishListService.removeFromWishlist(productId).subscribe({
         next: () => {
           this.wishlistProductIds = this.wishlistProductIds.filter(id => id !== productId);
-          this.counterService.refreshWishCounter(); 
+          this.counterService.refreshWishCounter();
           this.loginErrorMessage ='';
 
         },
@@ -163,7 +164,7 @@ export class MainSection1Component {
       this.wishListService.addToWishlist(productId).subscribe({
         next: () => {
           this.wishlistProductIds.push(productId);
-          this.counterService.refreshWishCounter(); 
+          this.counterService.refreshWishCounter();
           this.loginErrorMessage ='';
         },
         error: (error) => {
@@ -178,5 +179,5 @@ export class MainSection1Component {
   isInWishlist(productId: string): boolean {
     return this.wishlistProductIds.includes(productId);
   }
-  
+
 }

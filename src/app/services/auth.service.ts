@@ -19,7 +19,8 @@ export class AuthService {
     public httpClient: HttpClient,
     private router: Router,
     private accountService: AccountService,
-    public counter:CounterServiceService
+    public counter:CounterServiceService,
+    public counterServiceService:CounterServiceService
   ) {
     if (localStorage.getItem('userToken')) {
       this.decode();
@@ -71,6 +72,7 @@ export class AuthService {
     localStorage.removeItem('userToken');
     this.userData.next(null);
     this.accountService.accountData.next(null);
+    this.counterServiceService.refreshWishCounter()
     this.counter.refreshCounter()
     this.router.navigate(['/']);
   }

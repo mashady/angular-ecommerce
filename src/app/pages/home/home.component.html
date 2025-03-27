@@ -52,7 +52,7 @@
     <div class="col-sm-6 col-md-4 col-lg-3">
       <div class="card p-3">
         <h3>
-          <a href="/products.html" style="text-decoration: none; color: #212529"
+          <a routerLink="products" style="text-decoration: none; color: #212529"
             >Join Prime & shop Ramadan deals</a
           >
         </h3>
@@ -438,16 +438,19 @@
 
 
    -->
-  
 
+  <div class="d-flex justify-content-between" style="margin-top: 50px;">
+    <h3>Latest Products</h3>
+    <button class="btn" routerLink="products">See All</button>
+  </div>
   <div class="container mt-5 mb-5">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mt-4">
       <div *ngFor="let product of products" class="col">
         <div class="card h-100">
           <div class="card-img-container">
             <div class="discount-badge">{{ product.discount }}%</div>
-          
-            <i 
+
+            <i
             class="fa-heart heart-icon"
             [ngClass]="{ 'fas': isInWishlist(product._id), 'far': !isInWishlist(product._id), 'text-danger': isInWishlist(product._id) }"
             (click)="toggleWishlist(product._id)">
