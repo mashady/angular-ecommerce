@@ -6,9 +6,6 @@ import {CounterServiceService} from "../../services/counter.service"
 import { CartService } from "../../services/cart.service";
 import { WishlistService} from '../../services/wishlist.service';
 import { CommonModule } from '@angular/common'; 
-import { BannerRequestService } from '../../services/banner-request.service';
-import { Banner } from '../../interfaces/banner';
-
 declare var bootstrap: any; 
 
 @Component({
@@ -21,14 +18,10 @@ export class HomeComponent {
   products!: any;
   wishlistProductIds: string[] = [];
   errorMessage:string='';
-  banners: Banner[] = [];
   @ViewChild('errorToast', { static: true }) errorToast!: ElementRef;
 
-  constructor(private productRequestService: ProductRequestService,
-    private bannerService: BannerRequestService,
-    private cartService: CartService,
-    private wishListService:WishlistService,
-    private counterService: CounterServiceService) {
+  constructor(private productRequestService: ProductRequestService,private cartService: CartService,private wishListService:WishlistService,
+      private counterService: CounterServiceService) {
     this.productRequestService.getProductsList().subscribe({
       next: (res) => {
         console.log(res);
@@ -38,18 +31,6 @@ export class HomeComponent {
   }
   ngOnInit(): void {
     this.loadWishlist();
-    this.loadBanners();
-  }
-
-  loadBanners(): void {
-    this.bannerService.getBannerList().subscribe({
-      next: (banners) => {
-        this.banners = banners.banners;
-      },
-      error: (error) => {
-        console.error('Failed to load banners:', error);
-      }
-    });
   }
 
   loadWishlist(): void {
