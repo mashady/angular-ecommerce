@@ -15,7 +15,7 @@
   </button>
 
   <button
-    *ngIf="account.user.role !== 'seller'"
+    *ngIf="account.user.role == 'seller'||account.user.role == 'user'"
     class="btn"
     (click)="onBeSeller()"
   >

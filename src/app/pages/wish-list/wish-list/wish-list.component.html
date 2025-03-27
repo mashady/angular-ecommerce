@@ -1,4 +1,4 @@
-<div class="container mt-4 wishlist-container">
+<div class="container mt-4 mb-4 wishlist-container">
   <h2 class="wishlist-title">My Wishlist ({{ wishlistCount }})</h2>
   <p class="total-price">Total Price: ${{ totalPrice.toFixed(2) }}</p>
 
@@ -17,8 +17,8 @@
       <tr *ngFor="let item of wishlist">
         <td class="d-flex align-items-center">
           <img
-               [src]="'http://localhost:8088'+item.productId.images[0]" 
-               alt="{{ item.productId?.name }}" 
+               [src]="'http://localhost:8088'+item.productId.images[0]"
+               alt="{{ item.productId?.name }}"
                class="wishlist-img me-3">
           <span class="product-info">{{ item.productId.name }}</span>
         </td>
@@ -39,29 +39,11 @@
             <button class="remove-btn" (click)="removeFromWishlist(item.productId._id)">×</button>
                   </td>
       </tr>
-      
+
     </tbody>
   </table>
 
-  <!-- Social Share Icons -->
-  <div class="social-icons my-4">
-    <span>Share on: </span>
-    <a href="#"><i class="fab fa-facebook"></i></a>
-    <a href="#"><i class="fab fa-twitter"></i></a>
-    <a href="#"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-linkedin"></i></a>
-  </div>
 
-  <!-- Newsletter Subscription Box -->
-  <div class="newsletter-box">
-    <p class="newsletter-title">Join our newsletter for £10 offs</p>
-    <p class="newsletter-text">Register now to get latest updates on promotions & coupons. Don't worry, we not spam!</p>
-    <div class="newsletter-input">
-      <input type="email" class="form-control" placeholder="Enter your email address">
-      <button class="btn send-btn">SEND</button>
-    </div>
-    <p class="newsletter-terms">
-      By subscribing you agree to our <a href="#">Terms & Conditions</a> and <a href="#">Privacy & Cookies Policy</a>.
-    </p>
-  </div>
+
+
 </div>

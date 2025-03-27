@@ -114,11 +114,7 @@ export const routes: Routes = [
       { path: 'banners/update/:id', component: UpdateBannerComponent },
     ],
   },
-  {
-    path: 'products-list',
-    component: ProductListComponent,
-    title: 'Poroducts List Page',
-  },
+
 
   {
     path: 'product-details/:id',

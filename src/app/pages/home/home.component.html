@@ -1,5 +1,5 @@
 <div class="mb-4">
-  <div *ngIf="banners.length > 0" 
+  <div *ngIf="banners.length > 0"
     id="carouselExampleControls"
     class="carousel slide"
     data-bs-ride="carousel"
@@ -340,16 +340,19 @@
 
 
    -->
-  
 
+  <div class="d-flex justify-content-between" style="margin-top: 50px;">
+    <h3>Latest Products</h3>
+    <button class="btn" routerLink="products">See All</button>
+  </div>
   <div class="container mt-5 mb-5">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mt-4">
       <div *ngFor="let product of products" class="col">
         <div class="card h-100">
           <div class="card-img-container">
             <div class="discount-badge">{{ product.discount }}%</div>
-          
-            <i 
+
+            <i
             class="fa-heart heart-icon"
             [ngClass]="{ 'fas': isInWishlist(product._id), 'far': !isInWishlist(product._id), 'text-danger': isInWishlist(product._id) }"
             (click)="toggleWishlist(product._id)">
