@@ -18,11 +18,17 @@
     #container {
         width: 500px;
     }
+    .message {
+        width: 500px;
+    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
     #container {
+        width: 900px;
+    }
+    .message {
         width: 900px;
     }
 }
@@ -31,11 +37,17 @@
     #container {
         width: 700px;
     }
+    .message {
+        width: 700px;
+    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     #container {
+        width: 1000px;
+    }
+    .message {
         width: 1000px;
     }
 }

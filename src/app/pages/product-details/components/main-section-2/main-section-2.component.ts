@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Product } from '../../../../interfaces/product';
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-main-section-2',
   standalone: true,

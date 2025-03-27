@@ -5,7 +5,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { HttpErrorResponse } from '@angular/common/http';
 
 declare var bootstrap: any;
 
@@ -21,12 +21,22 @@ export class AdminCategoriesComponent {
   categoryForm !: FormGroup;
   mode: string = 'add';
   id: string | undefined = undefined;
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
   constructor(private categoryService: CategoryRequestService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.categoryService.getCategoryList().subscribe((categories) => {
-      this.categories = categories.categories;
-    });
+    this.categoryService.getCategoryList().subscribe(
+      (response) => {
+        this.categories = response.categories;
+      },
+      (error) => {
+        console.error('Error fetching categories', error);
+        this.errorMessage = error.error.Message;
+        this.successMessage = null;
+        this.ngOnInit();
+      }
+    );
 
     this.categoryForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
@@ -45,11 +55,17 @@ export class AdminCategoriesComponent {
         console.log('Category added successfully', response);
         this.categoryForm.reset();
         this.submitting = false;
+        
+        this.successMessage = 'Category added successfully';
+        this.errorMessage = null;
         this.ngOnInit();
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Error adding category', error);
-        this.submitting = false;          
+        this.submitting = false;
+        this.errorMessage = error.error.Message;
+        this.successMessage = null;
+        this.ngOnInit();        
       }
     })
   } 
@@ -73,16 +89,22 @@ export class AdminCategoriesComponent {
         this.mode = 'add';
         this.id = undefined;
         this.categoryForm.reset();
-        const modalElement = document.getElementById('deleteCategory');
+        const modalElement = document.getElementById('deleteCategory' + id);
         if (modalElement) {
           const modal = bootstrap.Modal.getInstance(modalElement);
           modal?.hide();
         }
+        
+        this.successMessage = 'Category deleted successfully';
+        this.errorMessage = null;
         this.ngOnInit();
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Error deleting category', error);
         this.submitting = false;
+        this.errorMessage = error.error.Message;
+        this.successMessage = null;
+        this.ngOnInit();        
       }
     })
   }
@@ -101,11 +123,17 @@ export class AdminCategoriesComponent {
         this.submitting = false;
         this.mode = 'add';
         this.id = undefined; 
+        
+        this.successMessage = 'Category updated successfully';
+        this.errorMessage = null;
         this.ngOnInit();
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Error updating category', error);
         this.submitting = false;
+        this.errorMessage = error.error.Message;
+        this.successMessage = null;  
+        this.ngOnInit();      
       }
     })
   }

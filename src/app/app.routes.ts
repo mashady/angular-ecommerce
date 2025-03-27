@@ -42,6 +42,8 @@ import { ProductsComponent } from './pages/products/products.component';
 
 import { AdminBannersComponent } from './pages/admin/admin-banners/admin-banners.component';
 import { AdminCouponsComponent } from './pages/admin/admin-coupons/admin-coupons.component';
+import { UpdateBannerComponent } from './pages/admin/update-banner/update-banner.component';
+import { ShowBannersComponent } from './pages/admin/show-banners/show-banners.component';
 export const routes: Routes = [
   {
     path: '',
@@ -107,7 +109,9 @@ export const routes: Routes = [
       { path: 'orders', component: AdminOrdersComponent },
       { path: 'orders/:id', component: AdminOrderDetailsComponent },
       { path: 'coupons', component: AdminCouponsComponent },
-      { path: 'banners', component: AdminBannersComponent },
+      { path: 'add-banners', component: AdminBannersComponent },
+      { path: 'banners', component: ShowBannersComponent },
+      { path: 'banners/update/:id', component: UpdateBannerComponent },
     ],
   },
   {

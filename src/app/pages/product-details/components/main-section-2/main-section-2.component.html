@@ -30,19 +30,20 @@
 
   <div *ngIf="product">
     <div *ngIf="isDescriptionClicked" class="pt-4">
-      <p>{{ product.description }}</p>
+      <p>{{ product?.description }}</p>
     </div>
 
     <div *ngIf="isReviewClicked">
       <div *ngIf="product.reviews && product.reviews.length > 0" class="pt-4">
-        <div *ngFor="let review of product.reviews; let i = index" class="card mb-3">
+        <div *ngFor="let review of product?.reviews; let i = index" class="card mb-3">
           <div class="card-body">
             <h5 class="card-title">Review #{{ i + 1 }}</h5>
-            <p class="card-text">{{ review }}</p>
+            <p class="card-text">{{ review.content }}</p>
+            <p class="card-text">Rating: {{ review.rating }} 🌟</p>
           </div>
         </div>
       </div>
-      <div *ngIf="!product.reviews || product.reviews.length === 0" class="text-center pt-4">
+      <div *ngIf="!product?.reviews || product?.reviews?.length === 0" class="text-center pt-4">
         <p>No reviews available for this product.</p>
       </div>
     </div>
