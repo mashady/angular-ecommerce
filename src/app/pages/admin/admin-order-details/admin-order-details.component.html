@@ -1,1 +1,87 @@
-<p>admin-order-details works!</p>
+<section
+  class="accountOrderDetails m-5"
+  *ngIf="order$ | async as order; else loading"
+>
+  <p>
+    Order was placed on
+    <mark>{{ order.createdAt | date : "MMM d, y, h:mm a" }}</mark> and is
+    currently <mark>{{ order.status }}</mark
+    >.
+  </p>
+
+  <h3>Order Details</h3>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Product</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of order?.products">
+        <th>
+          <p>
+            <a [routerLink]="'/product-details/' + product.productId">
+              {{ product.name }}
+            </a>
+            × {{ product.quantity }} Vendor:
+          </p>
+          <p *ngIf="product.discount">
+            <span class="text-danger fw-bold">Discount Applied!</span>
+          </p>
+        </th>
+        <td>
+          <p *ngIf="product.discount">
+            <del class="text-muted">
+              {{ product.price * product.quantity | currency }}
+            </del>
+            ➝
+            <span class="text-success fw-bold">
+              {{
+                product.price * (1 - product.discount / 100) * product.quantity
+                  | currency
+              }}
+            </span>
+          </p>
+          <p *ngIf="!product.discount">
+            {{ product.price * product.quantity | currency }}
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <th>Payment method:</th>
+        <td>{{ order?.paymentMethod }}</td>
+      </tr>
+      <tr>
+        <th>Total:</th>
+        <td>
+          <del *ngIf="order?.discount" class="text-muted">
+            {{ order?.totalBeforeDiscount | currency }}
+          </del>
+          <span class="text-success fw-bold">
+            {{ order?.totalOrderPrice | currency }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="shippingAddress">
+    <h3>Shipping Address</h3>
+    <ul class="list-unstyled" *ngIf="order?.shippingAddress">
+      <li>{{ order.shippingAddress.fullName }}</li>
+      <li>{{ order.shippingAddress.address }}</li>
+      <li>{{ order.shippingAddress.city }}</li>
+      <li>{{ order.shippingAddress.postalCode }}</li>
+      <li>{{ order.shippingAddress.country }}</li>
+    </ul>
+    <p *ngIf="!order?.shippingAddress" class="text-danger">
+      No shipping address found.
+    </p>
+  </div>
+</section>
+
+<ng-template #loading>
+  <p>Loading order details...</p>
+</ng-template>

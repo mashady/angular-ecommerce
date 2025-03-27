@@ -1,5 +1,5 @@
 <div class="m-5">
-    <h2 class="text-center">Add New Banner</h2>
+    <h2 class="text-center">Update Banner</h2>
     <div *ngIf="successMessage" class="alert alert-success">
       {{ successMessage }}
     </div>
@@ -90,7 +90,7 @@
             <button
               type="button"
               class="btn btn-sm btn-danger position-absolute top-0 end-0"
-              (click)="removeImage(i)"
+              (click)="removeNewImage(i)"
             >
               ×
             </button>
@@ -106,7 +106,7 @@
             bannerForm.invalid || submitting || selectedImages.length === 0
           "
         >
-          Add Banner
+          Update Banner
         </button>
       </div>
     </form>

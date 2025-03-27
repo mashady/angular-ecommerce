@@ -9,7 +9,36 @@ export interface Banner {
     updatedAt?: string;
 }
 
-export interface BannerResponse {
+export interface BannersResponse {
     Message: string;
     banners: Banner[];
 }
+
+export interface BannerResponse {
+  message: string;
+  reqBanner: Banner;
+}
+
+export interface BannerIdResponse {
+  message: string;
+  existingBanner: Banner;
+}
+
+export interface updateBannerResponse {
+    message: string;
+    updatedBanner: Banner;
+}
+
+export interface deleteBannerResponse {
+    message: string;
+    deletedBanner: Banner;
+}
+
+export interface addBannerResponse {
+    message: string;
+    addedBanner: Banner;
+}
+    
+
+    
+  

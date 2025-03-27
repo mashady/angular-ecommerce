@@ -5,8 +5,10 @@ import { Observable, map } from 'rxjs';
 
 interface ProductResponse {
   message: string;
-  existingProduct: Product;
+  product: Product;
 }
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -31,8 +33,8 @@ export class ProductRequestService {
   getSingleProduct(id: string): Observable<Product> {
     return this.http.get<ProductResponse>(`${this.apiUrl}/products/${id}`).pipe(
       map((response) => {
-        if (response && response.existingProduct) {
-          return response.existingProduct;
+        if (response && response.product) {
+          return response.product;
         }
         throw new Error('Invalid product data format');
       })
