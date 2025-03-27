@@ -92,7 +92,7 @@ export class AdminCouponsComponent {
         console.log('Coupon deleted successfully', response);
         this.submitting = false;
         this.resetForm();
-        const modalElement = document.getElementById('deleteCoupon');
+        const modalElement = document.getElementById('deleteCoupon' + id);
         if (modalElement) {
           const modal = bootstrap.Modal.getInstance(modalElement);
           modal?.hide();

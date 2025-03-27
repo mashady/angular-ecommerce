@@ -1,5 +1,10 @@
-
-  <div class="m-5" id="container">
+<div *ngIf="errorMessage" class="alert alert-danger m-5 message" role="alert">
+  {{errorMessage}}
+</div>
+<div *ngIf="successMessage" class="alert alert-success m-5 message" role="alert">
+  {{successMessage}}
+</div>
+<div class="m-5" id="container">
     <div class="card mb-3">
       <div class="card-header text-center bg-light">
         <h3>Add Category</h3>
@@ -98,6 +103,7 @@
             <button
               class="btn btn-outline-primary mx-4"
               (click)="category._id && getCategoryData(category)"
+              [attr.data-bs-target]="'#editCategory' + category._id"
             >
             <i class="fa-solid fa-pencil"></i>
             </button>
@@ -106,14 +112,14 @@
               type="button"
               class="btn btn-outline-danger mx-4"
               data-bs-toggle="modal"
-              data-bs-target="#deleteCategory"
+              [attr.data-bs-target]="'#deleteCategory' + category._id"
             >
             <i class="fa-solid fa-delete-left"></i>
             </button>
             <!-- Modal -->
             <div
               class="modal fade"
-              id="deleteCategory"
+              [attr.id]="'deleteCategory' + category._id"
               tabindex="-1"
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"

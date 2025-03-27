@@ -1,3 +1,5 @@
+import { Review } from './review';
+
 export interface Product {
   _id?: string;
   name: string;
@@ -9,7 +11,7 @@ export interface Product {
   updatedBy?: string;
   images: string[];
   stock: number;
-  reviews?: string[];
+  reviews?: Review[];
   createdAt?: string;
   updatedAt?: string;
 }
