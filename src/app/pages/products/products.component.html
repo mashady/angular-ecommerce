@@ -94,8 +94,11 @@
         <div class="card h-100">
           <div class="card-img-container">
             <div class="discount-badge">{{ product.discount }}%</div>
-            <i class="far fa-heart heart-icon"></i>
-            <img
+            <i 
+            class="fa-heart heart-icon"
+            [ngClass]="{ 'fas': isInWishlist(product._id), 'far': !isInWishlist(product._id), 'text-danger': isInWishlist(product._id) }"
+            (click)="toggleWishlist(product._id)">
+          </i>            <img
               [src]="'http://localhost:8088' + product.images[0]"
               class="card-img-top"
               alt="{{ product.name }}"
@@ -115,7 +118,7 @@
                 product.oldPrice | currency
               }}</span>
             </p>
-            <button class="add-btn">+</button>
+            <button class="add-btn" (click)="addProductToCart(product._id,1)">+</button>
           </div>
         </div>
       </div>
@@ -161,4 +164,12 @@
           </li>
         </ul>
       </nav>
+      <div #errorToast class="toast align-items-center text-white bg-danger border-0 position-fixed top-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            {{ errorMessage }}
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
     </div>

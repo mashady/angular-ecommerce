@@ -7,6 +7,9 @@ import * as bootstrap from 'bootstrap';
 import {CounterServiceService} from "../../../../services/counter.service"
 import { CartService } from "../../../../services/cart.service";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { WishlistService } from '../../../../services/wishlist.service';
+// import { ProductRequestService } from '../../../../services/product-request.service';
+
 @Component({
   selector: 'app-main-section-1',
   standalone: true,
@@ -20,23 +23,28 @@ export class MainSection1Component {
   myCart: any = { products: [] };
   quantity:number=0;
   errorMessage:string='';
+  loginErrorMessage:string='';
   successMessage:string='';
+  wishlistProductIds: string[] = [];
   @ViewChild('errorToast', { static: true }) errorToast!: ElementRef;
   constructor(private router: Router, 
     private cartService: CartService,
     private counterService: CounterServiceService,
+    private wishListService:WishlistService,
     private fb: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     
   }
 
   ngOnInit() {
+    this.loadWishlist();
     this.reviewForm = this.fb.group({
       content: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
       rating: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
       productID: ['']
     });
+
   }
 
   addReview() {
@@ -84,11 +92,11 @@ export class MainSection1Component {
         console.log('Product added to cart:', response);
         this.quantity=1;
         this.counterService.refreshCounter();
-  
+        this.loginErrorMessage ='';  
       },
       error: (err) => {
         this.showErrorToast('Error adding product to cart!');
-        this.errorMessage = err.error;
+        this.loginErrorMessage = err.error.errors||err.error;
       },
   });
   }
@@ -105,10 +113,70 @@ export class MainSection1Component {
     }
   }
   showErrorToast(message: string): void {
-    this.errorMessage = message;
+    this.loginErrorMessage = message;
     const toast = new bootstrap.Toast(this.errorToast.nativeElement);
     toast.show();
   }
-  
+  loadWishlist(): void {
+    this.wishListService.getWishlist().subscribe({
+      next: (wishlist) => {
+        this.wishlistProductIds = wishlist
+          .map(item => item.productId?._id)
+          .filter((id): id is string => !!id); // Remove undefined values
+      },
+      error: () => {
+        console.error('Failed to load wishlist');
+      }
+    });
+  }
+  addToWishlist(productId: string) {
+    this.wishListService.addToWishlist(productId).subscribe({
+      next: (response) => {
+        console.log('Product added to Wishlist:', response);
+        this.counterService.refreshWishCounter();
+
+      },
+      error: (err) => {
+        console.error('Error adding product to Wishlist:', err);
+
+        },
+  });
+  }
+  toggleWishlist(productId: string): void {
+    if (this.isInWishlist(productId)) {
+      this.wishListService.removeFromWishlist(productId).subscribe({
+        next: () => {
+          this.wishlistProductIds = this.wishlistProductIds.filter(id => id !== productId);
+          this.counterService.refreshWishCounter(); 
+          this.loginErrorMessage ='';
+
+        },
+        error: (error) => {
+          console.error("Error removing from wishlist:", error);
+          this.showErrorToast("Failed to remove from wishlist. Please try again.");
+          this.loginErrorMessage = error.error;
+
+
+        }
+      });
+    } else {
+      this.wishListService.addToWishlist(productId).subscribe({
+        next: () => {
+          this.wishlistProductIds.push(productId);
+          this.counterService.refreshWishCounter(); 
+          this.loginErrorMessage ='';
+        },
+        error: (error) => {
+          console.error("Error adding to wishlist:", error);
+          this.showErrorToast("Failed to add to wishlist. Please try again.");
+          this.loginErrorMessage = error.error;
+        }
+      });
+    }
+  }
+
+  isInWishlist(productId: string): boolean {
+    return this.wishlistProductIds.includes(productId);
+  }
   
 }
