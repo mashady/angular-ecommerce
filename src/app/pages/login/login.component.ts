@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CounterServiceService } from '../../services/counter.service';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, NgIf, RouterLink, NgFor],
@@ -19,7 +20,8 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     public AuthService: AuthService,
-    public router: Router
+    public router: Router,
+    public counterServiceService:CounterServiceService
   ) {
     this.loginForm = this.formBuilder.group({
       emailOrPhone: ['', [Validators.required, this.emailOrPhoneValidator()]],
@@ -65,6 +67,8 @@ export class LoginComponent {
             localStorage.setItem('userToken', res.token);
             console.log(res.token);
             this.AuthService.decode();
+            // counter sevice
+            this.counterServiceService.refreshWishCounter()
             console.log(this.AuthService.userData.value);
             this.apiError = '';
             console.log('navigate');

@@ -7,8 +7,8 @@ import { RouterLink } from '@angular/router';
 import {CounterServiceService} from "../../services/counter.service"
 import { CartService } from "../../services/cart.service";
 import { WishlistService} from '../../services/wishlist.service';
-import { CommonModule } from '@angular/common'; 
-declare var bootstrap: any; 
+import { CommonModule } from '@angular/common';
+declare var bootstrap: any;
 interface Product {
   id: number;
   name: string;
@@ -64,14 +64,7 @@ export class ProductsComponent implements OnInit {
     console.log("nnnnn");
     this.getProducts();
     this.loadWishlist();
-    this.productService.getSearchQuery().subscribe({
-      next: (data:any) => {
-        console.log(data);
-      },
-      error: (error:any) => {
-        console.log(error);
-      }
-    })
+
     console.log(this.productService.getSearchQuery());
     console.log("qqqqqqqqqqqqq",this.searchQuery);
 
@@ -83,6 +76,14 @@ export class ProductsComponent implements OnInit {
         console.error('Error Fetching Categories', error);
       }
     });
+    this.productService.getSearchQuery().subscribe({
+      next: (data:any) => {
+        console.log(data);
+      },
+      error: (error:any) => {
+        console.log(error);
+      }
+    })
   }
 
   get selectedCategoriesArray(): FormArray {
@@ -199,7 +200,7 @@ export class ProductsComponent implements OnInit {
       this.wishListService.removeFromWishlist(productId).subscribe({
         next: () => {
           this.wishlistProductIds = this.wishlistProductIds.filter(id => id !== productId);
-          this.counterService.refreshWishCounter(); 
+          this.counterService.refreshWishCounter();
           this.errorMessage ='';
         },
         error: (error) => {
@@ -214,7 +215,7 @@ export class ProductsComponent implements OnInit {
       this.wishListService.addToWishlist(productId).subscribe({
         next: () => {
           this.wishlistProductIds.push(productId);
-          this.counterService.refreshWishCounter(); 
+          this.counterService.refreshWishCounter();
           this.errorMessage ='';
         },
         error: (error) => {
@@ -238,7 +239,7 @@ export class ProductsComponent implements OnInit {
         this.counterService.refreshCounter();
         this.errorMessage ='';
 
-  
+
       },
       error: (err) => {
        console.error('Error adding product to cart:', err);
@@ -259,7 +260,7 @@ export class ProductsComponent implements OnInit {
       error: (err) => {
         console.error('Error adding product to Wishlist:', err);
 
-       
+
         },
   });
   }
