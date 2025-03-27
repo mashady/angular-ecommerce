@@ -15,6 +15,7 @@ export class WishlistComponent implements OnInit {
   wishlist: WishlistItem[] = []; 
   wishlistCount: number = 0; 
   totalPrice: number = 0; 
+  
 
   constructor(private wishlistService: WishlistService,private cartService:CartService,private counterService: CounterServiceService) {}
 
@@ -79,6 +80,7 @@ addProductToCart(productId: string, quantity: number) {
       },
 });
 }
+
 
 
 }
