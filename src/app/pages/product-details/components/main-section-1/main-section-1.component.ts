@@ -57,7 +57,7 @@ export class MainSection1Component {
     
     const reviewData = {
       ...this.reviewForm.value,
-      productId: this.product._id
+      productID: this.product?._id
     };
 
     this.http.post('http://localhost:8088/review', reviewData).subscribe({

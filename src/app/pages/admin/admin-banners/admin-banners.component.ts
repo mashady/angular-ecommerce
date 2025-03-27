@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { BannerRequestService } from '../../../services/banner-request.service';
 import { CommonModule } from '@angular/common';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin-banners',
   imports: [ReactiveFormsModule, CommonModule],
@@ -19,12 +19,13 @@ export class AdminBannersComponent {
   constructor(
     private bannerService: BannerRequestService,
     private fb: FormBuilder,
+    private router: Router
   )
   {  }
 
   ngOnInit() {
     this.bannerForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)] ],
+      title: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)] ],
       description: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
@@ -81,6 +82,8 @@ export class AdminBannersComponent {
         this.selectedImages = [];
         this.previewImages = [];
         this.submitting = false;
+        this.router.navigate(['/admin/banners']);
+
       },
       error: (error: any) => {
         console.error('Error adding banner', error);
