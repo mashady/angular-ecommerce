@@ -55,6 +55,7 @@ export class AdminCategoriesComponent {
         console.log('Category added successfully', response);
         this.categoryForm.reset();
         this.submitting = false;
+        this.mode = 'add';
         
         this.successMessage = 'Category added successfully';
         this.errorMessage = null;
