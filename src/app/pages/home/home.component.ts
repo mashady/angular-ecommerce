@@ -48,17 +48,37 @@ export class HomeComponent {
 
   toggleWishlist(productId: string): void {
     if (this.isInWishlist(productId)) {
-      this.wishListService.removeFromWishlist(productId).subscribe(() => {
-        this.wishlistProductIds = this.wishlistProductIds.filter(id => id !== productId);
-        this.counterService.refreshWishCounter(); 
+      this.wishListService.removeFromWishlist(productId).subscribe({
+        next: () => {
+          this.wishlistProductIds = this.wishlistProductIds.filter(id => id !== productId);
+          this.counterService.refreshWishCounter(); 
+          this.errorMessage ='';
+        },
+        error: (error) => {
+          console.error("Error removing from wishlist:", error);
+          this.showErrorToast("Failed to remove from wishlist. Please try again.");
+          this.errorMessage = error.error;
+
+
+        }
       });
     } else {
-      this.wishListService.addToWishlist(productId).subscribe(() => {
-        this.wishlistProductIds.push(productId);
-        this.counterService.refreshWishCounter(); 
+      this.wishListService.addToWishlist(productId).subscribe({
+        next: () => {
+          this.wishlistProductIds.push(productId);
+          this.counterService.refreshWishCounter(); 
+          this.errorMessage ='';
+
+        },
+        error: (error) => {
+          console.error("Error adding to wishlist:", error);
+          this.showErrorToast("Failed to add to wishlist. Please try again.");
+          this.errorMessage = error.error;
+        }
       });
     }
   }
+
 
   isInWishlist(productId: string): boolean {
     return this.wishlistProductIds.includes(productId);
@@ -69,14 +89,13 @@ export class HomeComponent {
       next: (response) => {
         console.log('Product added to cart:', response);
         this.counterService.refreshCounter();
-        this.errorMessage='';
+        this.errorMessage ='';
 
   
       },
       error: (err) => {
        console.error('Error adding product to cart:', err);
        this.showErrorToast('Error adding product to cart');
-
        this.errorMessage = err.error;
 
         },
@@ -87,9 +106,12 @@ export class HomeComponent {
       next: (response) => {
         console.log('Product added to Wishlist:', response);
         this.counterService.refreshWishCounter();
+
       },
       error: (err) => {
         console.error('Error adding product to Wishlist:', err);
+
+
         },
   });
   }
