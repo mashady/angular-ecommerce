@@ -1,29 +1,15 @@
 <div class="mb-4">
-  <div
+  <div *ngIf="banners.length > 0"
     id="carouselExampleControls"
     class="carousel slide"
     data-bs-ride="carousel"
   >
     <div class="carousel-inner">
-      <div class="carousel-item active">
+      <div *ngFor="let banner of banners" class="carousel-item active">
         <img
-          src="https://m.media-amazon.com/images/I/715IwfHmvTL._SX3000_.jpg"
+          [src]="'http://localhost:8088' + banner.images[0]"
           class="d-block w-100"
-          alt="..."
-        />
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://m.media-amazon.com/images/I/7102RDv3rdL._SX3000_.jpg"
-          class="d-block w-100"
-          alt="..."
-        />
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://m.media-amazon.com/images/I/71CYprk8qkL._SX3000_.jpg"
-          class="d-block w-100"
-          alt="..."
+          alt="{{ banner.title }}"
         />
       </div>
     </div>
@@ -47,92 +33,8 @@
     </button>
   </div>
 </div>
-<div class="products-box firstProductContainer">
-  <div class="row">
-    <div class="col-sm-6 col-md-4 col-lg-3">
-      <div class="card p-3">
-        <h3>
-          <a routerLink="products" style="text-decoration: none; color: #212529"
-            >Join Prime & shop Ramadan deals</a
-          >
-        </h3>
-        <div class="row">
-          <div class="col-6 mb-2">
-            <img
-              width="100%"
-              src="https://images-eu.ssl-images-amazon.com/images/G/42/outbound/ghoneimh/Q4/SD/Prime/2410SD103_SD24_GW_DQC_Exclusive_deals_1x._SY116_CB542646698_.jpg"
-            />
-            <span>Ramadan deals</span>
-          </div>
-          <div class="col-6 mb-2">
-            <img
-              width="100%"
-              src="https://images-eu.ssl-images-amazon.com/images/G/42/outbound/ghoneimh/Q4/SD/Prime/2410SD103_SD24_GW_DQC_Prime_gaming_1x._SY116_CB542646698_.jpg"
-            />
-            <span>Ramadan deals</span>
-          </div>
-          <div class="col-6 mb-2">
-            <img
-              width="100%"
-              src="https://images-eu.ssl-images-amazon.com/images/G/42/outbound/ghoneimh/Q4/SD/Prime/2410SD103_SD24_GW_DQC_Fast_free_delivery_1x._SY116_CB542646698_.jpg"
-            />
-            <span>Ramadan deals</span>
-          </div>
-          <div class="col-6 mb-2">
-            <img
-              width="100%"
-              src="https://images-eu.ssl-images-amazon.com/images/G/42/outbound/ghoneimh/Q4/SD/Prime/2410SD103_SD24_GW_DQC_Prime_video_EG_1x._SY116_CB542692524_.jpg"
-            />
-            <span>Ramadan deals</span>
-          </div>
-        </div>
-        <span class="card-f"> Join prime </span>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4 col-lg-3">
-      <div class="card p-3">
-        <h3>Ramadan Box | Limited quantity</h3>
-        <img
-          src="https://images-eu.ssl-images-amazon.com/images/G/42/Egypt-hq/2025/img/Consumables/XCM_CUTTLE_2144488_6357660_379x304_1X_en_AE._SY304_CB549710970_.jpg"
-        />
-        <span class="mt-2">Order your boxes today</span>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4 col-lg-3">
-      <div class="card p-3">
-        <h3>Flash Deals</h3>
-        <img
-          src="https://images-eu.ssl-images-amazon.com/images/G/42/softlines/2025/RMD25/2501RMD008_RMD25_EG_GW_DC_FlashDeals_758x608_EN_1X._SY304_CB551267666_.jpg"
-        />
-        <span class="mt-2">See more</span>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4 col-lg-3">
-      <div class="">
-        <div class="card p-3">
-          <h3>Eid Deals</h3>
-          <img
-            src="https://images-eu.ssl-images-amazon.com/images/G/42/Egypt-hq/2025/img/Apparel/XCM_CUTTLE_2141752_6338717_379x304_1X_ar_AE._SY304_CB551191112_.jpg"
-          />
-          <span class="mt-2">Eid celebrations</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container mt-5 mb-5">
-  <!--
-    <div class="row full-width-banner">
-    <div class="col-12 cream-cake-banner">
-      <img
-        src="https://klbtheme.com/grogin/wp-content/uploads/2023/11/banner-09.jpg"
-        class="cream-cake-img"
-        alt="Cuptava Cream Cake - Mango Latin and Strawberry Flavors"
-      />
-    </div>
-  </div>
-  -->
 
+<div class="container mt-5 mb-5">
   <div class="row promo-row">
     <!-- Promo Card 1 -->
     <div class="col-md-6">

@@ -127,6 +127,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Name</th>
+          <th scope="col">Value</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -137,6 +138,8 @@
         >
           <td>{{ i + 1 }}</td>
           <td>{{ coupon.name }}</td>
+          <td>{{ coupon.value * 100 }}%</td>
+          
           <td>
             <button
               class="btn btn-outline-primary mx-4"

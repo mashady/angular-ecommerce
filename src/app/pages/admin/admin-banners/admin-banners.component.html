@@ -17,9 +17,10 @@
           id="title"
           placeholder="Type banner title here"
           required
-          minlength="5"
+          minlength="10"
           maxlength="100"
         />
+        
   
         <div
           *ngIf="
@@ -31,7 +32,7 @@
             Banner title is required.
           </div>
           <div *ngIf="bannerForm.get('title')?.errors?.['minlength']">
-            Banner title must be at least 5 characters long.
+            Banner title must be at least 10 characters long.
           </div>
           <div *ngIf="bannerForm.get('title')?.errors?.['maxlength']">
             Banner title must not exceed 100 characters.
