@@ -166,3 +166,6 @@
 .newsletter-terms a:hover {
   text-decoration: underline;
 }
+.wishlist-added {
+  color: red;
+}

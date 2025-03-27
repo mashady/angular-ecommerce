@@ -91,42 +91,35 @@
           *ngFor="let product of products"
           [ngClass]="viewMode === 'grid' ? 'col' : 'list-group-item'"
         >
-          <div class="card h-100 position-relative">
-            <div *ngIf="product.discount" class="position-absolute top-0 start-0 bg-danger text-white p-2 m-2 rounded">
-              {{ product.discount }}%
-            </div>
-
-
+        <div class="card h-100">
+          <div class="card-img-container">
+            <div class="discount-badge">{{ product.discount }}%</div>
+            <i class="far fa-heart heart-icon"></i>
             <img
-            [src]="'http://localhost:8088' + product.images[0]"
+              [src]="'http://localhost:8088' + product.images[0]"
               class="card-img-top"
-              [alt]="product.name"
-              style="height: 200px; object-fit: cover;"
-            >
-
-            <div class="card-body">
-              <h5 class="card-title text-truncate">{{ product.name }}</h5>
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <span class="text-danger fw-bold me-2">${{ product.price }}</span>
-                  <span *ngIf="product.originalPrice" class="text-muted text-decoration-line-through">
-                    ${{ product.originalPrice  }}
-                  </span>
-                </div>
-                <span class="badge bg-success">In Stock</span>
-              </div>
-
-              <div *ngIf="product.rating" class="d-flex justify-content-between align-items-center mt-2">
-                <div class="text-warning">
-                  {{ generateStarRating(product.rating) }}
-                  <span class="text-muted ms-2">({{ product.rating }})</span>
-                </div>
-                <button class="btn btn-outline-secondary btn-sm">
-                  <i class="bi bi-heart"></i>
-                </button>
-              </div>
-            </div>
+              alt="{{ product.name }}"
+            />
           </div>
+          <div class="card-body">
+            <h5
+              class="card-title"
+              [routerLink]="'product-details/' + product._id"
+              style="cursor: pointer"
+            >
+              {{ product.name }}
+            </h5>
+            <p class="mb-0">
+              <span class="current-price">{{ product.price | currency }}</span>
+              <span *ngIf="product.discount > 0" class="old-price">{{
+                product.oldPrice | currency
+              }}</span>
+            </p>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
         </div>
       </div>
 
@@ -169,5 +162,3 @@
         </ul>
       </nav>
     </div>
-  </div>
-</div>

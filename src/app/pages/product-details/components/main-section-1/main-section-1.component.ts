@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component,ViewChild,ElementRef, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms'; // ✅ Import this
+import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Product } from '../../../../interfaces/product';
 import { Router } from '@angular/router';
+import * as bootstrap from 'bootstrap';
 import {CounterServiceService} from "../../../../services/counter.service"
 import { CartService } from "../../../../services/cart.service";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -15,11 +16,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 })
 export class MainSection1Component {
   @Input() product?: Product;
-  reviewForm: FormGroup;
+  reviewForm: FormGroup = new FormGroup({});
   myCart: any = { products: [] };
   quantity:number=0;
   errorMessage:string='';
   successMessage:string='';
+  @ViewChild('errorToast', { static: true }) errorToast!: ElementRef;
   constructor(private router: Router, 
     private cartService: CartService,
     private counterService: CounterServiceService,
@@ -38,22 +40,28 @@ export class MainSection1Component {
   }
 
   addReview() {
-    if (!this.reviewForm.valid) {
+    if(!this.reviewForm) {
       return;
     }
-    if(this.product) {
-      this.reviewForm.value.productID = this.product._id;
-      this.http.post('http://localhost:8088/review', this.reviewForm.value).subscribe({
-        next: (response) => {
-          this.successMessage = 'Review added successfully';
-          this.reviewForm.reset();
-          this.ngOnInit();
-        },
-        error: (err: HttpErrorResponse) => {
-          this.errorMessage = err.error.Message;
-        }
-      });
+    if (!this.reviewForm.valid || !this.product?._id) {
+      return;
     }
+    
+    const reviewData = {
+      ...this.reviewForm.value,
+      productId: this.product._id
+    };
+
+    this.http.post('http://localhost:8088/review', reviewData).subscribe({
+      next: (response) => {
+        this.successMessage = 'Review added successfully';
+        this.reviewForm.reset();
+        this.ngOnInit();
+      },
+      error: (err: HttpErrorResponse) => {
+        this.errorMessage = err.error.Message;
+      }
+    });
   }
 
   goToHome(event: Event): void {
@@ -79,9 +87,9 @@ export class MainSection1Component {
   
       },
       error: (err) => {
-        console.error('Error adding product to cart:', err);
-        this.errorMessage = err.error.errors[0];
-        },
+        this.showErrorToast('Error adding product to cart!');
+        this.errorMessage = err.error;
+      },
   });
   }
   
@@ -96,8 +104,11 @@ export class MainSection1Component {
       this.quantity--; 
     }
   }
-
-
+  showErrorToast(message: string): void {
+    this.errorMessage = message;
+    const toast = new bootstrap.Toast(this.errorToast.nativeElement);
+    toast.show();
+  }
   
   
 }

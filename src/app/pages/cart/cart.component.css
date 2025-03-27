@@ -72,10 +72,10 @@ color: #a2a5aa !important;
 
 .alert-message{
     border: 1px solid #f8d7da;
-    background-color: #fef2f2;
+    background-color:var(--color-primary);
     padding: 20px;
     border-radius: 5px;
-    color: #b91c1c;
+    color: white;
 }
 
 .progress-bar {

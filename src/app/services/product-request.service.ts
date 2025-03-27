@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../interfaces/product';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 interface ProductResponse {
   message: string;
@@ -15,9 +15,17 @@ interface ProductResponse {
 })
 export class ProductRequestService {
   private apiUrl = 'http://localhost:8088';
-
+  private searchQuerySubject = new BehaviorSubject<string>('');
   constructor(private http: HttpClient) {}
 
+
+  setSearchQuery(query: string) {
+    this.searchQuerySubject.next(query);
+  }
+
+  getSearchQuery():any {
+    return this.searchQuerySubject.getValue();
+  }
   getProductsList(
     pageNumber: number = 1,
     productsCount: number = 10
