@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 import { AccountService } from '../../services/account.service';
 import { FormsModule } from '@angular/forms';
 import { ProductRequestService } from '../../services/product-request.service';
-import { CouponRequestService } from '../../services/coupon-request.service';
-import { map } from 'rxjs/operators';
+
 @Component({
   selector: 'app-navbar',
   imports: [RouterLink, NgIf, AsyncPipe, FormsModule],
@@ -21,13 +20,11 @@ export class NavbarComponent {
   wishCounter:number=0;
   account$!: Observable<any>;
   searchQuery222: string = '';
-  coupons$!: Observable<any>;
-  currentCoupon: any;
+
   constructor(
     public AuthService: AuthService,
     public counterServiceService: CounterServiceService,
     public productService: ProductRequestService,
-    public couponService: CouponRequestService,
     private accountService: AccountService,
     private router: Router
   ) {
@@ -46,12 +43,6 @@ export class NavbarComponent {
     });
     this.accountService.getAccount().subscribe();
     console.log(this.account$);
-    this.coupons$ = this.couponService.getAllCoupons().pipe(
-      map((response) => response.Promocodes)
-    );
-    this.coupons$.subscribe((coupons) => {
-      this.currentCoupon = coupons[0];
-    });
   }
 
   onSearch(event: Event): void {
