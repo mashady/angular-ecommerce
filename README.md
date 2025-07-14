@@ -1,6 +1,9 @@
 
 # Online-store
 
+youtube demo link - https://youtu.be/T2RXO8g4Iew
+
+backend github repo - https://github.com/mashady/node-js-ecommerce
 
 ## Overview
 
